@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+        "files.exclude": {
+			"**/**.backup.*": true,
+            "**/vivado.*": true,
+			"**/webtalk.*": true,
+			"**/*.vcd": true,
+			"**/*.pb": true,
+			"**/*.wdb": true
+	}
+}

@@ -1,0 +1,15 @@
+xsim.dir
+*.log
+*.vcd
+*.jou
+*.pb
+csrc
+*.wdb
+*.bin
+*.key
+test-sim
+_build
+*.timestamp
+removeLin64
+doc
+.ipynb_checkpoints
