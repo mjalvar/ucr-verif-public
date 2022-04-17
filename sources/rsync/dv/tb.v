@@ -38,13 +38,13 @@ module tb();
 
      // clk1 gen
     always @(*) begin
-        #5ns;
+        #2.5ns;
         clk1 <= ~clk1;
     end
 
     // clk2 gen
     always @(*) begin
-        #2.6ns;
+        #5.6ns;
         clk2 <= ~clk2;
     end
 
@@ -52,7 +52,7 @@ module tb();
     counter #(
         .WIDTH_P(WIDTH_P)
     ) DUT (
-        .clk1(clk1),
+        .clk1,
         .clk2(clk2),
         .reset_L(reset_L),
         .inc('b1),
