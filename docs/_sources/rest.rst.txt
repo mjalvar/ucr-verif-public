@@ -1,0 +1,200 @@
+#################
+   ReST
+#################
+
+Reference
+==============
+| https://github.com/timstaley/sphinx-example
+| https://gdal.org/contributing/rst_style.html
+| https://thomas-cokelaer.info/tutorials/sphinx
+| https://docutils.sourceforge.io/docs/user/rst/quickref.html
+| https://sublime-and-sphinx-guide.readthedocs.io/en/latest/index.html
+
+
+Insert Code
+============
+.. code-block:: RST
+
+   ..code-block:: RST
+
+      this is an example code
+
+.. code-block:: RST
+
+   this is an example code
+
+
+
+Include
+==============
+.. code-block:: RST
+
+   .. include:: tests_list.rst
+
+
+Images
+==============
+.. code-block:: RST
+
+   .. figure:: waves.png
+      :scale: 50%
+
+      This is the caption of the figure (a simple paragraph).
+
+
+This is an example:
+
+.. figure:: media/waves.png
+   :scale: 50%
+
+   This is the caption of the figure (a simple paragraph).
+
+
+Notes
+==============
+.. code-block:: RST
+
+   .. warning:: note the space between the directive and the text
+
+   .. note:: note the space between the directive and the text
+
+   .. seealso:: note the space between the directive and the text
+
+   .. important:: note the space between the directive and the text
+
+   .. attention:: note the space between the directive and the text
+
+   .. tip:: note the space between the directive and the text
+
+.. warning:: note the space between the directive and the text
+
+.. note:: note the space between the directive and the text
+
+.. seealso:: note the space between the directive and the text
+
+.. important:: note the space between the directive and the text
+
+.. attention:: note the space between the directive and the text
+
+.. tip:: note the space between the directive and the text
+
+
+Math
+==============
+.. code-block:: RST
+
+   .. math::
+
+      \frac{ \sum_{t=0}^{N}f(t,k) }{N}
+
+   Or if you want to write inline you can use this: :math:`\frac{ \sum_{t=0}^{N}f(t,k) }{N}`
+
+
+.. math::
+
+   \frac{ \sum_{t=0}^{N}f(t,k) }{N}
+
+Or if you want to write inline you can use this: :math:`\frac{ \sum_{t=0}^{N}f(t,k) }{N}`
+
+
+Nested Lists
+==============
+.. code-block:: RST
+
+   1. First item
+
+      a. Item
+      #. Item
+
+         i. Item
+         #. Item
+
+   #. Last item
+
+1. First item
+
+   a. Item
+   #. Item
+
+      i. Item
+      #. Item
+
+#. Last item
+
+
+Waves
+======
+
+`Waves Link <https://github.com/bavovanachte/sphinx-wavedrom>`_
+
+.. wavedrom:: media/wave.json
+   :height: 100px
+   :width: 200 px
+   :scale: 50 %
+   :alt: alternate text
+   :align: right
+
+::
+
+   pip install sphinxcontrib-wavedrom
+   extensions = ['sphinxcontrib.wavedrom']
+
+
+Registers
+==========
+
+`Registers Link <https://github.com/Arth-ur/sphinxcontrib-bitfield>`_
+
+.. bitfield::
+    :bits: 32
+    :lanes: 2
+
+        [
+            { "name": "IPO",   "bits": 8, "attr": "RO" },
+            {                  "bits": 7 },
+            { "name": "BRK",   "bits": 5, "attr": "RW", "type": 4 },
+            { "name": "CPK",   "bits": 1 },
+            { "name": "Clear", "bits": 3 },
+            { "bits": 8 }
+        ]
+
+::
+
+   pip install sphinxcontrib-bitfield
+   extensions = ['sphinxcontrib.bitfield']
+
+
+
+
+
+How to edit this document
+=========================
+Sphinx is an opensource tool that converts from RST to html/docx/pdf.
+
+Supported env:
+
+* Ubuntu PC
+
+
+How to install
+---------------
+
+Clone repo using::
+
+   git clone git@github.com:melvin-alvarado/repo.git
+
+
+.. warning:: For Ubuntu PC: *sudo apt install python3 python3-pip python3-venv*
+
+
+::
+
+   make install
+   source venv/bin/activate
+
+
+Edit the .rst files under *sphinx/source*, then execute **make** to generate the html::
+
+   make
+
+Output will be generated at *docs/index.html*

@@ -1,0 +1,234 @@
+
+
+Ciclo Verif
+===========
+
+* Intro
+* Jerarquía
+* Control/Observabilidad
+* Emulacion
+* Estrategia
+* Creación de Escenarios
+* Prioridades
+
+Introducción
+------------
+
+.. figure:: media/verif.cycle.png
+  :scale: 80%
+
+
+Jerarquía de verificación
+--------------------------
+.. revealjs_fragments::
+
+  * Una práctica básica consiste en dividir el diseño en bloques más pequeños y crear una estructura jerárquica del diseño.
+  * La verificación primero se enfrentará a los bloques pequeños del sistema, para luego avanzar con las porciones más grandes.
+  * La verificación es un proceso bottom-up.
+
+.. revealjs_break::
+
+.. figure:: media/verif.bottom.up.png
+
+
+.. revealjs_break::
+
+.. revealjs_fragments::
+
+  * Siempre escoger el nivel más bajo que contiene por completo la función a verificar.
+  * Cada bloque de verificación debe tener su propio documento de especificación.
+  * Componentes nuevos o complejos requieren mayor atención.
+  * El nivel apropiado de control y observabilidad decide en cual nivel verificar.
+  * La función puede dictar los niveles de verificación.
+
+
+Controlabilidad y Observabilidad
+--------------------------------
+
+.. revealjs_fragments::
+
+  * El nivel de controlabilidad y observabilidad que un ingeniero de verificación tiene un correlación directa con la habilidad de encontrar bugs en el diseño.
+  * Controlabilidad indica la facilidad con la que se pueden crear escenarios específicos para el área de interés. A nivel alto de
+    la jerarquía se tiene menos controlabilidad.
+  * Observabilidad indica la facilidad con la que se puede identificar si el diseño se comporta de forma correcta o incorrecta.
+  * El ingeniero de verificación estimula (controllability) y revisa (observability) el diseño bajo prueba.
+
+.. revealjs_break::
+.. figure:: media/bugs.months.png
+  :scale: 50%
+
+Jerarquía de verificación
+--------------------------
+
+BFM
+  Modelo funcional de bus, imita el comportamiento de la ifc
+
+.. figure:: media/tb.bfm.png
+
+.. revealjs_break::
+
+Verificación a nivel de sub-sistema:
+  * Verificación de la interacción entre bloques.
+  * BFMs se remplazan por el RTL a este nivel.
+  * El tiempo de simulación es mayor.
+  * Es más costoso crear un escenario específico dentro de un bloque.
+
+.. revealjs_break::
+
+.. figure:: media/tb.cluster.png
+  :scale: 50%
+
+.. revealjs_break::
+
+Verificación a nivel de chip completo (Full Chip):
+  * El RTL es completo.
+  * Las simulaciones son lentas.
+  * Más difícil de depurar.
+
+.. figure:: media/tb.fc.png
+  :scale: 30%
+
+
+Emulación
+---------
+Emulación mapea el diseño a un dispositivo (FPGA) para acelerar al simulación del RTL.
+
+.. figure:: media/emu.veloce.png
+  :scale: 30%
+
+.. revealjs_break::
+
+.. figure:: media/emu.veloce.2.png
+  :scale: 50%
+
+
+Resumen Jerarquía
+-----------------
+
+.. figure:: media/verif.hier.png
+  :scale: 50%
+
+
+Estrategia de verificación
+--------------------------
+
+.. revealjs_fragments::
+
+  * Las preguntas básicas que un ingeniero en verificación debe hacerse:
+
+    * ¿Estoy creando todos los posibles escenarios?
+    * ¿Cómo identifico cuando una falla a ocurrido?
+
+  * El ingeniero en verificación debe primero leer toda la documentación existente del diseño.
+  * Entender todas las entradas y salidas. Para luego entender la funcionalidad del diseño y
+    poder predecir la salida con base en las entradas.
+
+.. revealjs_break::
+
+.. figure:: media/verif.design.types.png
+  :scale: 50%
+
+
+Creación de escenarios
+----------------------
+
+.. revealjs_fragments::
+
+  * Es importante que el ingeniero de verificación reciba la descripción de entradas por alguien diferente al autor del RTL.
+  * Un diseño probablemente tiene gran cantidad de señales de entrada. Se deben agrupar basadas en su función lógica.
+  * La meta es maximizar todos los posibles escenarios que el ambiente de verificación puede crear:
+
+    * Para señales de control, significa crear todos los tipos de comandos.
+    * Para buses de datos, significa crear una variedad amplia de patrones.
+    * Para casos frontera, significa crear excepciones, condiciones extrañas y extremas en el diseño.
+
+
+.. revealjs_break::
+
+.. revealjs_fragments::
+  * Nivel de Aplicación:
+
+    * Definen el comportamiento del dispositivo.
+    * Envuelven múltiples interacciones entre interfaces.
+    * Usualmente se prueban a nivel de sub-sistema o “full-chip”.
+  * Nivel de Interface:
+
+    * Interfaces internas o externas al dispositivo.
+    * La verificación de estos los protocolos se captura a nivel de bloque, sub-sistema y full-chip.
+    * Creación de escenarios
+
+.. revealjs_break::
+
+.. revealjs_fragments::
+  * Nivel de Estructura: relacionadas a la implementación del diseño:
+
+    * Maquinas de Estado (FSM).
+    * FIFOs
+    * Memorias
+    * Árbitros
+    * Handshaking
+
+.. revealjs_break::
+
+.. revealjs_fragments::
+  * Configuraciones:
+
+    * Se deben verificar todos los posibles modos de configuración.
+
+  * Estándar y Protocolos:
+
+    * Si se utilizar un standard o protocolo estándar se debe verificar su conformidad.
+
+  * Rendimiento:
+
+    * Los requerimientos de rendimiento se deben verificar.
+
+.. revealjs_break::
+
+Para cada característica identificada del diseño, se deben hacer las siguientes preguntas:
+
+.. revealjs_fragments::
+  * ¿Cuáles es la funcionalidad básica?
+  * ¿Cuáles son sus propiedades o atributos?
+  * ¿Cuál es el rango de valores que puede utilizarse?
+
+    * Extremos, valores intermedios e inválidos.
+
+.. revealjs_break::
+
+.. revealjs_fragments::
+  * ¿Qué se puede considerar como un error? ¿Se puede aplicar pruebas negativas?
+  * ¿Tiene múltiples dominios de reloj o de potencia?
+  * ¿Hay algún protocolo asociado?
+  * ¿Cuál es la interacción con otras características del diseño?
+
+    * Espacial o temporalmente
+
+.. revealjs_break::
+
+.. table::
+
+  ======= =========================================== ===========
+  Bloque  Feature                                     Prioridad
+  ======= =========================================== ===========
+  Cache   Cache arbitration for Port B read           P1
+  Cache   Cache arbitration for Port B write          P2
+  FIFO    Functional soft reset                       P1
+  FIFO    Insert pattern 0                            P2
+  LLC     Diff n bit positions for L1 and L2          P2
+  ======= =========================================== ===========
+
+.. revealjs_break::
+  :notitle:
+
+.. pull-quote::
+
+  "If it isn’t tested, it doesn’t work."
+  -- Bob Colwell, Chief Architect for IA32 Intel pentium I, II, III, IV.
+
+
+Bibliografía
+------------
+* B\. Wile, J. Goss y W. Roesner. “Comprehensive Functional Verification The Complete Industry Cycle” Elsevier, Primera Edición, 2005.
+* C\. Spear, G. Tumbush. “System Verilog for Verification: A Guide to Learning the Testbench Language Features ” Springer, Tercera Edición, 2005.
+* S\. Vasudevan. “Effective Functional Verification”, Springer, Primera Edición, 2006.

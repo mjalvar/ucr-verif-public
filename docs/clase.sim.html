@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vivavo Simulator &mdash; HW Verif  documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="https://wavedrom.com/skins/default.js"></script>
+        <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #00c0f3 " >
+            <a href="index.html"><img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="carta.html">1. Programa del Curso</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clases_all.html">2. Clases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="env.html">3. Ambiente de Verificación</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">4. Diseño</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rest.html">5. ReST</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #00c0f3 " >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">HW Verif</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Vivavo Simulator</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/clase.sim.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="vivavo-simulator">
+<h1>Vivavo Simulator<a class="headerlink" href="#vivavo-simulator" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Línea de comandos</p></li>
+<li><p>Fases</p></li>
+<li><p>Ejemplo</p></li>
+</ul>
+<div class="section" id="intro">
+<h2>Intro<a class="headerlink" href="#intro" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li class="fragment"><p>Icarus Verilog: <cite>iverilog</cite></p></li>
+<li class="fragment"><p>Cadence Incisive: <cite>irun</cite></p></li>
+<li class="fragment"><p>Cadence Xcelium: <cite>xrun</cite></p></li>
+<li class="fragment"><p>Synopsys Verilog Compiler Simulator: <cite>vcs</cite></p></li>
+<li class="fragment"><p>Xilinx Vivado: <cite>vivado</cite></p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/sim.logos.png" src="_images/sim.logos.png" />
+</div>
+</div>
+<div class="section" id="vivado">
+<h2>Vivado<a class="headerlink" href="#vivado" title="Permalink to this headline"></a></h2>
+<p>Es un simulador de HDL que realiza simulaciones conductuales, funcionales y de tiempo para VHDL, Verilog
+y diseños mixtos.</p>
+<p>Cuenta con los siguientes componentes:</p>
+<ul class="simple">
+<li class="fragment"><p><a class="reference external" href="#">xvhdl/xvlog:</a> lee archivos VHDL y Verilog y los guarda en librerías HDL en disco.</p></li>
+<li class="fragment"><p><a class="reference external" href="#">xelab:</a> elaborador y linker. Dado una unidad top-level, carga las sub unidades del diseño
+y las covierte en código ejecutable (exe sim snapshot)</p></li>
+<li class="fragment"><p><a class="reference external" href="#">xsim:</a> comando para cargar un ejecutable (exe sim snapshot) y lanzarlo en modo batch, gui o tcl interactivo.</p></li>
+<li class="fragment"><p><a class="reference external" href="#">IDE:</a> ambiente integrado para edición de diseños con interface de usuario para simulación.</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/vivado.1.png" src="_images/vivado.1.png" />
+</div>
+<div class="figure align-default">
+<img alt="_images/vivado.2.png" src="_images/vivado.2.png" />
+</div>
+</div>
+<div class="section" id="xvlog">
+<h2>xvlog<a class="headerlink" href="#xvlog" title="Permalink to this headline"></a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xvlog</span> <span class="o">-</span><span class="n">sv</span> <span class="o">--</span><span class="n">incr</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">developer</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">counter</span><span class="o">/</span><span class="n">rtl</span><span class="o">/</span><span class="n">counter</span><span class="o">.</span><span class="n">v</span> <span class="o">-</span><span class="n">i</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">developer</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">counter</span><span class="o">/</span><span class="n">rtl</span>
+<span class="n">xvlog</span> <span class="o">-</span><span class="n">sv</span> <span class="o">--</span><span class="n">incr</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">developer</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">counter</span><span class="o">/</span><span class="n">dv</span><span class="o">/</span><span class="n">tb</span><span class="o">.</span><span class="n">v</span> <span class="o">-</span><span class="n">i</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">developer</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">counter</span><span class="o">/</span><span class="n">dv</span> <span class="o">-</span><span class="n">i</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">developer</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">counter</span><span class="o">/</span><span class="n">rtl</span>
+</pre></div>
+</div>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/xvlog.png"><img alt="_images/xvlog.png" src="_images/xvlog.png" style="width: 866.4px; height: 574.1999999999999px;" /></a>
+</div>
+</div>
+<div class="section" id="xelab">
+<h2>xelab<a class="headerlink" href="#xelab" title="Permalink to this headline"></a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xelab</span> <span class="n">tb</span> <span class="o">-</span><span class="n">s</span> <span class="n">tb</span> <span class="o">-</span><span class="n">timescale</span> <span class="mi">1</span><span class="n">ns</span><span class="o">/</span><span class="mi">1</span><span class="n">ns</span> <span class="o">-</span><span class="n">debug</span> <span class="n">wave</span>
+</pre></div>
+</div>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/xelab.png"><img alt="_images/xelab.png" src="_images/xelab.png" style="width: 868.1999999999999px; height: 568.8px;" /></a>
+</div>
+</div>
+<div class="section" id="xsim">
+<h2>xsim<a class="headerlink" href="#xsim" title="Permalink to this headline"></a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xsim</span> <span class="n">tb</span> <span class="o">--</span><span class="n">stats</span> <span class="o">-</span><span class="n">tclbatch</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">developer</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">common</span><span class="o">/</span><span class="n">utils</span><span class="o">/</span><span class="n">xsim</span><span class="o">.</span><span class="n">tcl</span>
+</pre></div>
+</div>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/xsim.png"><img alt="_images/xsim.png" src="_images/xsim.png" style="width: 898.1999999999999px; height: 679.8px;" /></a>
+</div>
+</div>
+</div>
+
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Melvin Alvarado.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

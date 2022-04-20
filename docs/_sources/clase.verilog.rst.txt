@@ -1,0 +1,551 @@
+
+Verilog
+=======
+
+* Introducción
+* Historia
+* Sintaxis
+* FSM
+* Ejemplo
+
+Introducción
+------------
+
+.. revealjs_fragments::
+
+   * Verilog es un lenguaje de descripción de hardware (HDL).
+   * Se utiliza para describir un sistema digital, por ejemplo un microprocesador o una memoria o un simple flip-flop.
+   * Permite la ejecución en paralelo para modelar sistemas digitales reales.
+   * La sintaxis de Verilog es muy similar al lenguaje de programación C.
+   * Permite diseñar con metodología bottom-up o top-down.
+   * Soporta diferentes niveles de abstracción: nivel estructural o nivel conductual
+
+.. revealjs_break::
+
+.. figure:: media/design_flow.png
+
+
+Historia
+--------
+
+.. revealjs_fragments::
+
+   * Verilog se inició como un lenguaje propietario de modelado de hardware de Gateway Design Automation Inc., alrededor de 1984.
+     El primer simulador de Verilog fue usado en 1985.
+   * En 1990, Cadence Design System, decide adquirir Gateway y se convierte en el dueño del lenguaje Verilog.
+   * Cadence se da cuenta que si Verilog se mantiene como un lenguaje propietario, la presión por estandarización
+     eventualmente causaría que la industria se moviera a VHDL. En 1991, Cadence abre el lenguaje.
+   * En 1993, 85% de los diseños de circuitos se realizaban en Verilog.
+
+.. revealjs_break::
+
+.. revealjs_fragments::
+
+  * En Diciembre de 1995, Verilog se convierte en el estándar IEEE 1364-1995 (Verilog 95).
+  * En 2001, tiene una extensión IEEE 1364-2001 (Verilog 2001).
+  * In 2005, se crea el estándar IEEE 1800 System Verilog, el primer lenguaje unificado de descripción de hardware y verificación (HDVL).
+  * SystemVerilog es una gran extensión del estándar IEEE 1364.
+
+
+Formato de los números
+----------------------
+
+Tamaño-Base-Número:
+
+* Tamaño: # bits en decimal (opcional)
+* Base: 'b 'd 'h 'o (default: 'd)
+* Número: cantidad (0-9 a-z A-Z x z X Z)
+
+.. code-block:: verilog
+
+   reg [7:0] A;
+   reg [2:0] B;
+
+   always_comb begin
+      A = 187;
+      A = 8'ha;
+      B = 3'b01x;
+   end
+
+
+Comentarios
+-----------
+
+* Desde '//' hasta final de línea
+* Región entre '/\*' y '\*/'
+
+.. code-block:: verilog
+   :linenos:
+
+   /*
+      En este ejemplo
+      la línea 12 sobreescribe
+      el valor de A
+   */
+
+   reg [7:0] A;
+   reg [2:0] B;
+
+   always_comb begin
+      A = 187;
+      A = 8'ha; // <= se sobreescribe A
+      B = 3'b01x;
+   end
+
+
+Variables
+---------
+
+* reg: es un registro y permite almacenar un valor
+* wire: es un cable y permite conexiones
+* parameter: valor constante
+* integer: numero de 32 bits con signo
+* time: numero de 64 bit sin signo
+
+.. code-block:: verilog
+
+   reg [5:0] C;            // es un registro de 6 bits, C[0] es LSB.
+   reg [7:0] mem [0:1023]; // es una memoria de 1024 bytes.
+   parameter T=10;         // valor constante T.
+
+
+Module
+------
+
+* Cada módulo tiene entradas y salidas y se interconecta con otros módulos.
+* No existen variables globales.
+* Cada modulo puede escribirse formato estructural o conductual.
+* Argumentos:
+
+  * input: entrada a un modulo (wire).
+  * output: salidas a un modulo (wire  si la asignación es continua, reg si es una asignación  procedural).
+  * inout: entrada-salida al modulo  (wire).
+  * parámetros
+
+.. revealjs_break::
+
+.. figure:: media/module.test.png
+  :scale: 80%
+
+.. code-block:: verilog
+
+   module test(
+      input [1:0] a,
+      inout       b,
+      output      c,
+   );
+
+   /*
+      funcionalidad
+   */
+
+   endmodule;
+
+
+.. revealjs_break::
+
+
+.. code-block:: verilog
+
+   module #(
+      parameter IN_SZ_P = 2
+   ) test(
+      input [IN_SZ_P-1:0]  a,
+      inout                b,
+      output               c
+   );
+
+   /*
+      funcionalidad
+   */
+
+   endmodule;
+
+
+Interconexión
+-------------
+
+.. figure:: media/module.intercon.png
+
+
+Niveles de abstracción
+----------------------
+
+.. revealjs_fragments::
+
+   * Gate Level, Estructural:
+
+     * bajo nivel utilizando primitivas lógicas (AND, OR)
+     * circuitos con poco número de gates
+     * directa relación entre el circuito y código
+
+   * Data Flow, Register Transfer Level:
+
+     * descripción de operaciones y transferencia de datos entre registros
+     * herramientas de diseño hacen la convesión a gates de circuito
+
+.. revealjs_break::
+
+* Comportamiento, Conductual, Algorítmico:
+
+  * descripción del circuito de manera algorítmica
+  * sin ninguna consideración de como el diseño se transforma en hardware
+
+.. code-block:: verilog
+
+   // Comportamiento
+   count <= count + 1;
+
+   // Data Flow
+   assign a = b&c;
+
+   // Estructural
+   and a1(y1,a,b);
+   or o1(y2,c,d);
+   or o2(y,y1,y1);
+
+.. revealjs_break::
+
+.. figure:: media/mux.gates.png
+   :scale: 50%
+
+.. code-block:: verilog
+
+   module mux_from_gates();
+      reg c0,c1,c2,c3,A,B;
+      wire Y;
+      //Invert the sel signals
+      not (a_inv, A);
+      not (b_inv, B);
+      // 3-input AND gate
+      and (y0,c0,a_inv,b_inv);
+      and (y1,c1,a_inv,B);
+      and (y2,c2,A,b_inv);
+      and (y3,c3,A,B);
+      // 4-input OR gate
+      or (Y, y0,y1,y2,y3);
+   endmodule
+
+.. revealjs_break::
+
+.. pull-quote::
+
+   Comúnmente el término RTL es usado para la combinación de Data Flow y modelado por Comportamiento
+
+
+Operadores
+----------
+
+.. code-block:: verilog
+
+   // Aritméticos
+   + - * / %
+
+   // Relacionales
+   > < >= <= != == !== ===
+
+   // Lógicos
+   ! && ||
+
+.. revealjs_break::
+
+.. code-block:: verilog
+
+   // Operaciones bits (bit a bit)
+   ~ & | ^
+   ~& NAND
+   ~| NOR
+   ~^ ^~ NOT XOR
+
+   // Reducción lógica (1 operando, resultado 1 bit)
+   & | ^ ~& ~| ~^ ^~
+   num = 8'hF0
+   |num = 1'b1
+
+   // Otros
+   { } << >>, condicional ? :
+
+Asignaciones
+------------
+
+Continuas
+
+.. code-block:: verilog
+
+   wire A;
+   assign A = B&C;
+
+   always_comb
+      A = B&C;
+
+Procedural
+
+.. code-block:: verilog
+
+   reg A;
+   initial begin
+      A = 0;
+      ...
+      A=B+C;
+   end
+
+
+Procedimientos
+--------------
+
+initial
+   termina cuando se ejecuta la última línea
+
+.. code-block:: verilog
+
+   initial begin
+      A = 5;
+      B = 0;
+      C = 1'bz;
+   end
+
+
+always
+   cuando se ejecuta la última línea, vuelve a empezar
+
+.. code-block:: verilog
+
+   always begin
+      #(10) CLK=0;
+      #(10) CLK=1;
+   end
+
+
+Asignaciones Procedurales
+-------------------------
+
+* **Bloqueantes**: se realiza antes de proceder con la siguiente (bloquea la ejecución)
+* **No bloqueantes**: se ejecutan en paralelo, describe *assigns* que ocurren a la vez
+
+.. code-block:: verilog
+
+   module test;
+      reg [7:0] a,b;
+      initial begin
+         a = 5;
+         #1 a = a+1;
+            b = a+1;
+         #1 $display("[%0t] a=%d b=%d",$time,a,b);
+            a = 5;
+         #1 a <= a+1;
+            b <= a+1;
+         #1 $display("[%0t] a=%d b=%d",$time,a,b);
+      end
+   endmodule
+
+
+Control por evento
+------------------
+
+* Una asignación procedural puede ser controlada por el cambio de una variable, denominándose control por evento.
+* Para ello se emplea el carácter @ seguido del evento que permite la ejecución de la asignación procedural.
+* Se distinguen dos tipos de eventos:
+
+.. code-block:: verilog
+
+   // Eventos de nivel: el cambio de valor de una o un conjunto de variables controla el acceso.
+   always @(C or D) // lista de sensibilidad
+      B=C+D;
+
+   // Eventos de flanco: la combinación de flanco/s de subida (0 / 1) y de bajada (1 / 0)
+   always @(posedge CLK)
+      B=C+1
+
+
+Parámetros
+----------
+
+.. code-block:: verilog
+
+   // Reloj
+   parameter T=10_000;
+   reg CLK;
+   always begin
+      #(0.5*T) CLK=0;
+      #(0.5*T) CLK=1;
+   end
+
+   // Ancho de bus
+   parameter N=8;
+   reg [N-1:0] bus_A;
+
+
+Directivas para el compilador
+-----------------------------
+
+timescale
+   la sim de verilog requiere una definición de tiempo: #1
+   el *time_unit* es la medida de la unidad de sim, mientras *time_presicion* específica como
+   son redondeados los retardos (*time_unit* >= *time_presicion*)
+
+.. code-block:: verilog
+
+   `timescale 1ns/100ps
+
+define
+   define un macro, de forma que cada vez que aparezca en el texto será sustituida por el valor.
+
+.. code-block:: verilog
+
+   `define MACRO value
+
+
+.. revealjs_break::
+
+
+include
+   permite insertar el archivo en la posición donde aparezca esta directiva
+
+.. code-block:: verilog
+
+   `include "filename"
+
+ifdef
+   si la macro está definida, el código es incluido, en caso contrario es ignorado.
+
+.. code-block:: verilog
+
+   `ifdef VAR
+      code
+   `endif
+
+
+Estructuras de Control
+----------------------
+
+.. code-block:: verilog
+
+   // if
+   if  (expression)
+      command1;
+   else (expression)
+      command2;
+
+   // case
+   case (expression)
+      val1:
+         command1;
+      val2:
+         command2;
+      ...
+      default:
+         commandN;
+   endcase
+
+   // for
+   for  (init; cond; rep)
+      command;
+
+.. revealjs_break::
+
+.. code-block:: verilog
+
+   // while
+   while (cond) command;
+
+   // repeat
+   repeat (Ntimes) command;
+
+   // wait
+   wait (cond) command;
+
+
+Funciones Sistema
+-----------------
+
+.. code-block:: verilog
+
+   // esto es como la función print en otro lenguaje de programación
+   $display("mem[0]  = %b", mem[0]);
+
+   // indica el final de la simulación
+   $finish;
+
+   // retorna el instante de tiempo en el que se encuentra la simulación
+   $time;
+
+   // retorna un valor pseudo-aleatorio entero de 32 bits cada vez que se invoca.
+   $random();
+
+   // sin signo
+   $urandom();
+
+   // sin signo, en rango
+   $urandom_range(N1,N2);
+
+
+Máquinas de Estado
+------------------
+
+* Mealy: la salida depende del estado presente y las entradas.
+* Moore: la salida depende del estado presente.
+
+
+Árbitro
+-------
+
+.. figure:: media/module.arbiter.png
+
+* Cuando *req_0* esta en alto , *gnt_0* esta en alto.
+* Cuando *req_1* esta en alto, *gnt_1* esta en alto.
+* Cuando ambos *req_0* y *req_1* esta en alto, *gnt_0* esta en alto teniendo mayor prioridad *req_0* sobre *req_1*.
+
+.. revealjs_break::
+
+.. figure:: media/fsm.arbiter.png
+
+.. code-block:: verilog
+
+   module arbiter (
+      clock,
+      reset,
+      req_0,
+      req_1,
+      gnt_0,
+      gnt_1
+   );
+
+   input clock, reset, req_0, req_1;
+   output gnt_0, gnt_1;
+   reg gnt_0, gnt_1;
+
+.. revealjs_break::
+
+.. code-block:: verilog
+
+   module arbiter (
+      input clock,
+      input reset,
+      input req_0,
+      input req_1,
+      output reg gnt_0,
+      output reg gnt_1
+   );
+
+.. revealjs_break::
+
+.. code-block:: verilog
+
+   always @ (posedge clock or posedge reset)
+      if (reset) begin // IDLE
+         gnt_0 <= 0;
+         gnt_1 <= 0;
+      end else if (req_0) begin // GNT0
+         gnt_0 <= 1;
+         gnt_1 <= 0;
+      end else if (req_1) begin // GNT1
+         gnt_0 <= 0;
+         gnt_1 <= 1;
+      end
+
+Documentación
+-------------
+
+* `Deepak Kumar: Verilog Tutorial <http://www.asic-world.com/verilog/veritut.html>`__
+* Jorge Chavez: Verilog Manual
+* D Thomas, P Moorby: The Verilog Hardware Description Language

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5. ReST &mdash; HW Verif  documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="https://wavedrom.com/skins/default.js"></script>
+        <script src="https://wavedrom.com/wavedrom.min.js"></script>
+        <script async="async" src="_static/mathjax/tex-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="4. Diseño" href="design.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #00c0f3 " >
+            <a href="index.html"><img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="carta.html">1. Programa del Curso</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clases_all.html">2. Clases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="env.html">3. Ambiente de Verificación</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">4. Diseño</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">5. ReST</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#reference">5.1. Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#insert-code">5.2. Insert Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#include">5.3. Include</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#images">5.4. Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#notes">5.5. Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#math">5.6. Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nested-lists">5.7. Nested Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#waves">5.8. Waves</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#registers">5.9. Registers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-edit-this-document">5.10. How to edit this document</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-install">5.10.1. How to install</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #00c0f3 " >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">HW Verif</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><span class="section-number">5. </span>ReST</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/rest.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="rest">
+<h1><span class="section-number">5. </span>ReST<a class="headerlink" href="#rest" title="Permalink to this headline"></a></h1>
+<div class="section" id="reference">
+<h2><span class="section-number">5.1. </span>Reference<a class="headerlink" href="#reference" title="Permalink to this headline"></a></h2>
+<div class="line-block">
+<div class="line"><a class="reference external" href="https://github.com/timstaley/sphinx-example">https://github.com/timstaley/sphinx-example</a></div>
+<div class="line"><a class="reference external" href="https://gdal.org/contributing/rst_style.html">https://gdal.org/contributing/rst_style.html</a></div>
+<div class="line"><a class="reference external" href="https://thomas-cokelaer.info/tutorials/sphinx">https://thomas-cokelaer.info/tutorials/sphinx</a></div>
+<div class="line"><a class="reference external" href="https://docutils.sourceforge.io/docs/user/rst/quickref.html">https://docutils.sourceforge.io/docs/user/rst/quickref.html</a></div>
+<div class="line"><a class="reference external" href="https://sublime-and-sphinx-guide.readthedocs.io/en/latest/index.html">https://sublime-and-sphinx-guide.readthedocs.io/en/latest/index.html</a></div>
+</div>
+</div>
+<div class="section" id="insert-code">
+<h2><span class="section-number">5.2. </span>Insert Code<a class="headerlink" href="#insert-code" title="Permalink to this headline"></a></h2>
+<div class="highlight-RST notranslate"><div class="highlight"><pre><span></span><span class="p">..</span><span class="ow">code-block</span><span class="p">::</span> RST
+
+   this is an example code
+</pre></div>
+</div>
+<div class="highlight-RST notranslate"><div class="highlight"><pre><span></span>this is an example code
+</pre></div>
+</div>
+</div>
+<div class="section" id="include">
+<h2><span class="section-number">5.3. </span>Include<a class="headerlink" href="#include" title="Permalink to this headline"></a></h2>
+<div class="highlight-RST notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">include</span><span class="p">::</span> tests_list.rst
+</pre></div>
+</div>
+</div>
+<div class="section" id="images">
+<h2><span class="section-number">5.4. </span>Images<a class="headerlink" href="#images" title="Permalink to this headline"></a></h2>
+<div class="highlight-RST notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">figure</span><span class="p">::</span> waves.png
+   <span class="nc">:scale:</span> 50%
+
+   This is the caption of the figure (a simple paragraph).
+</pre></div>
+</div>
+<p>This is an example:</p>
+<div class="figure align-default" id="id1">
+<a class="reference internal image-reference" href="_images/waves.png"><img alt="_images/waves.png" src="_images/waves.png" style="width: 759.5px; height: 364.5px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 5.1 </span><span class="caption-text">This is the caption of the figure (a simple paragraph).</span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
+</div>
+</div>
+<div class="section" id="notes">
+<h2><span class="section-number">5.5. </span>Notes<a class="headerlink" href="#notes" title="Permalink to this headline"></a></h2>
+<div class="highlight-RST notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">warning</span><span class="p">::</span> note the space between the directive and the text
+
+<span class="p">..</span> <span class="ow">note</span><span class="p">::</span> note the space between the directive and the text
+
+<span class="p">..</span> <span class="ow">seealso</span><span class="p">::</span> note the space between the directive and the text
+
+<span class="p">..</span> <span class="ow">important</span><span class="p">::</span> note the space between the directive and the text
+
+<span class="p">..</span> <span class="ow">attention</span><span class="p">::</span> note the space between the directive and the text
+
+<span class="p">..</span> <span class="ow">tip</span><span class="p">::</span> note the space between the directive and the text
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>note the space between the directive and the text</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>note the space between the directive and the text</p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>note the space between the directive and the text</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>note the space between the directive and the text</p>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>note the space between the directive and the text</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>note the space between the directive and the text</p>
+</div>
+</div>
+<div class="section" id="math">
+<h2><span class="section-number">5.6. </span>Math<a class="headerlink" href="#math" title="Permalink to this headline"></a></h2>
+<div class="highlight-RST notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">math</span><span class="p">::</span>
+
+   \frac{ \sum_{t=0}^{N}f(t,k) }{N}
+
+Or if you want to write inline you can use this: <span class="na">:math:</span><span class="nv">`\frac{ \sum_{t=0}^{N}f(t,k) }{N}`</span>
+</pre></div>
+</div>
+<div class="math notranslate nohighlight">
+\[\frac{ \sum_{t=0}^{N}f(t,k) }{N}\]</div>
+<p>Or if you want to write inline you can use this: <span class="math notranslate nohighlight">\(\frac{ \sum_{t=0}^{N}f(t,k) }{N}\)</span></p>
+</div>
+<div class="section" id="nested-lists">
+<h2><span class="section-number">5.7. </span>Nested Lists<a class="headerlink" href="#nested-lists" title="Permalink to this headline"></a></h2>
+<div class="highlight-RST notranslate"><div class="highlight"><pre><span></span><span class="m">1.</span> First item
+
+   a. Item
+   <span class="m">#.</span> Item
+
+      <span class="m">i.</span> Item
+      <span class="m">#.</span> Item
+
+<span class="m">#.</span> Last item
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p>First item</p>
+<ol class="loweralpha simple">
+<li><p>Item</p></li>
+<li><p>Item</p>
+<ol class="lowerroman simple">
+<li><p>Item</p></li>
+<li><p>Item</p></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>Last item</p></li>
+</ol>
+</div>
+<div class="section" id="waves">
+<h2><span class="section-number">5.8. </span>Waves<a class="headerlink" href="#waves" title="Permalink to this headline"></a></h2>
+<p><a class="reference external" href="https://github.com/bavovanachte/sphinx-wavedrom">Waves Link</a></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "signal": [
+	{ "name": "clk",  "wave": "P......" },
+	{ "name": "bus",  "wave": "x.==.=x", "data": ["head", "body", "tail", "data"] },
+	{ "name": "wire", "wave": "0.1..0." }
+]}
+
+</script>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">sphinxcontrib</span><span class="o">-</span><span class="n">wavedrom</span>
+<span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sphinxcontrib.wavedrom&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="registers">
+<h2><span class="section-number">5.9. </span>Registers<a class="headerlink" href="#registers" title="Permalink to this headline"></a></h2>
+<p><a class="reference external" href="https://github.com/Arth-ur/sphinxcontrib-bitfield">Registers Link</a></p>
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="160" viewbox="0 0 640 160"><g transform="translate(0, 80)"><g text-anchor="middle"><g ><g transform="translate(20.0, 14)"><text x="120.0" font-size="14" font-family="sans-serif" font-weight="normal">19</text><text x="0.0" font-size="14" font-family="sans-serif" font-weight="normal">16</text><text x="160.0" font-size="14" font-family="sans-serif" font-weight="normal">20</text><text x="280.0" font-size="14" font-family="sans-serif" font-weight="normal">23</text><text x="200.0" font-size="14" font-family="sans-serif" font-weight="normal">21</text><text x="600.0" font-size="14" font-family="sans-serif" font-weight="normal">31</text><text x="320.0" font-size="14" font-family="sans-serif" font-weight="normal">24</text></g><g transform="translate(0, 16.8)"><g transform="translate(0, 0)"><rect style=";fill:rgb(204, 255, 246)" x="0.0" y="0" width="160.0" height="49.199999999999996"/><rect style=";fill:rgb(229, 229, 229)" x="320.0" y="0" width="320.0" height="49.199999999999996"/></g><g transform="translate(20.0, 31.599999999999998)"><g transform="translate(60.0, -6)"><text font-size="14" font-family="sans-serif" font-weight="normal" text-anchor="middle" y="6"><tspan >BRK</tspan></text></g><g transform="translate(160.0, -6)"><text font-size="14" font-family="sans-serif" font-weight="normal" text-anchor="middle" y="6"><tspan >CPK</tspan></text></g><g transform="translate(240.0, -6)"><text font-size="14" font-family="sans-serif" font-weight="normal" text-anchor="middle" y="6"><tspan >Clear</tspan></text></g></g><g transform="translate(20.0, 63.199999999999996)"><g transform="translate(0, 0)"><text x="60.0" font-size="14" font-family="sans-serif" font-weight="normal"><tspan >RW</tspan></text></g></g></g></g></g><g stroke="black" stroke-width="1" stroke-linecap="round" transform="translate(0, 16.8)"><line x1="0.25" x2="639.5"/><line y2="49.199999999999996"/><line x1="0.25" x2="639.5" y1="49.199999999999996" y2="49.199999999999996"/><line x1="639.5" x2="639.5" y2="49.199999999999996"/><line x1="599.53125" x2="599.53125" y2="6.1499999999999995"/><line x1="599.53125" x2="599.53125" y1="43.05" y2="49.199999999999996"/><line x1="559.5625" x2="559.5625" y2="6.1499999999999995"/><line x1="559.5625" x2="559.5625" y1="43.05" y2="49.199999999999996"/><line x1="519.59375" x2="519.59375" y2="6.1499999999999995"/><line x1="519.59375" x2="519.59375" y1="43.05" y2="49.199999999999996"/><line x1="479.625" x2="479.625" y2="6.1499999999999995"/><line x1="479.625" x2="479.625" y1="43.05" y2="49.199999999999996"/><line x1="439.65625" x2="439.65625" y2="6.1499999999999995"/><line x1="439.65625" x2="439.65625" y1="43.05" y2="49.199999999999996"/><line x1="399.6875" x2="399.6875" y2="6.1499999999999995"/><line x1="399.6875" x2="399.6875" y1="43.05" y2="49.199999999999996"/><line x1="359.71875" x2="359.71875" y2="6.1499999999999995"/><line x1="359.71875" x2="359.71875" y1="43.05" y2="49.199999999999996"/><line x1="319.75" x2="319.75" y2="49.199999999999996"/><line x1="279.78125" x2="279.78125" y2="6.1499999999999995"/><line x1="279.78125" x2="279.78125" y1="43.05" y2="49.199999999999996"/><line x1="239.8125" x2="239.8125" y2="6.1499999999999995"/><line x1="239.8125" x2="239.8125" y1="43.05" y2="49.199999999999996"/><line x1="199.84375" x2="199.84375" y2="49.199999999999996"/><line x1="159.875" x2="159.875" y2="49.199999999999996"/><line x1="119.90625" x2="119.90625" y2="6.1499999999999995"/><line x1="119.90625" x2="119.90625" y1="43.05" y2="49.199999999999996"/><line x1="79.9375" x2="79.9375" y2="6.1499999999999995"/><line x1="79.9375" x2="79.9375" y1="43.05" y2="49.199999999999996"/><line x1="39.96875" x2="39.96875" y2="6.1499999999999995"/><line x1="39.96875" x2="39.96875" y1="43.05" y2="49.199999999999996"/></g></g><g transform="translate(0, 0)"><g text-anchor="middle"><g ><g transform="translate(20.0, 14)"><text x="280.0" font-size="14" font-family="sans-serif" font-weight="normal">7</text><text x="0.0" font-size="14" font-family="sans-serif" font-weight="normal">0</text><text x="560.0" font-size="14" font-family="sans-serif" font-weight="normal">14</text><text x="320.0" font-size="14" font-family="sans-serif" font-weight="normal">8</text><text x="600.0" font-size="14" font-family="sans-serif" font-weight="normal">15</text></g><g transform="translate(0, 16.8)"><g transform="translate(0, 0)"><rect style=";fill:rgb(229, 229, 229)" x="320.0" y="0" width="280.0" height="49.199999999999996"/><rect style=";fill:rgb(204, 255, 246)" x="600.0" y="0" width="40.0" height="49.199999999999996"/></g><g transform="translate(20.0, 31.599999999999998)"><g transform="translate(140.0, -6)"><text font-size="14" font-family="sans-serif" font-weight="normal" text-anchor="middle" y="6"><tspan >IPO</tspan></text></g><g transform="translate(600.0, -6)"><text font-size="14" font-family="sans-serif" font-weight="normal" text-anchor="middle" y="6"><tspan >BRK</tspan></text></g></g><g transform="translate(20.0, 63.199999999999996)"><g transform="translate(0, 0)"><text x="140.0" font-size="14" font-family="sans-serif" font-weight="normal"><tspan >RO</tspan></text></g><g transform="translate(0, 0)"><text x="600.0" font-size="14" font-family="sans-serif" font-weight="normal"><tspan >RW</tspan></text></g></g></g></g></g><g stroke="black" stroke-width="1" stroke-linecap="round" transform="translate(0, 16.8)"><line x1="0.25" x2="639.5"/><line y2="49.199999999999996"/><line x1="0.25" x2="639.5" y1="49.199999999999996" y2="49.199999999999996"/><line x1="639.5" x2="639.5" y2="49.199999999999996"/><line x1="599.53125" x2="599.53125" y2="49.199999999999996"/><line x1="559.5625" x2="559.5625" y2="6.1499999999999995"/><line x1="559.5625" x2="559.5625" y1="43.05" y2="49.199999999999996"/><line x1="519.59375" x2="519.59375" y2="6.1499999999999995"/><line x1="519.59375" x2="519.59375" y1="43.05" y2="49.199999999999996"/><line x1="479.625" x2="479.625" y2="6.1499999999999995"/><line x1="479.625" x2="479.625" y1="43.05" y2="49.199999999999996"/><line x1="439.65625" x2="439.65625" y2="6.1499999999999995"/><line x1="439.65625" x2="439.65625" y1="43.05" y2="49.199999999999996"/><line x1="399.6875" x2="399.6875" y2="6.1499999999999995"/><line x1="399.6875" x2="399.6875" y1="43.05" y2="49.199999999999996"/><line x1="359.71875" x2="359.71875" y2="6.1499999999999995"/><line x1="359.71875" x2="359.71875" y1="43.05" y2="49.199999999999996"/><line x1="319.75" x2="319.75" y2="49.199999999999996"/><line x1="279.78125" x2="279.78125" y2="6.1499999999999995"/><line x1="279.78125" x2="279.78125" y1="43.05" y2="49.199999999999996"/><line x1="239.8125" x2="239.8125" y2="6.1499999999999995"/><line x1="239.8125" x2="239.8125" y1="43.05" y2="49.199999999999996"/><line x1="199.84375" x2="199.84375" y2="6.1499999999999995"/><line x1="199.84375" x2="199.84375" y1="43.05" y2="49.199999999999996"/><line x1="159.875" x2="159.875" y2="6.1499999999999995"/><line x1="159.875" x2="159.875" y1="43.05" y2="49.199999999999996"/><line x1="119.90625" x2="119.90625" y2="6.1499999999999995"/><line x1="119.90625" x2="119.90625" y1="43.05" y2="49.199999999999996"/><line x1="79.9375" x2="79.9375" y2="6.1499999999999995"/><line x1="79.9375" x2="79.9375" y1="43.05" y2="49.199999999999996"/><line x1="39.96875" x2="39.96875" y2="6.1499999999999995"/><line x1="39.96875" x2="39.96875" y1="43.05" y2="49.199999999999996"/></g></g></svg><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">sphinxcontrib</span><span class="o">-</span><span class="n">bitfield</span>
+<span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sphinxcontrib.bitfield&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="how-to-edit-this-document">
+<h2><span class="section-number">5.10. </span>How to edit this document<a class="headerlink" href="#how-to-edit-this-document" title="Permalink to this headline"></a></h2>
+<p>Sphinx is an opensource tool that converts from RST to html/docx/pdf.</p>
+<p>Supported env:</p>
+<ul class="simple">
+<li><p>Ubuntu PC</p></li>
+</ul>
+<div class="section" id="how-to-install">
+<h3><span class="section-number">5.10.1. </span>How to install<a class="headerlink" href="#how-to-install" title="Permalink to this headline"></a></h3>
+<p>Clone repo using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">melvin</span><span class="o">-</span><span class="n">alvarado</span><span class="o">/</span><span class="n">repo</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>For Ubuntu PC: <em>sudo apt install python3 python3-pip python3-venv</em></p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">install</span>
+<span class="n">source</span> <span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+</pre></div>
+</div>
+<p>Edit the .rst files under <em>sphinx/source</em>, then execute <strong>make</strong> to generate the html:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span>
+</pre></div>
+</div>
+<p>Output will be generated at <em>docs/index.html</em></p>
+</div>
+</div>
+</div>
+
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Melvin Alvarado.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

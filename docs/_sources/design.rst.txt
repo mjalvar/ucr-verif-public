@@ -1,0 +1,141 @@
+#################
+   Diseño
+#################
+
+
+Control
+=======
+
+.. figure:: media/control-control_fsm.png
+
+Counter
+=======
+
+.. figure:: media/counter-counter.png
+
+Unpacker
+========
+
+.. figure:: media/unpacker-unpacker_fsm.png
+
+* Packet: puede ser de tamaño entre 1 - 1024 Bytes.
+* Para pasar por ifc de 32B o 160B se usan las señales de control *sop* y *eop*
+* El *unpacker* convierte palabras de 160B a 32B.
+* 1 palabra de 160B equivale a 5 palabras de 32B.
+* Se utiliza *ready* para indicar que está en proceso una
+  transacción y que no se pueden procesar datos adicionales.
+
+.. figure:: media/unpacker.waves.png
+
+
+Registros
+=========
+
+.. figure:: media/regs-regs.png
+
+.. figure:: media/field-field.png
+
+
+Write
+-----
+
+.. wavedrom:: waves/reg.write.json
+   :height: 100px
+   :width: 200px
+   :scale: 50%
+   :align: right
+
+
+Read
+----
+
+.. wavedrom:: waves/reg.read.json
+   :height: 100px
+   :width: 200px
+   :scale: 50%
+   :align: right
+
+
+
+
+Control
+-------
+
+.. bitfield::
+    :bits: 8
+    :lanes: 2
+
+        [
+            { "name": "ENA",  "bits": 1, "attr": "RW" },
+            { "name": "IDL",  "bits": 1, "attr": "RO" },
+            { "name": "ERR",  "bits": 1, "attr": "RO", "type" : 4 },
+            { "bits": 1},
+            { "name": "ID",   "bits": 4, "attr": "RW", "type" : 3 }
+        ]
+
+::
+
+   Address: 0x0
+
+   ENA: Port enable [0]
+   ID:  Puerto asociado [0]
+   IDL: Idle [0]
+   ERR: Error [0]
+
+
+Counter
+-------
+
+.. bitfield::
+   :bits: 8
+   :lanes: 2
+
+       [
+           { "name": "TYP",  "bits": 2, "attr": "RW" },
+           { "name": "CLR",  "bits": 1, "attr": "RW" },
+           { "name": "IDL",  "bits": 1, "attr": "RO" },
+           { "name": "ERR",  "bits": 1, "attr": "RO", "type" : 4 }
+       ]
+
+::
+
+   Address: 0x1, 0x2
+
+   TYP: Tipo de contador 0=paquetes, 1=octetos [0]
+   CLR: Clear, borrar [0]
+   IDL: Idle [0]
+   ERR: Error [0]
+
+
+Unpacker
+--------
+
+.. bitfield::
+   :bits: 8
+   :lanes: 2
+
+       [
+           { "name": "GAP",  "bits": 4, "attr": "RW" },
+           { "name": "IDL",  "bits": 1, "attr": "RO" },
+           { "name": "ERR",  "bits": 1, "attr": "RO", "type" : 4 }
+       ]
+
+::
+
+   Address: 0x3
+
+   GAP: Num. ciclos del gap entre palabras
+   IDL: Idle [0]
+   ERR: Error [0]
+
+
+SPI
+===
+
+Arb Cnt Ifc
+===========
+
+Chip
+====
+
+.. figure:: diagrams/c3po-chip.png

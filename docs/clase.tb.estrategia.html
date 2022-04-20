@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Testbench Estrategia &mdash; HW Verif  documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="https://wavedrom.com/skins/default.js"></script>
+        <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #00c0f3 " >
+            <a href="index.html"><img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="carta.html">1. Programa del Curso</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clases_all.html">2. Clases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="env.html">3. Ambiente de Verificación</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">4. Diseño</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rest.html">5. ReST</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #00c0f3 " >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">HW Verif</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Testbench Estrategia</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/clase.tb.estrategia.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="testbench-estrategia">
+<h1>Testbench Estrategia<a class="headerlink" href="#testbench-estrategia" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Intro</p></li>
+<li><p>TB tipos</p></li>
+<li><p>Capas</p></li>
+<li><p>Estrategia</p></li>
+</ul>
+<div class="section" id="tipos">
+<h2>Tipos<a class="headerlink" href="#tipos" title="Permalink to this headline"></a></h2>
+<p>Test Bench determinístico:</p>
+<ul class="simple">
+<li><p>Se utiliza al principio del ciclo de verificación para probar la funcionalidad básica del DUV.</p></li>
+<li><p>Utiliza casos de prueba determinísticos donde se conoce la función que se desea ejercitar.</p></li>
+</ul>
+<p>Self checking TestBench:</p>
+<ul class="simple">
+<li><p>Agrega el conocimiento de la funcionalidad del DUV para realizar un chequeo automático.</p></li>
+<li><p>Requiere más tiempo de desarrollo.</p></li>
+<li><p>Existen diferentes tipos:</p>
+<ul>
+<li><p>Vectores de referencia.</p></li>
+<li><p>Modelo de referencia</p></li>
+<li><p>Basado en transacciones.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="vectores-de-referencia">
+<h2>Vectores de referencia<a class="headerlink" href="#vectores-de-referencia" title="Permalink to this headline"></a></h2>
+<p>Vectores de salida válidos se almacenan en el scoreboard y se comparan las salidas DUV con la base.</p>
+<div class="figure align-default">
+<img alt="_images/vec.ref.png" src="_images/vec.ref.png" />
+</div>
+</div>
+<div class="section" id="modelo-de-referencia">
+<h2>Modelo de referencia<a class="headerlink" href="#modelo-de-referencia" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Calcula las salidas esperadas con base en las entradas.</p></li>
+<li><p>Re-implementa la función del DUV pero a alto nivel.</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/model.ref.png" src="_images/model.ref.png" />
+</div>
+</div>
+<div class="section" id="basado-en-transacciones">
+<h2>Basado en transacciones<a class="headerlink" href="#basado-en-transacciones" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Un ambiente basado en transacciones es utilizado para un DUV que tiene transacciones identificables a través de comandos y datos.</p></li>
+<li><p>El scoreboard almacena las transacciones que han entrado al DUV y que no se han completado.</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/tlm.scb.png" src="_images/tlm.scb.png" />
+</div>
+</div>
+<div class="section" id="capas">
+<h2>Capas<a class="headerlink" href="#capas" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li class="fragment"><p>El primer paso consiste en tomar acciones/comandos comunes como: reset, lectura/escritura de bus, etc. y moverlos a subrutinas.</p></li>
+<li class="fragment"><p>La capa de señales contiene las señales DUT que se conectan al testbench.</p></li>
+<li class="fragment"><p>La capa de comandos (TLM):</p>
+<ul>
+<li><p>Maneja la entradas del DUT y aplica comandos como lectura/escritura al bus.</p></li>
+<li><p>Las salidas del DUT manejan el monitor que toma las señales y la agrupa en comandos de respuesta.</p></li>
+</ul>
+</li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/tb.capas.1.png" src="_images/tb.capas.1.png" />
+</div>
+</div>
+<div class="section" id="capa-funcional">
+<h2>Capa Funcional<a class="headerlink" href="#capa-funcional" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>El bloque agente recibe TLMs (transacciones de alto nivel) y las divide en comandos/transacciones señales.</p></li>
+<li><p>TLMs también son enviados al scoreboard que predice el resultado.</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/tb.capas.2.png" src="_images/tb.capas.2.png" />
+</div>
+</div>
+<div class="section" id="capa-escenario">
+<h2>Capa Escenario<a class="headerlink" href="#capa-escenario" title="Permalink to this headline"></a></h2>
+<p>La capa funcional es manejada por un generador de escenarios</p>
+<div class="figure align-default">
+<img alt="_images/tb.capas.3.png" src="_images/tb.capas.3.png" />
+</div>
+<p>Al dividir el TB en piezas y capas facilita su mantenimiento y reuso.</p>
+<div class="figure align-default">
+<img alt="_images/tb.capas.3.png" src="_images/tb.capas.3.png" />
+</div>
+</div>
+<div class="section" id="metodologias-de-verificacion">
+<h2>Metodologías de verificación<a class="headerlink" href="#metodologias-de-verificacion" title="Permalink to this headline"></a></h2>
+<div class="figure align-default">
+<img alt="_images/method.trend.jpg" src="_images/method.trend.jpg" />
+</div>
+</div>
+<div class="section" id="pruebas-directas-dirigidas">
+<h2>Pruebas directas/dirigidas<a class="headerlink" href="#pruebas-directas-dirigidas" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Este enfoque utiliza la especificación para escribir un plan de verificación con una lista de pruebas.</p></li>
+<li><p>Presenta una progreso incremental y resultados de inmediato hasta completar todas las pruebas.</p></li>
+<li><p>Si la complejidad aumenta al doble, el doble de tiempo o el doble de recursos se requieren para finalizar.</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/tests.direct.png" src="_images/tests.direct.png" />
+</div>
+</div>
+<div class="section" id="pruebas-aleatorias">
+<h2>Pruebas Aleatorias<a class="headerlink" href="#pruebas-aleatorias" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li class="fragment"><p>Se requieren estímulos aleatorios para diseños complejos.</p></li>
+<li class="fragment"><p>Se requiere cobertura funcional para medir el progreso de verificación.</p></li>
+<li class="fragment"><p>Se requiere un scoreboard o modelo de referencia para para predecir los resultados.</p></li>
+<li class="fragment"><p>En general requiere más tiempo de desarrollo por lo que genera un retardo para correr la primera prueba.</p></li>
+<li class="fragment"><p>Sin embargo, permite encontrar bugs más rápido que pruebas directas.</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/tests.random.png" src="_images/tests.random.png" />
+</div>
+<ul class="simple">
+<li class="fragment"><p>Configuración del dispositivo</p></li>
+<li class="fragment"><p>Configuración del ambiente</p></li>
+<li class="fragment"><p>Datos de entrada</p></li>
+<li class="fragment"><p>Excepciones de protocolo</p></li>
+<li class="fragment"><p>Errores/violaciones</p></li>
+<li class="fragment"><p>Retardos/sincronización</p></li>
+</ul>
+<ul class="simple">
+<li class="fragment"><p>Los valores o parámetros utilizados no son completamente aleatorios sino que son restringidos.</p></li>
+<li class="fragment"><p>Se utilizan restricciones para cumplir ciertos requerimientos (espacio legal).</p></li>
+<li class="fragment"><p>Estas restricciones puede utilizarse para crear pruebas directas.</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/tests.constraints.png" src="_images/tests.constraints.png" />
+</div>
+<p>El tipo de estimulo varia dependiendo del ambiente de verificación, el plan de verificación y el DUT.</p>
+<div class="figure align-default">
+<img alt="_images/estrategia.png" src="_images/estrategia.png" />
+</div>
+<blockquote class="pull-quote">
+<div><p>Passing tests aren’t interesting because they don’t tell us anything; failing tests are interesting.
+That’s why it is dangerous to only track pass rates, and even more dangerous to conclude that verification is ”
+done” when all tests are passing.
+(the fallacy of the test list)</p>
+</div></blockquote>
+<blockquote class="pull-quote">
+<div><p>Running the same tests over and over again will eventually cause them to pass.
+What it doesn’t do is tell you if there are bugs hiding elsewhere. (the fallacy of the regression).</p>
+</div></blockquote>
+</div>
+<div class="section" id="bibliografia">
+<h2>Bibliografía<a class="headerlink" href="#bibliografia" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>B. Wile, J. Goss y W. Roesner. “Comprehensive Functional Verification The Complete Industry Cycle” Elsevier, Primera Edición, 2005.</p></li>
+<li><p>C. Spear, G. Tumbush. “System Verilog for Verification: A Guide to Learning the Testbench Language Features ” Springer, Tercera Edición, 2005.</p></li>
+<li><p>S. Vasudevan. “Effective Functional Verification”, Springer, Primera Edición, 2006.</p></li>
+</ul>
+</div>
+</div>
+
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Melvin Alvarado.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

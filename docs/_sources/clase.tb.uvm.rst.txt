@@ -1,0 +1,382 @@
+
+Testbench UVM
+=============
+
+* Intro
+* UVM
+* Componentes
+* Checkers
+
+
+Testbench
+---------
+
+.. revealjs_fragments::
+
+  * Modela el universo para el diseño y debe soportar toda las acciones que pueden ocurrir sobre él.
+  * Se conoce como banco de pruebas o “testbench”
+  * Un ambiente básico de verificación consiste en:
+
+    * Diseño bajo verificación (DUV/DUT)
+    * Componente de estímulo
+    * Componente de monitoreo
+    * Componente de chequeo
+    * Scoreboard
+
+
+UVM
+---
+
+.. revealjs_fragments::
+  * Sistemas digitales complejos. Se verificaba revisando los waveforms, manual
+  * SV lenguaje: clases, covergroups, constraints
+  * Metodología de verif es esencial: automatizar, reutilizable, building blocks
+  * UVM: SV API opensource (Accellera) para automatizar/crear ambiente de verif eficiente
+
+.. revealjs_break::
+
+.. figure:: media/method.trend.jpg
+
+.. revealjs_break::
+
+.. figure:: media/uvm.tb.png
+
+
+UVM Classes
+-----------
+
+* Los componentes son representados como objetos.
+* Cada clase contiene métodos útiles implementados.
+
+.. figure:: media/uvm.classes.tree.png
+   :scale: 60%
+
+
+
+Driver
+------
+
+.. revealjs_fragments::
+   * Manipula las entradas del DUV.
+   * Imita el comportamiento de entidades vecinas.
+   * La generación de estímulos no deben restringirse a lo que el DUV es capaz de recibir.
+   * De esta forma se estresa el DUV y se pueden encontrar condiciones límite que solo se pueden ver luego de millones de ciclos una prueba a nivel de sistema.
+   * `Convierte TLM => señales <http://>`__
+
+.. revealjs_break::
+
+.. code-block:: verilog
+
+    class simpleadder_driver extends uvm_driver#(simpleadder_transaction);
+
+        //Interface declaration
+        protected virtual simpleadder_if vif;
+
+        function new(string name, uvm_component parent);
+            super.new(name, parent);
+        endfunction: new
+
+        function void build_phase(uvm_phase phase);
+            super.build_phase(phase);
+            void'(uvm_resource_db#(virtual simpleadder_if)::read_by_name(.scope("ifs"), .name("simpleadder_if"), .val(vif)));
+        endfunction: build_phase
+
+        task run_phase(uvm_phase phase);
+            //Our code here
+        endtask: run_phase
+
+    endclass: simpleadder_driver
+
+
+Monitor
+-------
+
+Un monitor es un modelo que observa diferentes aspectos del ambiente como:
+
+.. revealjs_fragments::
+   * Salidas para se cumpla el protocolo.
+   * Entradas para cobertura funcional y actualizaciones del scoreboard
+   * Señales internas para eventos de interés para el ambiente
+   * `Convierte señales => TLM <http://>`__
+
+.. revealjs_break::
+
+.. code-block:: verilog
+
+    class simpleadder_monitor_before extends uvm_monitor;
+
+        uvm_analysis_port#(simpleadder_transaction) mon_ap_before;
+
+        virtual simpleadder_if vif;
+
+        function new(string name, uvm_component parent);
+            super.new(name, parent);
+        endfunction: new
+
+        function void build_phase(uvm_phase phase);
+            super.build_phase(phase);
+
+            void'(uvm_resource_db#(virtual simpleadder_if)::read_by_name (.scope("ifs"), .name("simpleadder_if"), .val(vif)));
+            mon_ap_before = new(.name("mon_ap_before"), .parent(this));
+        endfunction: build_phase
+
+        task run_phase(uvm_phase phase);
+            //Our code here
+        endtask: run_phase
+
+    endclass: simpleadder_monitor_before
+
+.. revealjs_break::
+   :notitle:
+
+.. figure:: media/uvm.example.layers.png
+   :scale: 60%
+
+.. revealjs_break::
+   :notitle:
+
+.. figure:: diagrams/uvm.layers.png
+
+
+
+UVM Phases
+----------
+
+Todas las clases/obj tienen sim phases.
+Las phases son pasos ordenados de ejecución implementados como métodos.
+
+.. figure:: media/uvm.phases.png
+
+
+.. revealjs_break::
+
+.. revealjs_fragments::
+    * build: construye los componentes de la jerarquía. Ej. agent => driver, monitor
+    * connect: conectar sub componentes de la clase.
+    * run: fase principal
+    * report: se utiliza para recolectar datos al final de la sim para hacer reportes, checkers, resultados
+
+
+UVM Macros
+----------
+
+Implementan métodos útiles para clases y variables. Opcionales, pero recomendables.
+
+::
+
+    // This macro registers the new class type.
+    // It’s usually used when deriving new classes like a new agent,
+    // driver, monitor and so on.
+    `uvm_component_utils
+
+    // This macro registers a variable in the UVM factory and implements
+    // some functions like copy(), compare() and print().
+    `uvm_field_int
+
+    // This a very useful macro to print messages from the UVM environment
+    // during simulation time.
+    `uvm_info
+
+
+Agent
+-----
+
+.. code-block:: verilog
+
+   class simpleadder_agent extends uvm_agent;
+
+      //Analysis ports to connect the monitors to the scoreboard
+      uvm_analysis_port#(simpleadder_transaction) agent_ap_before;
+      uvm_analysis_port#(simpleadder_transaction) agent_ap_after;
+
+      simpleadder_sequencer        sa_seqr;
+      simpleadder_driver        sa_drvr;
+      simpleadder_monitor_before    sa_mon_before;
+      simpleadder_monitor_after    sa_mon_after;
+
+      function new(string name, uvm_component parent);
+            super.new(name, parent);
+      endfunction: new
+
+      function void build_phase(uvm_phase phase);
+            super.build_phase(phase);
+
+            agent_ap_before    = new(.name("agent_ap_before"), .parent(this));
+            agent_ap_after    = new(.name("agent_ap_after"), .parent(this));
+
+            sa_seqr        = simpleadder_sequencer::type_id::create(...
+            sa_drvr        = simpleadder_driver::type_id::create(...
+            sa_mon_before    = simpleadder_monitor_before::type_id::create(...
+            sa_mon_after    = simpleadder_monitor_after::type_id::create(...
+      endfunction: build_phase
+
+      function void connect_phase(uvm_phase phase);
+            super.connect_phase(phase);
+            sa_drvr.seq_item_port.connect(sa_seqr.seq_item_export);
+            sa_mon_before.mon_ap_before.connect(agent_ap_before);
+            sa_mon_after.mon_ap_after.connect(agent_ap_after);
+      endfunction: connect_phase
+
+   endclass: simpleadder_agent
+
+.. revealjs_break::
+   :notitle:
+
+.. figure:: media/uvm.example.layers.2.png
+   :scale: 60%
+
+
+Sequence
+--------
+
+.. figure:: media/uvm.seq.png
+
+.. revealjs_break::
+
+.. code-block:: verilog
+
+   class simpleadder_transaction extends uvm_sequence_item;
+      rand bit[1:0] ina;
+      rand bit[1:0] inb;
+      bit[2:0] out;
+
+      function new(string name = "");
+            super.new(name);
+      endfunction: new
+
+      'uvm_object_utils_begin(simpleadder_transaction)
+      'uvm_field_int(ina, UVM_ALL_ON)
+      'uvm_field_int(inb, UVM_ALL_ON)
+      'uvm_field_int(out, UVM_ALL_ON)
+      'uvm_object_utils_end
+   endclass: simpleadder_transaction
+
+.. revealjs_break::
+
+.. code-block:: verilog
+
+   class simpleadder_transaction_3inputs extends simpleadder_transaction;
+      rand bit[1:0] inc;
+
+      function new(string name = "");
+         super.new(name);
+      endfunction: new
+
+      'uvm_object_utils_begin(simpleadder_transaction_3inputs)
+      'uvm_field_int(inc, UVM_ALL_ON)
+      'uvm_object_utils_end
+   endclass: simpleadder_transaction_3inputs
+
+
+.. revealjs_break::
+
+.. code-block:: verilog
+
+   class simpleadder_sequence extends uvm_sequence#(simpleadder_transaction);
+      'uvm_object_utils(simpleadder_sequence)
+
+      function new(string name = "");
+            super.new(name);
+      endfunction: new
+
+      task body();
+            simpleadder_transaction sa_tx;
+
+            repeat(15) begin
+                  sa_tx = simpleadder_transaction::type_id::create(...
+
+                  start_item(sa_tx);
+                     assert(sa_tx.randomize());
+                  finish_item(sa_tx);
+            end
+      endtask: body
+   endclass: simpleadder_sequence
+
+
+Puntos de observación
+---------------------
+
+Verificación de Caja negra (Black Box):
+
+.. revealjs_fragments::
+  * el ambiente de verificación solo utiliza interfaces externas (entradas y salidas)
+  * la especificación debe explicar claramente la función del DUV
+  * revisa el algoritmo/funcionalidad no la implementación
+  * poco impacto a cambios estructurales
+  * bajo control y observabilidad
+
+.. revealjs_break::
+
+Verificación de Caja Blanca (White Box):
+
+.. revealjs_fragments::
+  * a diferencia de *caja negra* provee un entendimiento completo de la estructuras internas del DUV
+  * revisa la implementación
+  * el ambiente de verificación observa y chequea señales internas, modela y predice estructuras
+  * alto impacto a cambios estructurales (dependencia)
+  * mayor control y observabilidad
+  * se realiza a niveles bajos de la jerarquía de verificación
+
+.. revealjs_break::
+
+.. figure:: media/black.white.box.png
+
+.. revealjs_break::
+
+Verificación de Caja gris (Gray Box):
+
+* es una combinación de los dos métodos anteriores
+
+
+
+Checkers
+--------
+
+.. revealjs_fragments::
+
+  * Checkers de datos: se utilizan para verificar la integridad de los datos transmitidos por un dispositivo (datapath).
+
+    * Es conecta en la entradas y salidas del dispositivo.
+
+  * Checker de protocolo/interface: revisa que protocolo en la interface donde se conecta.
+  * Checker basado en ciclos: se utilizan para revisar que la salida del dispositivo es correcta ciclo a ciclo.
+
+    * Difíciles de implementar y darles mantenimiento.
+
+
+.. revealjs_break::
+    :notitle:
+
+.. pull-quote::
+
+    "Even if it’s tested, if it isn’t checked it still doesn’t work!"
+    -- Bentley’s Corollary
+
+
+
+
+
+Checker vs Scoreboard
+---------------------
+
+.. revealjs_fragments::
+   * ambos son componentes para revisar
+   * checker usa señales: protocol checker
+   * checker se puede poner dentro del monitor para verificar TLM se generen adecuadamente
+   * scoreboard usa TLM: packets IN vs packets OUT
+
+.. revealjs_break::
+
+.. figure:: media/uvm.scoreboard.png
+   :scale: 60%
+
+
+Referencias
+-----------
+
+* Pedro Araújo. `UVM guide for beginners <https://colorlesscube.com/uvm-guide-for-beginners/>`__
+* Accelera. `UVM downloads <https://www.accellera.org/downloads/standards/uvm>`__
+* Accellera. `UVM users guide <https://www.accellera.org/images/downloads/standards/uvm/uvm_users_guide_1.2.pdf>`__
+* B\. Wile, J. Goss y W. Roesner. “Comprehensive Functional Verification The Complete Industry Cycle” Elsevier, Primera Edición, 2005.
+* C\. Spear, G. Tumbush. “System Verilog for Verification: A Guide to Learning the Testbench Language Features ” Springer, Tercera Edición, 2005.
+* S\. Vasudevan. “Effective Functional Verification”, Springer, Primera Edición, 2006.

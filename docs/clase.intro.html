@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Intro &mdash; HW Verif  documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="https://wavedrom.com/skins/default.js"></script>
+        <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #00c0f3 " >
+            <a href="index.html"><img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="carta.html">1. Programa del Curso</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clases_all.html">2. Clases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="env.html">3. Ambiente de Verificación</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">4. Diseño</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rest.html">5. ReST</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #00c0f3 " >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">HW Verif</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Intro</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/clase.intro.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="intro">
+<h1>Intro<a class="headerlink" href="#intro" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>SoC</p></li>
+<li><p>Complejidad SoC</p></li>
+<li><p>Bugs</p></li>
+<li><p>Verif Env</p></li>
+</ul>
+<div class="section" id="ti-omap-2011">
+<h2>TI: OMAP 2011<a class="headerlink" href="#ti-omap-2011" title="Permalink to this headline"></a></h2>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/soc.omap.jpg"><img alt="_images/soc.omap.jpg" src="_images/soc.omap.jpg" style="width: 960.0px; height: 582.4px;" /></a>
+</div>
+</div>
+<div class="section" id="intel-baytrail-2013">
+<h2>Intel: BayTrail 2013<a class="headerlink" href="#intel-baytrail-2013" title="Permalink to this headline"></a></h2>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/soc.baytrail.jpg"><img alt="_images/soc.baytrail.jpg" src="_images/soc.baytrail.jpg" style="width: 897.6px; height: 529.6px;" /></a>
+</div>
+</div>
+<div class="section" id="qualcomm-snapdragon-2014">
+<h2>Qualcomm: Snapdragon 2014<a class="headerlink" href="#qualcomm-snapdragon-2014" title="Permalink to this headline"></a></h2>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/soc.snapdragon.png"><img alt="_images/soc.snapdragon.png" src="_images/soc.snapdragon.png" style="width: 1169.6000000000001px; height: 661.6px;" /></a>
+</div>
+</div>
+<div class="section" id="apple-m1-2021">
+<h2>Apple: M1 2021<a class="headerlink" href="#apple-m1-2021" title="Permalink to this headline"></a></h2>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/Apple-M1-soc.jpg"><img alt="_images/Apple-M1-soc.jpg" src="_images/Apple-M1-soc.jpg" style="width: 998.4000000000001px; height: 563.2px;" /></a>
+</div>
+</div>
+<div class="section" id="intel-alderlake-2022">
+<h2>Intel: AlderLake 2022<a class="headerlink" href="#intel-alderlake-2022" title="Permalink to this headline"></a></h2>
+<div class="figure align-default">
+<img alt="_images/soc.alderlake.jpeg" src="_images/soc.alderlake.jpeg" />
+</div>
+</div>
+<div class="section" id="complejidad-de-socs">
+<h2>Complejidad de SoCs<a class="headerlink" href="#complejidad-de-socs" title="Permalink to this headline"></a></h2>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/soc.complex.png"><img alt="_images/soc.complex.png" src="_images/soc.complex.png" style="width: 1024.0px; height: 576.0px;" /></a>
+</div>
+</div>
+<div class="section" id="importancia">
+<h2>Importancia<a class="headerlink" href="#importancia" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li class="fragment"><p>El aspecto más importante durante el desarollo de un producto.</p></li>
+<li class="fragment"><p>Consume más recursos.</p></li>
+<li class="fragment"><p>Ahorra dinero.</p></li>
+<li class="fragment"><p>Plazo de lanzamiento (time to market).</p></li>
+<li class="fragment"><p>Industrias: PC, networking, médica, automóviles, IoT, militar, etc.</p></li>
+</ul>
+</div>
+<div class="section" id="bugs">
+<h2>Bugs<a class="headerlink" href="#bugs" title="Permalink to this headline"></a></h2>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/challenger.jpg"><img alt="_images/challenger.jpg" src="_images/challenger.jpg" style="width: 600.0px; height: 337.5px;" /></a>
+</div>
+</div>
+<div class="section" id="intel-pentium-division-en-punto-flotante">
+<h2>1993 - Intel Pentium división en punto flotante<a class="headerlink" href="#intel-pentium-division-en-punto-flotante" title="Permalink to this headline"></a></h2>
+<p>Un error de silicio provoca que el chip Pentium de Intel cometa errores al dividir números de punto flotante que
+se producen dentro de un rango específico. Por ejemplo:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>4195835,0 / 3145727,0  = 1,33374
+                       = 1,33382
+error                  = 0,006%
+</pre></div>
+</div>
+<p>Aunque el error afectaba a unos pocos usuarios, se convierte en una pesadilla de relaciones públicas. Con un estimado de 3M a 5M
+chips defectuosos en circulación, en un primer momento Intel sólo ofrece reemplazar los chips Pentium para los consumidores que puedan probar que necesitan
+alta precisión; finalmente, la empresa cede y se compromete a reemplazar los chips para cualquier persona que se queja. El error cuesta última instancia a
+Intel $475.000.000.</p>
+</div>
+<div class="section" id="ariane-5-vuelo-501">
+<h2>1996 - Ariane 5 Vuelo 501<a class="headerlink" href="#ariane-5-vuelo-501" title="Permalink to this headline"></a></h2>
+<p>El código del cohete Ariane 4 se reutiliza en el Ariane 5, pero los motores son más rápidos en el Ariane 5
+desencadenando un error en una rutina de cálculo dentro de la computadora de vuelo del cohete.
+El error está en el código que convierte un número de coma flotante de 64 bits en un entero de 16 bits.
+Los motores más rápidos hacen que los números de 64 bits sean mayores en el Ariane 5 que en el Ariane 4,
+provocando una condición de desbordamiento (overflow) que se traduce en el fallo de la computadora de vuelo.
+Como resultado el procesador principal del cohete domina los motores y hace que el cohete se desintegre 40 segundos después del lanzamiento.</p>
+</div>
+<div class="section" id="spectre-y-meltdown">
+<h2>2017 - Spectre y Meltdown<a class="headerlink" href="#spectre-y-meltdown" title="Permalink to this headline"></a></h2>
+<p>Se encontraron 2 bugs de seguridad en la arquitectura de ARM, AMD e INTEL afecta la seguridad de PCs, Smartphones, etc.</p>
+<ul class="simple">
+<li><p>Meltdown es una falla de seguridad que permite traspasar la barrera de hardware entre modo usuario y modo privilegiado (espacio de usuario y kernel).</p></li>
+<li><p>Spectre es una falla de seguridad que permite engañar al programa para solicitar información de forma arbitraria del espacio de memoria utilizado.</p></li>
+</ul>
+</div>
+</div>
+
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Melvin Alvarado.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

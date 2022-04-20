@@ -1,0 +1,96 @@
+
+
+Intro
+=====
+
+* SoC
+* Complejidad SoC
+* Bugs
+* Verif Env
+
+
+TI: OMAP 2011
+--------------------
+.. figure:: media/soc.omap.jpg
+   :scale: 80%
+
+
+Intel: BayTrail 2013
+--------------------
+.. figure:: media/soc.baytrail.jpg
+   :scale: 80%
+
+
+Qualcomm: Snapdragon 2014
+-------------------------
+.. figure:: media/soc.snapdragon.png
+   :scale: 80%
+
+
+Apple: M1 2021
+--------------------
+.. figure:: media/Apple-M1-soc.jpg
+   :scale: 80%
+
+
+Intel: AlderLake 2022
+---------------------
+.. figure:: media/soc.alderlake.jpeg
+
+
+Complejidad de SoCs
+-------------------
+.. figure:: media/soc.complex.png
+   :scale: 80%
+
+
+Importancia
+-----------
+
+.. revealjs_fragments::
+  * El aspecto más importante durante el desarollo de un producto.
+  * Consume más recursos.
+  * Ahorra dinero.
+  * Plazo de lanzamiento (time to market).
+  * Industrias: PC, networking, médica, automóviles, IoT, militar, etc.
+
+
+Bugs
+----
+.. figure:: media/challenger.jpg
+   :scale: 50%
+
+
+1993 - Intel Pentium división en punto flotante
+-----------------------------------------------
+Un error de silicio provoca que el chip Pentium de Intel cometa errores al dividir números de punto flotante que
+se producen dentro de un rango específico. Por ejemplo:
+
+.. code-block:: text
+
+   4195835,0 / 3145727,0  = 1,33374
+                          = 1,33382
+   error                  = 0,006%
+
+Aunque el error afectaba a unos pocos usuarios, se convierte en una pesadilla de relaciones públicas. Con un estimado de 3M a 5M
+chips defectuosos en circulación, en un primer momento Intel sólo ofrece reemplazar los chips Pentium para los consumidores que puedan probar que necesitan
+alta precisión; finalmente, la empresa cede y se compromete a reemplazar los chips para cualquier persona que se queja. El error cuesta última instancia a
+Intel $475.000.000.
+
+
+1996 - Ariane 5 Vuelo 501
+-------------------------
+El código del cohete Ariane 4 se reutiliza en el Ariane 5, pero los motores son más rápidos en el Ariane 5
+desencadenando un error en una rutina de cálculo dentro de la computadora de vuelo del cohete.
+El error está en el código que convierte un número de coma flotante de 64 bits en un entero de 16 bits.
+Los motores más rápidos hacen que los números de 64 bits sean mayores en el Ariane 5 que en el Ariane 4,
+provocando una condición de desbordamiento (overflow) que se traduce en el fallo de la computadora de vuelo.
+Como resultado el procesador principal del cohete domina los motores y hace que el cohete se desintegre 40 segundos después del lanzamiento.
+
+2017 - Spectre y Meltdown
+-------------------------
+Se encontraron 2 bugs de seguridad en la arquitectura de ARM, AMD e INTEL afecta la seguridad de PCs, Smartphones, etc.
+
+* Meltdown es una falla de seguridad que permite traspasar la barrera de hardware entre modo usuario y modo privilegiado (espacio de usuario y kernel).
+* Spectre es una falla de seguridad que permite engañar al programa para solicitar información de forma arbitraria del espacio de memoria utilizado.
+

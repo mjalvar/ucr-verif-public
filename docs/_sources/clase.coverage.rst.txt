@@ -1,0 +1,294 @@
+
+Coverage
+========
+
+* Estructural
+* Assertions
+* Funcional
+* Tape-out
+* Cov SV
+* Cross Cov
+
+
+
+Cobertura de verificación
+-------------------------
+
+.. revealjs_fragments::
+    * El equipo de verificación requiere de métricas para medir la calidad y el avance a través del tiempo.
+    * La cobertura de verificación es la medición de espacio de estados que se han ejercitado dentro del ambiente de verificación.
+
+      * Cobertura de prueba: mide la cobertura de un estimulo con respecto a la especificación del diseño.
+      * Cobertura de implementación: mide la cobertura de función implementada en el DUV.
+
+    * El objetivo del análisis de cobertura es la de guiar el proceso de verificación, no la de probar su completitud.
+
+.. revealjs_break::
+.. figure:: media/coverage.1.png
+   :scale: 70%
+
+.. revealjs_break::
+   :notitle:
+
+.. pull-quote::
+
+    Coverage isn't an end in itself, it's a mean to an end (finding bugs).
+    It's what you find in the course of driving up coverage that is important.
+    -- Milburn's observation
+
+
+Cobertura Estructural
+---------------------
+
+* Estos modelos de cobertura están ligados a un aspecto estructural de la implementación del DUV, test bench or HDL.
+* Su fortaleza se encuentra en su facilidad de implementación y su habilidad de mostrar huecos o áreas sin cubrir dentro del diseño.
+
+Tipos de cobertura estructural
+------------------------------
+.. revealjs_fragments::
+    * Cobertura de transiciones “Toggle”:
+
+      * Mide cuantas veces una señal o un latch ha cambiado su valor lógico durante la simulación.
+      * Es muy simple. No es representativo de la calidad de las prueba a nivel funcional.
+
+    * Cobertura de línea (statement coverage):
+
+      * Mide cuales líneas del HDL fueron ejecutadas durante la simulación.
+      * Es muy simple y no resultados no permiten conocer si el código ejecutado es correcto.
+
+.. revealjs_break::
+.. revealjs_fragments::
+    * Cobertura de condiciones o saltos (branch coverage):
+
+      * Revisa líneas condicionales dentro del HDL y almacena cuales condiciones se tomaron dentro la simulación.
+      * Tiene limitaciones con estructuras condicionales de bajo nivel como (multiplexores, ANDs y ORs).
+
+    * Cobertura de caminos (path coverage):
+
+      * Realiza un análisis en el HDL e identifica combinaciones de caminos decisión.
+      * Tiene limitaciones con estructuras condicionales de bajo nivel como (multiplexores, ANDs y ORs).
+
+.. revealjs_break::
+.. revealjs_fragments::
+    * Cobertura de máquinas de estado:
+
+      * Realiza un análisis en el HDL sobre estructuras de máquinas de estados (explicitas o inferidas). Mide la cobertura de los estados y los arcos.
+
+    * Cobertura de múltiples máquinas de estado:
+
+      * Realiza un análisis sobre múltiples máquinas de estados y relación entre ellas.
+
+
+Cobertura de aserciones
+-----------------------
+* Algunas aserciones pueden revisar condiciones interesantes que sean de interés medir su ocurrencia.
+* Cobertura de aserciones mide cuantas veces las aserciones se ha disparado en una prueba.
+* En estos casos se utiliza cover property en vez de assert property.
+
+Cobertura funcional
+-------------------
+.. revealjs_fragments::
+  * Tiene como objetivo los aspectos semánticos del diseño.
+  * No existe una forma automatizada de crear modelos de cobertura funcional.
+  * Requiere conocimiento del diseño y su complejidad.
+  * Conocimiento de áreas propensas a bugs.
+  * Experiencia de los ingenieros.
+
+.. revealjs_break::
+.. revealjs_fragments::
+  * El modelo más básico de cobertura funcional es la cobertura de eventos
+  * Se especifica un evento dentro del modelo o test bench que tiene la importancia suficiente para notificar su ocurrencia.
+  * Tiene gran similitud a la verificación basada en aserciones.
+  * Los eventos pueden ser simples, estáticos, secuencias temporizadas o predefinidas.
+  * Los eventos se pueden colectar a través de grupos según funcionalidad o estructura.
+  * Una forma de agrupar eventos es mediante un producto cruz de eventos relacionados o dependientes (matriz de eventos).
+  * Pueden generarse eventos ilegales o imposibles. Los eventos ilegales se tienen que transformar en aserciones.
+
+
+.. revealjs_break::
+.. figure:: media/tests.constraints.png
+
+.. revealjs_break::
+.. figure:: media/coverage.2.png
+   :scale: 50%
+
+
+Cobertura
+---------
+
+.. revealjs_fragments::
+
+  * El objetivo es tener una cobertura estructural y funcional son alta.
+  * Al principio del proyecto ambas son bajas y aumentan conformen las pruebas ejercitan el DUV.
+  * A pesar de que la cobertura sea alta, se debe revisar la tasa de bugs encontrados o utilizar otras técnicas.
+
+.. figure:: media/coverage.3.png
+   :scale: 50%
+
+.. revealjs_break::
+   :notitle:
+
+.. pull-quote::
+
+    Bugs are Darwinian. Either they are well adapted to the environment (well-hidden) or they are easily discovered and hence easily killed.
+
+Criterio para Tape-out
+----------------------
+* Es una serie de listas de control (“checklist”) que indica la finalización del trabajo planeado antes de liberar el diseño a manufactura.
+* Métricas: permiten al equipo de ingeniería evaluar el progreso del proyecto
+
+.. revealjs_break::
+
+Taza de bugs: muestra el ritmo en que el equipo de verificación encuentra bugs y los diseñadores en arreglarlas.
+
+.. figure:: media/tape.bugs.png
+
+.. revealjs_break::
+
+* Métricas: permiten al equipo de ingeniería evaluar el progreso del proyecto:
+* Cierre de cobertura: mide que el equipo de verificación ha llegado a las metas de cobertura estructural y funcional.
+
+.. figure:: media/tape.cov.png
+
+.. revealjs_break::
+   :notitle:
+.. figure:: media/tape.flow.png
+   :scale: 60%
+
+Cobertura Funcional en SV
+-------------------------
+
+* En SV los puntos de cobertura funcional se pueden definir dentro de clases, programas o módulos.
+* Se utilizan grupos de cobertura para definir los eventos que son de interés.
+* Automáticamente crea contenedores (bins) con los valores que puede tomar el punto de cobertura.
+
+
+.. code-block:: verilog
+
+    covergroup cov;
+    Feature_1: coverpoint sb.store;
+    Feature_2 : coverpoint sb.store {bins trans = ( 15 => 0);}
+    endgroup
+
+    function new();
+        cov = new();
+    endfunction
+
+    cov.sample();
+
+.. revealjs_break::
+
+Grupo de cobertura con disparador:
+
+.. code-block:: verilog
+
+    covergroup CovDst9 @(trans_ready):
+        coverpoint ifc.cb.dst; // measure coverage
+    endgroup
+
+Limitar el número de contenedores:
+
+.. code-block:: verilog
+
+    covergroup CovDst12;
+        coverpoint tr.dst
+            { option.auto_bin_max = 2; } // divide into 2 bins
+    endgroup
+
+.. revealjs_break::
+
+Se pueden asignar nombres a los bins:
+
+.. code-block::
+
+    covergroup CovKind18;
+        coverpoint p.kind {
+            bins zero = {0};        // 1 bin for kind=0
+            bins lo = {[1:3], 5};   // 1 bin for values 1:3, 5
+            bins hi[] = {[8:$]};    // 8 separate bins: 8..15
+            bins misc = default;    // 1 bin for rest, does not count
+        }                           // no semicolon
+    endgroup
+
+
+.. revealjs_break::
+
+Cobertura de transiciones:
+
+.. code-block:: verilog
+
+    covergroup CovDst25;
+        coverpoint tr.dst {
+            bins t1 = (0=>1), (0=>2), (0=>3);
+        }
+    endgroup
+
+.. revealjs_break::
+
+Ignorar condiciones:
+
+.. code-block:: verilog
+
+    covergroup CovDst28;
+        coverpoint tr.dst {
+            option.auto_bin_max = 4;    // 0:1, 2:3, 4:5, 6:7
+            ignore_bins hi = {6,7};     // ignore upper 2 values
+        }
+    endgroup
+
+.. code-block:: verilog
+
+    covergroup CovDst29;
+        coverpoint tr.dst {
+            illegal_bins hi = {6,7};     // error if seen
+        }
+    endgroup
+
+.. revealjs_break::
+
+Producto Cruz:
+
+.. code-block::
+
+    covergroup CovKind32;
+        dst: coverpoint tr.dst {
+            bins dst[] = {[0:$]};
+        }
+        kind: coverpoint tr.kind {
+            bins zero = {0};        // 1 bin for kind=0
+            bins lo = {[1:3]};      // 1 bin for values 1:3
+            bins hi[] = {[8:$]};    // 8 separate bins: 8..15
+            bins misc = default;    // 1 bin for rest, does not count
+        }
+        cross kind, dst;
+    endgroup
+
+.. revealjs_break::
+
+Contenedores dentro del producto cruz:
+
+.. code-block::
+
+    covergroup CrossBinNames;
+        a: coverpoint sam.a {
+            bins a0 = {0};
+            bins a1 = {1};
+            option.weight = 0;  // don't count this coverpoint
+        }
+        b: coverpoint sam.b {
+            bins b0 = {0};
+            bins b1 = {1};
+            option.weight = 0;  // don't count this coverpoint
+        }
+        ab: cross a,b {
+            bins a0b0 = binsof(a.a0) && binsof(b.b0);
+            bins a1b1 = binsof(a.a1) && binsof(b.b0);
+            bins b1 = binsof(b.b1);
+        }
+    endgroup
+
+
+Bibliografía
+------------
+* B\. Wile, J. Goss y W. Roesner. “Comprehensive Functional Verification The Complete Industry Cycle” Elsevier, Primera Edición, 2005.
+* C\. Spear, G. Tumbush. “System Verilog for Verification: A Guide to Learning the Testbench Language Features ” Springer, Tercera Edición, 2005.

@@ -1,0 +1,176 @@
+
+Costo de Verif
+==============
+
+* Proceso diseño
+* Causa de re-spin
+* Verificación Funcional
+* Roles
+* Funcional vs Formal
+* Ciclo de verif
+* Grafico tiempo
+
+
+Proceso de diseño
+-----------------
+
+.. figure:: media/design.flow.2.png
+   :scale: 80%
+
+* ¿Qué pasa si el HDL no expresa la función correctamente?
+* ¿Qué pasa si el diseñador omite una condición crítica (corner case)?
+
+.. revealjs_break::
+.. figure:: media/design.proc.1.png
+
+.. revealjs_break::
+.. figure:: media/design.proc.2.png
+
+.. revealjs_break::
+.. figure:: media/design.proc.3.png
+
+
+Verificación Funcional
+----------------------
+
+.. revealjs_fragments::
+
+  * La verificación funcional se encarga de asegurar que el diseño  realiza de forma correcta las tareas especificadas por la arquitectura del sistema.
+  * El trabajo del verificador se realiza la mayoría del tiempo sobre el RTL en vez de a nivel de compuertas y transistores.
+  * RTL es una forma más abstracta de especificar la lógica de un diseño en vez de a nivel de compuertas AND y OR.
+  * RTL permite al diseñador especificar el comportamiento a través de construcciones de alto nivel como ecuaciones Booleanas y estructuras IF-THEN-ELSE.
+
+.. revealjs_break::
+
+Existen 3 roles diferentes:
+
+.. revealjs_fragments::
+
+   * Diseñador de lógica que implementan el RTL de la especificación de la arquitectura utilizando un HDL.
+   * Verificador funcional que se asegura que el diseño es funcionalmente correcto.
+   * Diseñador de circuitos que acomoda las compuertas dentro del chip y se asegura que la temporización (timing) deseada se cumpla.
+
+.. revealjs_break::
+
+.. revealjs_fragments::
+
+   * El diseño de un chip consiste en miles de líneas de HDL.
+   * El trabajo del verificador es encontrar problemas en la implementación del HDL, reportando fallas o bugs cuando el HDL no se comporta
+     de acuerdo a la especificación.
+   * Un verificador expone estas fallas corriendo simulaciones sobre el diseño.
+   * El ingeniero en verificación tiene se enfrenta  dos grandes retos:
+
+     * El tamaño gigante del espacio de estados.
+     * Detectar un comportamiento incorrecto.
+
+.. revealjs_break::
+
+.. revealjs_fragments::
+
+   * Ejercitar todos escenarios de entradas y transición de estados.
+   * Reportar cualquier comportamiento incorrecto que presente del diseño.
+   * Existen 2 métodos fundamentales:
+
+     * Verificación basada en simulación
+     * Verificación formal
+
+
+Verificación Simulación
+-----------------------
+
+* Aplica estímulos a un modelo en software del diseño.
+* Se crea un TB manualmente
+
+  * Testcase: escenario de estimulo para el RTL
+  * Driver: inyectar valores al protocolo/señales
+  * Monitor: monitorear protocolo/señales
+  * Model: predecir el estado del RTL
+  * Checkers: revisa contra modelo de referencia para determinar si la prueba pasa o falla
+
+
+Verificación Formal
+-------------------
+
+.. revealjs_fragments::
+
+  * Es una técnica más nueva. En vez de verificar posibles secuencias de entrada,
+    la verificación formal prueba que una regla de un protocolo, aserción o diseño
+    se mantiene verdadera para todos los casos posibles del diseño.
+  * Verificación formal se puede utilizar solo en diseños de tamaño limitado porque consume gran
+    cantidad de recursos computacionales inclusive en diseños pequeños.
+  * SVA (SystemVerilog Assertions) assume, assert, cover.
+
+
+Formal vs Simulación
+--------------------
+
+.. figure:: media/module.arbiter.png
+
+.. revealjs_break::
+.. pull-quote::
+
+    "Testing only shows the presence of bugs, not their absence."
+    -- Dijkstra’s Dictum
+
+
+Verificación Costo
+----------------------
+
+.. figure:: media/design.flow.3.png
+
+.. revealjs_break::
+
+.. figure:: media/bugs.time.png
+
+.. revealjs_break::
+
+.. figure:: media/cost.time.png
+
+.. revealjs_break::
+.. revealjs_fragments::
+
+  * El proceso de diseño tiene restricciones de: tiempo, costo y calidad. Se debe encontrar un balance.
+  * Luego de la fabricación en silicio, pruebas a nivel de sistema se realizar y pueden encontrarse bugs que la verificación pre-silicio no encontró.
+
+    * Impacto en tiempo, alto costo monetario y alto costo en calidad.
+
+.. revealjs_break::
+.. figure:: media/time.spent.verif.png
+
+.. revealjs_break::
+.. figure:: media/proj.schedule.png
+
+
+Ciclo Verificación
+------------------
+
+.. figure:: media/verif.cycle.png
+  :scale: 80%
+
+.. revealjs_break::
+
+* Especificación funcional.
+* Plan de Verificación.
+* Desarrollo del ambiente de verificación.
+* Depuración del HDL y el ambiente.
+* Regresiones.
+* Fabricación del Hardware.
+* Depuración del Hardware (Pruebas en sistema)
+* Análisis de escapes.
+
+.. revealjs_break::
+
+.. figure:: media/verif.cycle.1.png
+
+.. revealjs_break::
+
+.. figure:: media/verif.eng.time.png
+
+
+Bibliografía
+------------
+
+* B\. Wile, J. Goss y W. Roesner.  “Comprehensive Functional Verification The Complete Industry Cycle” Elsevier, Primera Edición, 2005.
+* C\. Spear, G. Tumbush.  “System Verilog for Verification: A Guide to Learning the Testbench Language Features ” Springer, Tercera Edición, 2005.
+* S\. Vasudevan. “Effective Functional Verification”, Springer, Primera Edición, 2006.
+

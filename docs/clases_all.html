@@ -1,0 +1,2361 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2. Clases &mdash; HW Verif  documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="https://wavedrom.com/skins/default.js"></script>
+        <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="3. Ambiente de Verificación" href="env.html" />
+    <link rel="prev" title="1. Programa del Curso" href="carta.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #00c0f3 " >
+            <a href="index.html"><img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="carta.html">1. Programa del Curso</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Clases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#intro">2.1. Intro</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ti-omap-2011">2.1.1. TI: OMAP 2011</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#intel-baytrail-2013">2.1.2. Intel: BayTrail 2013</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#qualcomm-snapdragon-2014">2.1.3. Qualcomm: Snapdragon 2014</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#apple-m1-2021">2.1.4. Apple: M1 2021</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#intel-alderlake-2022">2.1.5. Intel: AlderLake 2022</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#complejidad-de-socs">2.1.6. Complejidad de SoCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#importancia">2.1.7. Importancia</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bugs">2.1.8. Bugs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#intel-pentium-division-en-punto-flotante">2.1.9. 1993 - Intel Pentium división en punto flotante</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ariane-5-vuelo-501">2.1.10. 1996 - Ariane 5 Vuelo 501</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spectre-y-meltdown">2.1.11. 2017 - Spectre y Meltdown</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#verilog">2.2. Verilog</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduccion">2.2.1. Introducción</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#historia">2.2.2. Historia</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#formato-de-los-numeros">2.2.3. Formato de los números</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#comentarios">2.2.4. Comentarios</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#variables">2.2.5. Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module">2.2.6. Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#interconexion">2.2.7. Interconexión</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#niveles-de-abstraccion">2.2.8. Niveles de abstracción</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#operadores">2.2.9. Operadores</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#asignaciones">2.2.10. Asignaciones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#procedimientos">2.2.11. Procedimientos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#asignaciones-procedurales">2.2.12. Asignaciones Procedurales</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#control-por-evento">2.2.13. Control por evento</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parametros">2.2.14. Parámetros</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#directivas-para-el-compilador">2.2.15. Directivas para el compilador</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#estructuras-de-control">2.2.16. Estructuras de Control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#funciones-sistema">2.2.17. Funciones Sistema</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#maquinas-de-estado">2.2.18. Máquinas de Estado</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#arbitro">2.2.19. Árbitro</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documentacion">2.2.20. Documentación</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#vivavo-simulator">2.3. Vivavo Simulator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">2.3.1. Intro</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vivado">2.3.2. Vivado</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xvlog">2.3.3. xvlog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xelab">2.3.4. xelab</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xsim">2.3.5. xsim</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#sv-para-verificacion">2.4. SV para verificación</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">2.4.1. Intro</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#systemverilog">2.4.2. SystemVerilog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#diff-rtl-vs-verif">2.4.3. Diff RTL vs Verif</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tipos-de-datos">2.4.4. Tipos de Datos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#logic">2.4.5. Logic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#queue">2.4.6. Queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#interfaces">2.4.7. Interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">2.4.8. Clases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#virtual-interface">2.4.9. Virtual interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#random-constraints">2.4.10. Random &amp; Constraints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fork">2.4.11. Fork</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#referencias">2.4.12. Referencias</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#testbench-uvm">2.5. Testbench UVM</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#testbench">2.5.1. Testbench</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uvm">2.5.2. UVM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uvm-classes">2.5.3. UVM Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#driver">2.5.4. Driver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#monitor">2.5.5. Monitor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uvm-phases">2.5.6. UVM Phases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uvm-macros">2.5.7. UVM Macros</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#agent">2.5.8. Agent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sequence">2.5.9. Sequence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#puntos-de-observacion">2.5.10. Puntos de observación</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#checkers">2.5.11. Checkers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#checker-vs-scoreboard">2.5.12. Checker vs Scoreboard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">2.5.13. Referencias</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#testbench-estrategia">2.6. Testbench Estrategia</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tipos">2.6.1. Tipos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vectores-de-referencia">2.6.2. Vectores de referencia</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modelo-de-referencia">2.6.3. Modelo de referencia</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#basado-en-transacciones">2.6.4. Basado en transacciones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#capas">2.6.5. Capas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#capa-funcional">2.6.6. Capa Funcional</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#capa-escenario">2.6.7. Capa Escenario</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#metodologias-de-verificacion">2.6.8. Metodologías de verificación</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pruebas-directas-dirigidas">2.6.9. Pruebas directas/dirigidas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pruebas-aleatorias">2.6.10. Pruebas Aleatorias</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bibliografia">2.6.11. Bibliografía</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#coverage">2.7. Coverage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cobertura-de-verificacion">2.7.1. Cobertura de verificación</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cobertura-estructural">2.7.2. Cobertura Estructural</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tipos-de-cobertura-estructural">2.7.3. Tipos de cobertura estructural</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cobertura-de-aserciones">2.7.4. Cobertura de aserciones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cobertura-funcional">2.7.5. Cobertura funcional</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cobertura">2.7.6. Cobertura</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#criterio-para-tape-out">2.7.7. Criterio para Tape-out</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cobertura-funcional-en-sv">2.7.8. Cobertura Funcional en SV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">2.7.9. Bibliografía</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ciclo-verif">2.8. Ciclo Verif</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id6">2.8.1. Introducción</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#jerarquia-de-verificacion">2.8.2. Jerarquía de verificación</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#controlabilidad-y-observabilidad">2.8.3. Controlabilidad y Observabilidad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">2.8.4. Jerarquía de verificación</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#emulacion">2.8.5. Emulación</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#resumen-jerarquia">2.8.6. Resumen Jerarquía</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#estrategia-de-verificacion">2.8.7. Estrategia de verificación</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#creacion-de-escenarios">2.8.8. Creación de escenarios</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">2.8.9. Bibliografía</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#costo-de-verif">2.9. Costo de Verif</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#proceso-de-diseno">2.9.1. Proceso de diseño</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verificacion-funcional">2.9.2. Verificación Funcional</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verificacion-simulacion">2.9.3. Verificación Simulación</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verificacion-formal">2.9.4. Verificación Formal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#formal-vs-simulacion">2.9.5. Formal vs Simulación</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verificacion-costo">2.9.6. Verificación Costo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ciclo-verificacion">2.9.7. Ciclo Verificación</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">2.9.8. Bibliografía</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#clase-5-sv-para-verif">2.10. Clase 5: SV para verif</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#clase-6-componentes">2.11. Clase 6: Componentes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#clase-7-coverage">2.12. Clase 7: Coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#clase-8-plan-de-pruebas">2.13. Clase 8: Plan de pruebas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#clase-9-assertions">2.14. Clase 9: Assertions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#clase-10-formal">2.15. Clase 10: Formal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="env.html">3. Ambiente de Verificación</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">4. Diseño</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rest.html">5. ReST</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #00c0f3 " >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">HW Verif</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><span class="section-number">2. </span>Clases</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/clases_all.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="clases">
+<h1><span class="section-number">2. </span>Clases<a class="headerlink" href="#clases" title="Permalink to this headline"></a></h1>
+<div class="section" id="intro">
+<h2><span class="section-number">2.1. </span>Intro<a class="headerlink" href="#intro" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>SoC</p></li>
+<li><p>Complejidad SoC</p></li>
+<li><p>Bugs</p></li>
+<li><p>Verif Env</p></li>
+</ul>
+<div class="section" id="ti-omap-2011">
+<h3><span class="section-number">2.1.1. </span>TI: OMAP 2011<a class="headerlink" href="#ti-omap-2011" title="Permalink to this headline"></a></h3>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/soc.omap.jpg"><img alt="_images/soc.omap.jpg" src="_images/soc.omap.jpg" style="width: 960.0px; height: 582.4px;" /></a>
+</div>
+</div>
+<div class="section" id="intel-baytrail-2013">
+<h3><span class="section-number">2.1.2. </span>Intel: BayTrail 2013<a class="headerlink" href="#intel-baytrail-2013" title="Permalink to this headline"></a></h3>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/soc.baytrail.jpg"><img alt="_images/soc.baytrail.jpg" src="_images/soc.baytrail.jpg" style="width: 897.6px; height: 529.6px;" /></a>
+</div>
+</div>
+<div class="section" id="qualcomm-snapdragon-2014">
+<h3><span class="section-number">2.1.3. </span>Qualcomm: Snapdragon 2014<a class="headerlink" href="#qualcomm-snapdragon-2014" title="Permalink to this headline"></a></h3>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/soc.snapdragon.png"><img alt="_images/soc.snapdragon.png" src="_images/soc.snapdragon.png" style="width: 1169.6000000000001px; height: 661.6px;" /></a>
+</div>
+</div>
+<div class="section" id="apple-m1-2021">
+<h3><span class="section-number">2.1.4. </span>Apple: M1 2021<a class="headerlink" href="#apple-m1-2021" title="Permalink to this headline"></a></h3>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/Apple-M1-soc.jpg"><img alt="_images/Apple-M1-soc.jpg" src="_images/Apple-M1-soc.jpg" style="width: 998.4000000000001px; height: 563.2px;" /></a>
+</div>
+</div>
+<div class="section" id="intel-alderlake-2022">
+<h3><span class="section-number">2.1.5. </span>Intel: AlderLake 2022<a class="headerlink" href="#intel-alderlake-2022" title="Permalink to this headline"></a></h3>
+<div class="figure align-default">
+<img alt="_images/soc.alderlake.jpeg" src="_images/soc.alderlake.jpeg" />
+</div>
+</div>
+<div class="section" id="complejidad-de-socs">
+<h3><span class="section-number">2.1.6. </span>Complejidad de SoCs<a class="headerlink" href="#complejidad-de-socs" title="Permalink to this headline"></a></h3>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/soc.complex.png"><img alt="_images/soc.complex.png" src="_images/soc.complex.png" style="width: 1024.0px; height: 576.0px;" /></a>
+</div>
+</div>
+<div class="section" id="importancia">
+<h3><span class="section-number">2.1.7. </span>Importancia<a class="headerlink" href="#importancia" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li class="fragment"><p>El aspecto más importante durante el desarollo de un producto.</p></li>
+<li class="fragment"><p>Consume más recursos.</p></li>
+<li class="fragment"><p>Ahorra dinero.</p></li>
+<li class="fragment"><p>Plazo de lanzamiento (time to market).</p></li>
+<li class="fragment"><p>Industrias: PC, networking, médica, automóviles, IoT, militar, etc.</p></li>
+</ul>
+</div>
+<div class="section" id="bugs">
+<h3><span class="section-number">2.1.8. </span>Bugs<a class="headerlink" href="#bugs" title="Permalink to this headline"></a></h3>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/challenger.jpg"><img alt="_images/challenger.jpg" src="_images/challenger.jpg" style="width: 600.0px; height: 337.5px;" /></a>
+</div>
+</div>
+<div class="section" id="intel-pentium-division-en-punto-flotante">
+<h3><span class="section-number">2.1.9. </span>1993 - Intel Pentium división en punto flotante<a class="headerlink" href="#intel-pentium-division-en-punto-flotante" title="Permalink to this headline"></a></h3>
+<p>Un error de silicio provoca que el chip Pentium de Intel cometa errores al dividir números de punto flotante que
+se producen dentro de un rango específico. Por ejemplo:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>4195835,0 / 3145727,0  = 1,33374
+                       = 1,33382
+error                  = 0,006%
+</pre></div>
+</div>
+<p>Aunque el error afectaba a unos pocos usuarios, se convierte en una pesadilla de relaciones públicas. Con un estimado de 3M a 5M
+chips defectuosos en circulación, en un primer momento Intel sólo ofrece reemplazar los chips Pentium para los consumidores que puedan probar que necesitan
+alta precisión; finalmente, la empresa cede y se compromete a reemplazar los chips para cualquier persona que se queja. El error cuesta última instancia a
+Intel $475.000.000.</p>
+</div>
+<div class="section" id="ariane-5-vuelo-501">
+<h3><span class="section-number">2.1.10. </span>1996 - Ariane 5 Vuelo 501<a class="headerlink" href="#ariane-5-vuelo-501" title="Permalink to this headline"></a></h3>
+<p>El código del cohete Ariane 4 se reutiliza en el Ariane 5, pero los motores son más rápidos en el Ariane 5
+desencadenando un error en una rutina de cálculo dentro de la computadora de vuelo del cohete.
+El error está en el código que convierte un número de coma flotante de 64 bits en un entero de 16 bits.
+Los motores más rápidos hacen que los números de 64 bits sean mayores en el Ariane 5 que en el Ariane 4,
+provocando una condición de desbordamiento (overflow) que se traduce en el fallo de la computadora de vuelo.
+Como resultado el procesador principal del cohete domina los motores y hace que el cohete se desintegre 40 segundos después del lanzamiento.</p>
+</div>
+<div class="section" id="spectre-y-meltdown">
+<h3><span class="section-number">2.1.11. </span>2017 - Spectre y Meltdown<a class="headerlink" href="#spectre-y-meltdown" title="Permalink to this headline"></a></h3>
+<p>Se encontraron 2 bugs de seguridad en la arquitectura de ARM, AMD e INTEL afecta la seguridad de PCs, Smartphones, etc.</p>
+<ul class="simple">
+<li><p>Meltdown es una falla de seguridad que permite traspasar la barrera de hardware entre modo usuario y modo privilegiado (espacio de usuario y kernel).</p></li>
+<li><p>Spectre es una falla de seguridad que permite engañar al programa para solicitar información de forma arbitraria del espacio de memoria utilizado.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="verilog">
+<h2><span class="section-number">2.2. </span>Verilog<a class="headerlink" href="#verilog" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Introducción</p></li>
+<li><p>Historia</p></li>
+<li><p>Sintaxis</p></li>
+<li><p>FSM</p></li>
+<li><p>Ejemplo</p></li>
+</ul>
+<div class="section" id="introduccion">
+<h3><span class="section-number">2.2.1. </span>Introducción<a class="headerlink" href="#introduccion" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li class="fragment"><p>Verilog es un lenguaje de descripción de hardware (HDL).</p></li>
+<li class="fragment"><p>Se utiliza para describir un sistema digital, por ejemplo un microprocesador o una memoria o un simple flip-flop.</p></li>
+<li class="fragment"><p>Permite la ejecución en paralelo para modelar sistemas digitales reales.</p></li>
+<li class="fragment"><p>La sintaxis de Verilog es muy similar al lenguaje de programación C.</p></li>
+<li class="fragment"><p>Permite diseñar con metodología bottom-up o top-down.</p></li>
+<li class="fragment"><p>Soporta diferentes niveles de abstracción: nivel estructural o nivel conductual</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/design_flow.png" src="_images/design_flow.png" />
+</div>
+</div>
+<div class="section" id="historia">
+<h3><span class="section-number">2.2.2. </span>Historia<a class="headerlink" href="#historia" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li class="fragment"><p>Verilog se inició como un lenguaje propietario de modelado de hardware de Gateway Design Automation Inc., alrededor de 1984.
+El primer simulador de Verilog fue usado en 1985.</p></li>
+<li class="fragment"><p>En 1990, Cadence Design System, decide adquirir Gateway y se convierte en el dueño del lenguaje Verilog.</p></li>
+<li class="fragment"><p>Cadence se da cuenta que si Verilog se mantiene como un lenguaje propietario, la presión por estandarización
+eventualmente causaría que la industria se moviera a VHDL. En 1991, Cadence abre el lenguaje.</p></li>
+<li class="fragment"><p>En 1993, 85% de los diseños de circuitos se realizaban en Verilog.</p></li>
+</ul>
+<ul class="simple">
+<li class="fragment"><p>En Diciembre de 1995, Verilog se convierte en el estándar IEEE 1364-1995 (Verilog 95).</p></li>
+<li class="fragment"><p>En 2001, tiene una extensión IEEE 1364-2001 (Verilog 2001).</p></li>
+<li class="fragment"><p>In 2005, se crea el estándar IEEE 1800 System Verilog, el primer lenguaje unificado de descripción de hardware y verificación (HDVL).</p></li>
+<li class="fragment"><p>SystemVerilog es una gran extensión del estándar IEEE 1364.</p></li>
+</ul>
+</div>
+<div class="section" id="formato-de-los-numeros">
+<h3><span class="section-number">2.2.3. </span>Formato de los números<a class="headerlink" href="#formato-de-los-numeros" title="Permalink to this headline"></a></h3>
+<p>Tamaño-Base-Número:</p>
+<ul class="simple">
+<li><p>Tamaño: # bits en decimal (opcional)</p></li>
+<li><p>Base: ‘b ‘d ‘h ‘o (default: ‘d)</p></li>
+<li><p>Número: cantidad (0-9 a-z A-Z x z X Z)</p></li>
+</ul>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="kt">reg</span> <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">A</span><span class="p">;</span>
+<span class="kt">reg</span> <span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">B</span><span class="p">;</span>
+
+<span class="k">always_comb</span> <span class="k">begin</span>
+   <span class="n">A</span> <span class="o">=</span> <span class="mh">187</span><span class="p">;</span>
+   <span class="n">A</span> <span class="o">=</span> <span class="mh">8&#39;ha</span><span class="p">;</span>
+   <span class="n">B</span> <span class="o">=</span> <span class="mh">3</span><span class="mb">&#39;b01</span><span class="n">x</span><span class="p">;</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="comentarios">
+<h3><span class="section-number">2.2.4. </span>Comentarios<a class="headerlink" href="#comentarios" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Desde ‘//’ hasta final de línea</p></li>
+<li><p>Región entre ‘/*’ y ‘*/’</p></li>
+</ul>
+<div class="highlight-verilog notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*</span>
+<span class="cm">   En este ejemplo</span>
+<span class="cm">   la línea 12 sobreescribe</span>
+<span class="cm">   el valor de A</span>
+<span class="cm">*/</span>
+
+<span class="kt">reg</span> <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">A</span><span class="p">;</span>
+<span class="kt">reg</span> <span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">B</span><span class="p">;</span>
+
+<span class="k">always_comb</span> <span class="k">begin</span>
+   <span class="n">A</span> <span class="o">=</span> <span class="mh">187</span><span class="p">;</span>
+   <span class="n">A</span> <span class="o">=</span> <span class="mh">8&#39;ha</span><span class="p">;</span> <span class="c1">// &lt;= se sobreescribe A</span>
+   <span class="n">B</span> <span class="o">=</span> <span class="mh">3</span><span class="mb">&#39;b01</span><span class="n">x</span><span class="p">;</span>
+<span class="k">end</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="variables">
+<h3><span class="section-number">2.2.5. </span>Variables<a class="headerlink" href="#variables" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>reg: es un registro y permite almacenar un valor</p></li>
+<li><p>wire: es un cable y permite conexiones</p></li>
+<li><p>parameter: valor constante</p></li>
+<li><p>integer: numero de 32 bits con signo</p></li>
+<li><p>time: numero de 64 bit sin signo</p></li>
+</ul>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="kt">reg</span> <span class="p">[</span><span class="mh">5</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">C</span><span class="p">;</span>            <span class="c1">// es un registro de 6 bits, C[0] es LSB.</span>
+<span class="kt">reg</span> <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">mem</span> <span class="p">[</span><span class="mh">0</span><span class="o">:</span><span class="mh">1023</span><span class="p">];</span> <span class="c1">// es una memoria de 1024 bytes.</span>
+<span class="k">parameter</span> <span class="n">T</span><span class="o">=</span><span class="mh">10</span><span class="p">;</span>         <span class="c1">// valor constante T.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="module">
+<h3><span class="section-number">2.2.6. </span>Module<a class="headerlink" href="#module" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Cada módulo tiene entradas y salidas y se interconecta con otros módulos.</p></li>
+<li><p>No existen variables globales.</p></li>
+<li><p>Cada modulo puede escribirse formato estructural o conductual.</p></li>
+<li><p>Argumentos:</p>
+<ul>
+<li><p>input: entrada a un modulo (wire).</p></li>
+<li><p>output: salidas a un modulo (wire  si la asignación es continua, reg si es una asignación  procedural).</p></li>
+<li><p>inout: entrada-salida al modulo  (wire).</p></li>
+<li><p>parámetros</p></li>
+</ul>
+</li>
+</ul>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/module.test.png"><img alt="_images/module.test.png" src="_images/module.test.png" style="width: 344.8px; height: 153.60000000000002px;" /></a>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">test</span><span class="p">(</span>
+   <span class="k">input</span> <span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">a</span><span class="p">,</span>
+   <span class="k">inout</span>       <span class="n">b</span><span class="p">,</span>
+   <span class="k">output</span>      <span class="n">c</span><span class="p">,</span>
+<span class="p">);</span>
+
+<span class="cm">/*</span>
+<span class="cm">   funcionalidad</span>
+<span class="cm">*/</span>
+
+<span class="k">endmodule</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="p">#(</span>
+   <span class="k">parameter</span> <span class="n">IN_SZ_P</span> <span class="o">=</span> <span class="mh">2</span>
+<span class="p">)</span> <span class="n">test</span><span class="p">(</span>
+   <span class="k">input</span> <span class="p">[</span><span class="n">IN_SZ_P</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span>  <span class="n">a</span><span class="p">,</span>
+   <span class="k">inout</span>                <span class="n">b</span><span class="p">,</span>
+   <span class="k">output</span>               <span class="n">c</span>
+<span class="p">);</span>
+
+<span class="cm">/*</span>
+<span class="cm">   funcionalidad</span>
+<span class="cm">*/</span>
+
+<span class="k">endmodule</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="interconexion">
+<h3><span class="section-number">2.2.7. </span>Interconexión<a class="headerlink" href="#interconexion" title="Permalink to this headline"></a></h3>
+<div class="figure align-default">
+<img alt="_images/module.intercon.png" src="_images/module.intercon.png" />
+</div>
+</div>
+<div class="section" id="niveles-de-abstraccion">
+<h3><span class="section-number">2.2.8. </span>Niveles de abstracción<a class="headerlink" href="#niveles-de-abstraccion" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li class="fragment"><p>Gate Level, Estructural:</p>
+<ul>
+<li><p>bajo nivel utilizando primitivas lógicas (AND, OR)</p></li>
+<li><p>circuitos con poco número de gates</p></li>
+<li><p>directa relación entre el circuito y código</p></li>
+</ul>
+</li>
+<li class="fragment"><p>Data Flow, Register Transfer Level:</p>
+<ul>
+<li><p>descripción de operaciones y transferencia de datos entre registros</p></li>
+<li><p>herramientas de diseño hacen la convesión a gates de circuito</p></li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+<li><p>Comportamiento, Conductual, Algorítmico:</p>
+<ul>
+<li><p>descripción del circuito de manera algorítmica</p></li>
+<li><p>sin ninguna consideración de como el diseño se transforma en hardware</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="c1">// Comportamiento</span>
+<span class="n">count</span> <span class="o">&lt;=</span> <span class="n">count</span> <span class="o">+</span> <span class="mh">1</span><span class="p">;</span>
+
+<span class="c1">// Data Flow</span>
+<span class="k">assign</span> <span class="n">a</span> <span class="o">=</span> <span class="n">b</span><span class="o">&amp;</span><span class="n">c</span><span class="p">;</span>
+
+<span class="c1">// Estructural</span>
+<span class="k">and</span> <span class="n">a1</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+<span class="k">or</span> <span class="n">o1</span><span class="p">(</span><span class="n">y2</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">);</span>
+<span class="k">or</span> <span class="n">o2</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">y1</span><span class="p">,</span><span class="n">y1</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/mux.gates.png"><img alt="_images/mux.gates.png" src="_images/mux.gates.png" style="width: 207.5px; height: 179.5px;" /></a>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">mux_from_gates</span><span class="p">();</span>
+   <span class="kt">reg</span> <span class="n">c0</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">c2</span><span class="p">,</span><span class="n">c3</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">;</span>
+   <span class="kt">wire</span> <span class="n">Y</span><span class="p">;</span>
+   <span class="c1">//Invert the sel signals</span>
+   <span class="k">not</span> <span class="p">(</span><span class="n">a_inv</span><span class="p">,</span> <span class="n">A</span><span class="p">);</span>
+   <span class="k">not</span> <span class="p">(</span><span class="n">b_inv</span><span class="p">,</span> <span class="n">B</span><span class="p">);</span>
+   <span class="c1">// 3-input AND gate</span>
+   <span class="k">and</span> <span class="p">(</span><span class="n">y0</span><span class="p">,</span><span class="n">c0</span><span class="p">,</span><span class="n">a_inv</span><span class="p">,</span><span class="n">b_inv</span><span class="p">);</span>
+   <span class="k">and</span> <span class="p">(</span><span class="n">y1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">a_inv</span><span class="p">,</span><span class="n">B</span><span class="p">);</span>
+   <span class="k">and</span> <span class="p">(</span><span class="n">y2</span><span class="p">,</span><span class="n">c2</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">b_inv</span><span class="p">);</span>
+   <span class="k">and</span> <span class="p">(</span><span class="n">y3</span><span class="p">,</span><span class="n">c3</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">);</span>
+   <span class="c1">// 4-input OR gate</span>
+   <span class="k">or</span> <span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span><span class="n">y1</span><span class="p">,</span><span class="n">y2</span><span class="p">,</span><span class="n">y3</span><span class="p">);</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<blockquote class="pull-quote">
+<div><p>Comúnmente el término RTL es usado para la combinación de Data Flow y modelado por Comportamiento</p>
+</div></blockquote>
+</div>
+<div class="section" id="operadores">
+<h3><span class="section-number">2.2.9. </span>Operadores<a class="headerlink" href="#operadores" title="Permalink to this headline"></a></h3>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="c1">// Aritméticos</span>
+<span class="o">+</span> <span class="o">-</span> <span class="o">*</span> <span class="o">/</span> <span class="o">%</span>
+
+<span class="c1">// Relacionales</span>
+<span class="o">&gt;</span> <span class="o">&lt;</span> <span class="o">&gt;=</span> <span class="o">&lt;=</span> <span class="o">!=</span> <span class="o">==</span> <span class="o">!==</span> <span class="o">===</span>
+
+<span class="c1">// Lógicos</span>
+<span class="o">!</span> <span class="o">&amp;&amp;</span> <span class="o">||</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="c1">// Operaciones bits (bit a bit)</span>
+<span class="o">~</span> <span class="o">&amp;</span> <span class="o">|</span> <span class="o">^</span>
+<span class="o">~&amp;</span> <span class="n">NAND</span>
+<span class="o">~|</span> <span class="n">NOR</span>
+<span class="o">~^</span> <span class="o">^~</span> <span class="n">NOT</span> <span class="n">XOR</span>
+
+<span class="c1">// Reducción lógica (1 operando, resultado 1 bit)</span>
+<span class="o">&amp;</span> <span class="o">|</span> <span class="o">^</span> <span class="o">~&amp;</span> <span class="o">~|</span> <span class="o">~^</span> <span class="o">^~</span>
+<span class="n">num</span> <span class="o">=</span> <span class="mh">8&#39;hF0</span>
+<span class="o">|</span><span class="n">num</span> <span class="o">=</span> <span class="mh">1</span><span class="mb">&#39;b1</span>
+
+<span class="c1">// Otros</span>
+<span class="p">{</span> <span class="p">}</span> <span class="o">&lt;&lt;</span> <span class="o">&gt;&gt;</span><span class="p">,</span> <span class="n">condicional</span> <span class="o">?</span> <span class="o">:</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="asignaciones">
+<h3><span class="section-number">2.2.10. </span>Asignaciones<a class="headerlink" href="#asignaciones" title="Permalink to this headline"></a></h3>
+<p>Continuas</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="kt">wire</span> <span class="n">A</span><span class="p">;</span>
+<span class="k">assign</span> <span class="n">A</span> <span class="o">=</span> <span class="n">B</span><span class="o">&amp;</span><span class="n">C</span><span class="p">;</span>
+
+<span class="k">always_comb</span>
+   <span class="n">A</span> <span class="o">=</span> <span class="n">B</span><span class="o">&amp;</span><span class="n">C</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Procedural</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="kt">reg</span> <span class="n">A</span><span class="p">;</span>
+<span class="k">initial</span> <span class="k">begin</span>
+   <span class="n">A</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+   <span class="p">...</span>
+   <span class="n">A</span><span class="o">=</span><span class="n">B</span><span class="o">+</span><span class="n">C</span><span class="p">;</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="procedimientos">
+<h3><span class="section-number">2.2.11. </span>Procedimientos<a class="headerlink" href="#procedimientos" title="Permalink to this headline"></a></h3>
+<dl class="simple">
+<dt>initial</dt><dd><p>termina cuando se ejecuta la última línea</p>
+</dd>
+</dl>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">initial</span> <span class="k">begin</span>
+   <span class="n">A</span> <span class="o">=</span> <span class="mh">5</span><span class="p">;</span>
+   <span class="n">B</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+   <span class="n">C</span> <span class="o">=</span> <span class="mh">1</span><span class="p">&#39;</span><span class="n">bz</span><span class="p">;</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>always</dt><dd><p>cuando se ejecuta la última línea, vuelve a empezar</p>
+</dd>
+</dl>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">always</span> <span class="k">begin</span>
+   <span class="p">#(</span><span class="mh">10</span><span class="p">)</span> <span class="n">CLK</span><span class="o">=</span><span class="mh">0</span><span class="p">;</span>
+   <span class="p">#(</span><span class="mh">10</span><span class="p">)</span> <span class="n">CLK</span><span class="o">=</span><span class="mh">1</span><span class="p">;</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="asignaciones-procedurales">
+<h3><span class="section-number">2.2.12. </span>Asignaciones Procedurales<a class="headerlink" href="#asignaciones-procedurales" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p><strong>Bloqueantes</strong>: se realiza antes de proceder con la siguiente (bloquea la ejecución)</p></li>
+<li><p><strong>No bloqueantes</strong>: se ejecutan en paralelo, describe <em>assigns</em> que ocurren a la vez</p></li>
+</ul>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">test</span><span class="p">;</span>
+   <span class="kt">reg</span> <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">;</span>
+   <span class="k">initial</span> <span class="k">begin</span>
+      <span class="n">a</span> <span class="o">=</span> <span class="mh">5</span><span class="p">;</span>
+      <span class="p">#</span><span class="mh">1</span> <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="o">+</span><span class="mh">1</span><span class="p">;</span>
+         <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">+</span><span class="mh">1</span><span class="p">;</span>
+      <span class="p">#</span><span class="mh">1</span> <span class="nb">$display</span><span class="p">(</span><span class="s">&quot;[%0t] a=%d b=%d&quot;</span><span class="p">,</span><span class="nb">$time</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+         <span class="n">a</span> <span class="o">=</span> <span class="mh">5</span><span class="p">;</span>
+      <span class="p">#</span><span class="mh">1</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="n">a</span><span class="o">+</span><span class="mh">1</span><span class="p">;</span>
+         <span class="n">b</span> <span class="o">&lt;=</span> <span class="n">a</span><span class="o">+</span><span class="mh">1</span><span class="p">;</span>
+      <span class="p">#</span><span class="mh">1</span> <span class="nb">$display</span><span class="p">(</span><span class="s">&quot;[%0t] a=%d b=%d&quot;</span><span class="p">,</span><span class="nb">$time</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+   <span class="k">end</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="control-por-evento">
+<h3><span class="section-number">2.2.13. </span>Control por evento<a class="headerlink" href="#control-por-evento" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Una asignación procedural puede ser controlada por el cambio de una variable, denominándose control por evento.</p></li>
+<li><p>Para ello se emplea el carácter &#64; seguido del evento que permite la ejecución de la asignación procedural.</p></li>
+<li><p>Se distinguen dos tipos de eventos:</p></li>
+</ul>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="c1">// Eventos de nivel: el cambio de valor de una o un conjunto de variables controla el acceso.</span>
+<span class="k">always</span> <span class="p">@(</span><span class="n">C</span> <span class="k">or</span> <span class="n">D</span><span class="p">)</span> <span class="c1">// lista de sensibilidad</span>
+   <span class="n">B</span><span class="o">=</span><span class="n">C</span><span class="o">+</span><span class="n">D</span><span class="p">;</span>
+
+<span class="c1">// Eventos de flanco: la combinación de flanco/s de subida (0 / 1) y de bajada (1 / 0)</span>
+<span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">CLK</span><span class="p">)</span>
+   <span class="n">B</span><span class="o">=</span><span class="n">C</span><span class="o">+</span><span class="mh">1</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="parametros">
+<h3><span class="section-number">2.2.14. </span>Parámetros<a class="headerlink" href="#parametros" title="Permalink to this headline"></a></h3>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="c1">// Reloj</span>
+<span class="k">parameter</span> <span class="n">T</span><span class="o">=</span><span class="mh">10</span><span class="n">_000</span><span class="p">;</span>
+<span class="kt">reg</span> <span class="n">CLK</span><span class="p">;</span>
+<span class="k">always</span> <span class="k">begin</span>
+   <span class="p">#(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">T</span><span class="p">)</span> <span class="n">CLK</span><span class="o">=</span><span class="mh">0</span><span class="p">;</span>
+   <span class="p">#(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">T</span><span class="p">)</span> <span class="n">CLK</span><span class="o">=</span><span class="mh">1</span><span class="p">;</span>
+<span class="k">end</span>
+
+<span class="c1">// Ancho de bus</span>
+<span class="k">parameter</span> <span class="n">N</span><span class="o">=</span><span class="mh">8</span><span class="p">;</span>
+<span class="kt">reg</span> <span class="p">[</span><span class="n">N</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">bus_A</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="directivas-para-el-compilador">
+<h3><span class="section-number">2.2.15. </span>Directivas para el compilador<a class="headerlink" href="#directivas-para-el-compilador" title="Permalink to this headline"></a></h3>
+<dl class="simple">
+<dt>timescale</dt><dd><p>la sim de verilog requiere una definición de tiempo: #1
+el <em>time_unit</em> es la medida de la unidad de sim, mientras <em>time_presicion</em> específica como
+son redondeados los retardos (<em>time_unit</em> &gt;= <em>time_presicion</em>)</p>
+</dd>
+</dl>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="no">`timescale</span> <span class="mh">1</span><span class="n">ns</span><span class="o">/</span><span class="mh">100</span><span class="n">ps</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>define</dt><dd><p>define un macro, de forma que cada vez que aparezca en el texto será sustituida por el valor.</p>
+</dd>
+</dl>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="cp">`define MACRO value</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>include</dt><dd><p>permite insertar el archivo en la posición donde aparezca esta directiva</p>
+</dd>
+</dl>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="no">`include</span> <span class="s">&quot;filename&quot;</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>ifdef</dt><dd><p>si la macro está definida, el código es incluido, en caso contrario es ignorado.</p>
+</dd>
+</dl>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="no">`ifdef</span> <span class="n">VAR</span>
+   <span class="n">code</span>
+<span class="no">`endif</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="estructuras-de-control">
+<h3><span class="section-number">2.2.16. </span>Estructuras de Control<a class="headerlink" href="#estructuras-de-control" title="Permalink to this headline"></a></h3>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="c1">// if</span>
+<span class="k">if</span>  <span class="p">(</span><span class="n">expression</span><span class="p">)</span>
+   <span class="n">command1</span><span class="p">;</span>
+<span class="k">else</span> <span class="p">(</span><span class="n">expression</span><span class="p">)</span>
+   <span class="n">command2</span><span class="p">;</span>
+
+<span class="c1">// case</span>
+<span class="k">case</span> <span class="p">(</span><span class="n">expression</span><span class="p">)</span>
+   <span class="nl">val1:</span>
+      <span class="n">command1</span><span class="p">;</span>
+   <span class="nl">val2:</span>
+      <span class="n">command2</span><span class="p">;</span>
+   <span class="p">...</span>
+   <span class="k">default</span><span class="o">:</span>
+      <span class="n">commandN</span><span class="p">;</span>
+<span class="k">endcase</span>
+
+<span class="c1">// for</span>
+<span class="k">for</span>  <span class="p">(</span><span class="n">init</span><span class="p">;</span> <span class="n">cond</span><span class="p">;</span> <span class="n">rep</span><span class="p">)</span>
+   <span class="n">command</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="c1">// while</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">cond</span><span class="p">)</span> <span class="n">command</span><span class="p">;</span>
+
+<span class="c1">// repeat</span>
+<span class="k">repeat</span> <span class="p">(</span><span class="n">Ntimes</span><span class="p">)</span> <span class="n">command</span><span class="p">;</span>
+
+<span class="c1">// wait</span>
+<span class="k">wait</span> <span class="p">(</span><span class="n">cond</span><span class="p">)</span> <span class="n">command</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="funciones-sistema">
+<h3><span class="section-number">2.2.17. </span>Funciones Sistema<a class="headerlink" href="#funciones-sistema" title="Permalink to this headline"></a></h3>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="c1">// esto es como la función print en otro lenguaje de programación</span>
+<span class="nb">$display</span><span class="p">(</span><span class="s">&quot;mem[0]  = %b&quot;</span><span class="p">,</span> <span class="n">mem</span><span class="p">[</span><span class="mh">0</span><span class="p">]);</span>
+
+<span class="c1">// indica el final de la simulación</span>
+<span class="nb">$finish</span><span class="p">;</span>
+
+<span class="c1">// retorna el instante de tiempo en el que se encuentra la simulación</span>
+<span class="nb">$time</span><span class="p">;</span>
+
+<span class="c1">// retorna un valor pseudo-aleatorio entero de 32 bits cada vez que se invoca.</span>
+<span class="nb">$random</span><span class="p">();</span>
+
+<span class="c1">// sin signo</span>
+<span class="n">$urandom</span><span class="p">();</span>
+
+<span class="c1">// sin signo, en rango</span>
+<span class="n">$urandom_range</span><span class="p">(</span><span class="n">N1</span><span class="p">,</span><span class="n">N2</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="maquinas-de-estado">
+<h3><span class="section-number">2.2.18. </span>Máquinas de Estado<a class="headerlink" href="#maquinas-de-estado" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Mealy: la salida depende del estado presente y las entradas.</p></li>
+<li><p>Moore: la salida depende del estado presente.</p></li>
+</ul>
+</div>
+<div class="section" id="arbitro">
+<h3><span class="section-number">2.2.19. </span>Árbitro<a class="headerlink" href="#arbitro" title="Permalink to this headline"></a></h3>
+<div class="figure align-default">
+<img alt="_images/module.arbiter.png" src="_images/module.arbiter.png" />
+</div>
+<ul class="simple">
+<li><p>Cuando <em>req_0</em> esta en alto , <em>gnt_0</em> esta en alto.</p></li>
+<li><p>Cuando <em>req_1</em> esta en alto, <em>gnt_1</em> esta en alto.</p></li>
+<li><p>Cuando ambos <em>req_0</em> y <em>req_1</em> esta en alto, <em>gnt_0</em> esta en alto teniendo mayor prioridad <em>req_0</em> sobre <em>req_1</em>.</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/fsm.arbiter.png" src="_images/fsm.arbiter.png" />
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">arbiter</span> <span class="p">(</span>
+   <span class="n">clock</span><span class="p">,</span>
+   <span class="n">reset</span><span class="p">,</span>
+   <span class="n">req_0</span><span class="p">,</span>
+   <span class="n">req_1</span><span class="p">,</span>
+   <span class="n">gnt_0</span><span class="p">,</span>
+   <span class="n">gnt_1</span>
+<span class="p">);</span>
+
+<span class="k">input</span> <span class="n">clock</span><span class="p">,</span> <span class="n">reset</span><span class="p">,</span> <span class="n">req_0</span><span class="p">,</span> <span class="n">req_1</span><span class="p">;</span>
+<span class="k">output</span> <span class="n">gnt_0</span><span class="p">,</span> <span class="n">gnt_1</span><span class="p">;</span>
+<span class="kt">reg</span> <span class="n">gnt_0</span><span class="p">,</span> <span class="n">gnt_1</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">arbiter</span> <span class="p">(</span>
+   <span class="k">input</span> <span class="n">clock</span><span class="p">,</span>
+   <span class="k">input</span> <span class="n">reset</span><span class="p">,</span>
+   <span class="k">input</span> <span class="n">req_0</span><span class="p">,</span>
+   <span class="k">input</span> <span class="n">req_1</span><span class="p">,</span>
+   <span class="k">output</span> <span class="kt">reg</span> <span class="n">gnt_0</span><span class="p">,</span>
+   <span class="k">output</span> <span class="kt">reg</span> <span class="n">gnt_1</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">always</span> <span class="p">@</span> <span class="p">(</span><span class="k">posedge</span> <span class="n">clock</span> <span class="k">or</span> <span class="k">posedge</span> <span class="n">reset</span><span class="p">)</span>
+   <span class="k">if</span> <span class="p">(</span><span class="n">reset</span><span class="p">)</span> <span class="k">begin</span> <span class="c1">// IDLE</span>
+      <span class="n">gnt_0</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
+      <span class="n">gnt_1</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
+   <span class="k">end</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">req_0</span><span class="p">)</span> <span class="k">begin</span> <span class="c1">// GNT0</span>
+      <span class="n">gnt_0</span> <span class="o">&lt;=</span> <span class="mh">1</span><span class="p">;</span>
+      <span class="n">gnt_1</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
+   <span class="k">end</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">req_1</span><span class="p">)</span> <span class="k">begin</span> <span class="c1">// GNT1</span>
+      <span class="n">gnt_0</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
+      <span class="n">gnt_1</span> <span class="o">&lt;=</span> <span class="mh">1</span><span class="p">;</span>
+   <span class="k">end</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="documentacion">
+<h3><span class="section-number">2.2.20. </span>Documentación<a class="headerlink" href="#documentacion" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.asic-world.com/verilog/veritut.html">Deepak Kumar: Verilog Tutorial</a></p></li>
+<li><p>Jorge Chavez: Verilog Manual</p></li>
+<li><p>D Thomas, P Moorby: The Verilog Hardware Description Language</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="vivavo-simulator">
+<h2><span class="section-number">2.3. </span>Vivavo Simulator<a class="headerlink" href="#vivavo-simulator" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Línea de comandos</p></li>
+<li><p>Fases</p></li>
+<li><p>Ejemplo</p></li>
+</ul>
+<div class="section" id="id1">
+<h3><span class="section-number">2.3.1. </span>Intro<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li class="fragment"><p>Icarus Verilog: <cite>iverilog</cite></p></li>
+<li class="fragment"><p>Cadence Incisive: <cite>irun</cite></p></li>
+<li class="fragment"><p>Cadence Xcelium: <cite>xrun</cite></p></li>
+<li class="fragment"><p>Synopsys Verilog Compiler Simulator: <cite>vcs</cite></p></li>
+<li class="fragment"><p>Xilinx Vivado: <cite>vivado</cite></p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/sim.logos.png" src="_images/sim.logos.png" />
+</div>
+</div>
+<div class="section" id="vivado">
+<h3><span class="section-number">2.3.2. </span>Vivado<a class="headerlink" href="#vivado" title="Permalink to this headline"></a></h3>
+<p>Es un simulador de HDL que realiza simulaciones conductuales, funcionales y de tiempo para VHDL, Verilog
+y diseños mixtos.</p>
+<p>Cuenta con los siguientes componentes:</p>
+<ul class="simple">
+<li class="fragment"><p><a class="reference external" href="#">xvhdl/xvlog:</a> lee archivos VHDL y Verilog y los guarda en librerías HDL en disco.</p></li>
+<li class="fragment"><p><a class="reference external" href="#">xelab:</a> elaborador y linker. Dado una unidad top-level, carga las sub unidades del diseño
+y las covierte en código ejecutable (exe sim snapshot)</p></li>
+<li class="fragment"><p><a class="reference external" href="#">xsim:</a> comando para cargar un ejecutable (exe sim snapshot) y lanzarlo en modo batch, gui o tcl interactivo.</p></li>
+<li class="fragment"><p><a class="reference external" href="#">IDE:</a> ambiente integrado para edición de diseños con interface de usuario para simulación.</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/vivado.1.png" src="_images/vivado.1.png" />
+</div>
+<div class="figure align-default">
+<img alt="_images/vivado.2.png" src="_images/vivado.2.png" />
+</div>
+</div>
+<div class="section" id="xvlog">
+<h3><span class="section-number">2.3.3. </span>xvlog<a class="headerlink" href="#xvlog" title="Permalink to this headline"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xvlog</span> <span class="o">-</span><span class="n">sv</span> <span class="o">--</span><span class="n">incr</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">developer</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">counter</span><span class="o">/</span><span class="n">rtl</span><span class="o">/</span><span class="n">counter</span><span class="o">.</span><span class="n">v</span> <span class="o">-</span><span class="n">i</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">developer</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">counter</span><span class="o">/</span><span class="n">rtl</span>
+<span class="n">xvlog</span> <span class="o">-</span><span class="n">sv</span> <span class="o">--</span><span class="n">incr</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">developer</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">counter</span><span class="o">/</span><span class="n">dv</span><span class="o">/</span><span class="n">tb</span><span class="o">.</span><span class="n">v</span> <span class="o">-</span><span class="n">i</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">developer</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">counter</span><span class="o">/</span><span class="n">dv</span> <span class="o">-</span><span class="n">i</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">developer</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">counter</span><span class="o">/</span><span class="n">rtl</span>
+</pre></div>
+</div>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/xvlog.png"><img alt="_images/xvlog.png" src="_images/xvlog.png" style="width: 866.4px; height: 574.1999999999999px;" /></a>
+</div>
+</div>
+<div class="section" id="xelab">
+<h3><span class="section-number">2.3.4. </span>xelab<a class="headerlink" href="#xelab" title="Permalink to this headline"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xelab</span> <span class="n">tb</span> <span class="o">-</span><span class="n">s</span> <span class="n">tb</span> <span class="o">-</span><span class="n">timescale</span> <span class="mi">1</span><span class="n">ns</span><span class="o">/</span><span class="mi">1</span><span class="n">ns</span> <span class="o">-</span><span class="n">debug</span> <span class="n">wave</span>
+</pre></div>
+</div>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/xelab.png"><img alt="_images/xelab.png" src="_images/xelab.png" style="width: 868.1999999999999px; height: 568.8px;" /></a>
+</div>
+</div>
+<div class="section" id="xsim">
+<h3><span class="section-number">2.3.5. </span>xsim<a class="headerlink" href="#xsim" title="Permalink to this headline"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xsim</span> <span class="n">tb</span> <span class="o">--</span><span class="n">stats</span> <span class="o">-</span><span class="n">tclbatch</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">developer</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">common</span><span class="o">/</span><span class="n">utils</span><span class="o">/</span><span class="n">xsim</span><span class="o">.</span><span class="n">tcl</span>
+</pre></div>
+</div>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/xsim.png"><img alt="_images/xsim.png" src="_images/xsim.png" style="width: 898.1999999999999px; height: 679.8px;" /></a>
+</div>
+</div>
+</div>
+<div class="section" id="sv-para-verificacion">
+<h2><span class="section-number">2.4. </span>SV para verificación<a class="headerlink" href="#sv-para-verificacion" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Diff RTL vs Verif</p></li>
+<li><p>Tipos de datos</p></li>
+<li><p>Interfaces</p></li>
+<li><p>Clases</p></li>
+<li><p>vifc</p></li>
+<li><p>Random</p></li>
+<li><p>Fork</p></li>
+</ul>
+<div class="section" id="id2">
+<h3><span class="section-number">2.4.1. </span>Intro<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h3>
+<div class="figure align-default">
+<img alt="_images/design.lang.trend.jpg" src="_images/design.lang.trend.jpg" />
+</div>
+<div class="figure align-default">
+<img alt="_images/verif.lang.trend.jpg" src="_images/verif.lang.trend.jpg" />
+</div>
+</div>
+<div class="section" id="systemverilog">
+<h3><span class="section-number">2.4.2. </span>SystemVerilog<a class="headerlink" href="#systemverilog" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li class="fragment"><p>Verilog 95 y Verilog 2001 no eran lenguajes para verificación</p></li>
+<li class="fragment"><p>Para verificación se tenía que utilizar lenguajes como “e”, VERA, Testbuilder</p>
+<ul>
+<li><p>Es difícil tener dos lenguajes, uno para del diseño y otro para verificación</p></li>
+</ul>
+</li>
+<li class="fragment"><p>System Verilog es una evolución de Verilog-2001 y un lenguaje poderoso para:</p>
+<ul>
+<li><p>Diseño</p></li>
+<li><p>Verificación</p></li>
+<li><p>Testbench</p></li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+<li><p>Las características principales para validación son:</p>
+<ul>
+<li><p>Aserciones, Cobertura, generación aleatoria.</p></li>
+<li><p>Incorpora características de lenguajes de alto nivel como C++</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="diff-rtl-vs-verif">
+<h3><span class="section-number">2.4.3. </span>Diff RTL vs Verif<a class="headerlink" href="#diff-rtl-vs-verif" title="Permalink to this headline"></a></h3>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span>
+<span class="n">interface</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="n">class</span>
+<span class="n">virtual</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tipos-de-datos">
+<h3><span class="section-number">2.4.4. </span>Tipos de Datos<a class="headerlink" href="#tipos-de-datos" title="Permalink to this headline"></a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 86%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Tipo</p></th>
+<th class="head"><p>Definición</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>shortint</p></td>
+<td><p>SV: 2 estados, 16b con signo</p></td>
+</tr>
+<tr class="row-odd"><td><p>int</p></td>
+<td><p>SV: 2 estados, 32b con signo</p></td>
+</tr>
+<tr class="row-even"><td><p>longint</p></td>
+<td><p>SV: 2 estados, 64b con signo</p></td>
+</tr>
+<tr class="row-odd"><td><p>byte</p></td>
+<td><p>SV: 2 estados, 8b con signo o char ASCII</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 86%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Tipo</p></th>
+<th class="head"><p>Definición</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bit</p></td>
+<td><p>SV: 2 estados, tamaño vector definido por usuario</p></td>
+</tr>
+<tr class="row-odd"><td><p>logic</p></td>
+<td><p>SV: 4 estados, tamaño vector definido por usuario</p></td>
+</tr>
+<tr class="row-even"><td><p>reg</p></td>
+<td><p>V: 4 estados,  tamaño vector definido por usuario</p></td>
+</tr>
+<tr class="row-odd"><td><p>interger</p></td>
+<td><p>V: 4 estados, 32b con signo</p></td>
+</tr>
+<tr class="row-even"><td><p>time</p></td>
+<td><p>V: 4 estados, 64b sin signo</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="logic">
+<h3><span class="section-number">2.4.5. </span>Logic<a class="headerlink" href="#logic" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>En Verilog, se podían crean confusiones con el uso de reg y wire.</p></li>
+<li><p>System Verilog soluciona el problema con logic:</p>
+<ul>
+<li><p>Puede ser utilizado con asignaciones continuas, compuertas, módulos o puede ser una variable.</p></li>
+<li><p>Excepción: no se puede utilizar cuando se tienen varios “drivers”. Por ejemplo: buses bidireccionales.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="queue">
+<h3><span class="section-number">2.4.6. </span>Queue<a class="headerlink" href="#queue" title="Permalink to this headline"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>int q2[$] = {3,4};
+int q[$] = {0,2,5};
+int j = 1;
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">initial</span> <span class="k">begin</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="mh">1</span><span class="p">,</span> <span class="n">j</span><span class="p">);</span>     <span class="c1">// {0,1,2,5} Inserta 1 antes del 2</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="mh">3</span><span class="p">,</span> <span class="n">q2</span><span class="p">);</span>    <span class="c1">// {0,1,2,3,4,5} Inserta q2 en q1</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="mh">1</span><span class="p">);</span>        <span class="c1">// {0,2,3,4,5} Borra el elemento  #1</span>
+
+    <span class="c1">// Operaciones  rápidas</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">push_front</span><span class="p">(</span><span class="mh">6</span><span class="p">);</span>    <span class="c1">// {6,0,2,3,4,5} Inserta al principio</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">pop_back</span><span class="p">;</span>     <span class="c1">// {6,0,2,3,4} j = 5</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mh">8</span><span class="p">);</span>     <span class="c1">// {6,0,2,3,4,8} Insert al final</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">pop_front</span><span class="p">;</span>    <span class="c1">// {0,2,3,4,8} j = 6</span>
+    <span class="n">foreach</span> <span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="nb">$display</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span> <span class="c1">// Imprime el queue por completo</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">delete</span><span class="p">();</span>         <span class="c1">// {} Borra el queue por completo</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span>initial begin
+    q = {q[0], j, q[1:$]};      // {0,1,2,5} Inserta 1 antes que 2
+    q = {q[0:2], q2, q[3:$]};   // {0,1,2,3,4,5} Inserta q2 en q
+    q = {q[0], q[2:$]};         // {0,2,3,4,5} Borra el elemento #1
+
+    //Operaciones rápidas
+    q = {6, q};             // {6,0,2,3,4,5} Inserta al principio
+    j = q[$];               // j = 5 Equivalente a
+    q = q[0:$-1];           // {6,0,2,3,4} Retira al final
+    q = {q, 8};             // {6,0,2,3,4,8} Inserta al final
+    j = q[0];               // j = 6 Equivalente a
+    q = q[1:$];             // {0,2,3,4,8} Retira al principio
+    q = {};                 // {} Borra por completo el queue
+end
+</pre></div>
+</div>
+</div>
+<div class="section" id="interfaces">
+<h3><span class="section-number">2.4.7. </span>Interfaces<a class="headerlink" href="#interfaces" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Permite encapsular la comunicación entre el DUT y el TB.</p></li>
+<li><p>Permite lista de puertos compactas y evita puertos sin conectar.</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/vifc.png" src="_images/vifc.png" />
+</div>
+<div class="figure align-default">
+<img alt="_images/uvm.example.dut.png" src="_images/uvm.example.dut.png" />
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="n">interface</span> <span class="n">simpleadder_if</span><span class="p">;</span>
+    <span class="kt">logic</span>    <span class="n">sig_clock</span><span class="p">;</span>
+    <span class="kt">logic</span>    <span class="n">sig_ina</span><span class="p">;</span>
+    <span class="kt">logic</span>    <span class="n">sig_inb</span><span class="p">;</span>
+    <span class="kt">logic</span>    <span class="n">sig_en_i</span><span class="p">;</span>
+    <span class="kt">logic</span>    <span class="n">sig_out</span><span class="p">;</span>
+    <span class="kt">logic</span>    <span class="n">sig_en_o</span><span class="p">;</span>
+<span class="nl">endinterface:</span> <span class="n">simpleadder_if</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3><span class="section-number">2.4.8. </span>Clases<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h3>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">simpleadder_test</span> <span class="n">extends</span> <span class="n">uvm_test</span><span class="p">;</span>
+
+    <span class="n">simpleadder_env</span> <span class="n">sa_env</span><span class="p">;</span>
+
+    <span class="k">function</span> <span class="n">new</span><span class="p">(</span><span class="k">string</span> <span class="n">name</span><span class="p">,</span> <span class="n">uvm_component</span> <span class="n">parent</span><span class="p">);</span>
+        <span class="n">super</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="p">);</span>
+    <span class="k">endfunction</span><span class="o">:</span> <span class="n">new</span>
+
+    <span class="k">function</span> <span class="k">void</span> <span class="n">build_phase</span><span class="p">(</span><span class="n">uvm_phase</span> <span class="n">phase</span><span class="p">);</span>
+        <span class="n">super</span><span class="p">.</span><span class="n">build_phase</span><span class="p">(</span><span class="n">phase</span><span class="p">);</span>
+        <span class="n">sa_env</span> <span class="o">=</span> <span class="n">simpleadder_env</span><span class="o">::</span><span class="n">type_id</span><span class="o">::</span><span class="n">create</span><span class="p">(...</span>
+    <span class="k">endfunction</span><span class="o">:</span> <span class="n">build_phase</span>
+
+    <span class="k">task</span> <span class="n">run_phase</span><span class="p">(</span><span class="n">uvm_phase</span> <span class="n">phase</span><span class="p">);</span>
+        <span class="n">simpleadder_sequence</span> <span class="n">sa_seq</span><span class="p">;</span>
+    <span class="k">endtask</span><span class="o">:</span> <span class="n">run_phase</span>
+
+<span class="nl">endclass:</span> <span class="n">simpleadder_test</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="virtual-interface">
+<h3><span class="section-number">2.4.9. </span>Virtual interface<a class="headerlink" href="#virtual-interface" title="Permalink to this headline"></a></h3>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">simpleadder_tb_top</span><span class="p">;</span>
+    <span class="n">import</span> <span class="n">uvm_pkg</span><span class="o">::*</span><span class="p">;</span>
+
+    <span class="c1">//Interface declaration</span>
+    <span class="n">simpleadder_if</span> <span class="n">vif</span><span class="p">();</span>
+
+    <span class="c1">//Connects the Interface to the DUT</span>
+    <span class="n">simpleadder</span> <span class="n">dut</span><span class="p">(</span><span class="n">vif</span><span class="p">.</span><span class="n">sig_clock</span><span class="p">,</span>
+                    <span class="n">vif</span><span class="p">.</span><span class="n">sig_en_i</span><span class="p">,</span>
+                    <span class="n">vif</span><span class="p">.</span><span class="n">sig_ina</span><span class="p">,</span>
+                    <span class="n">vif</span><span class="p">.</span><span class="n">sig_inb</span><span class="p">,</span>
+                    <span class="n">vif</span><span class="p">.</span><span class="n">sig_en_o</span><span class="p">,</span>
+                    <span class="n">vif</span><span class="p">.</span><span class="n">sig_out</span><span class="p">);</span>
+    <span class="k">initial</span> <span class="k">begin</span>
+        <span class="c1">//Registers the Interface in the configuration block</span>
+        <span class="c1">//so that other blocks can use it</span>
+        <span class="n">uvm_resource_db</span><span class="p">#(</span><span class="n">virtual</span> <span class="n">simpleadder_if</span><span class="p">)</span><span class="o">::</span><span class="n">set</span><span class="p">(.</span><span class="n">scope</span><span class="p">(</span><span class="s">&quot;ifs&quot;</span><span class="p">),</span> <span class="p">.</span><span class="n">name</span><span class="p">(</span><span class="s">&quot;simpleadder_if&quot;</span><span class="p">),</span> <span class="p">.</span><span class="n">val</span><span class="p">(</span><span class="n">vif</span><span class="p">));</span>
+
+        <span class="c1">//Executes the test</span>
+        <span class="n">run_test</span><span class="p">();</span>
+    <span class="k">end</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="random-constraints">
+<h3><span class="section-number">2.4.10. </span>Random &amp; Constraints<a class="headerlink" href="#random-constraints" title="Permalink to this headline"></a></h3>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="n">rand</span> <span class="k">integer</span> <span class="n">len</span><span class="p">;</span>
+<span class="n">randc</span> <span class="kt">bit</span> <span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">no_repeat</span><span class="p">;</span>
+<span class="n">rand</span> <span class="kt">bit</span>  <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">payload</span> <span class="p">[];</span>
+
+<span class="c1">// Restringir miembros</span>
+<span class="n">constraint</span> <span class="n">legal</span> <span class="p">{</span>
+    <span class="n">len</span> <span class="o">&gt;=</span> <span class="mh">2</span><span class="p">;</span>
+    <span class="n">len</span> <span class="o">&lt;=</span> <span class="mh">5</span><span class="p">;</span>
+    <span class="n">payload</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="n">len</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">constraint</span> <span class="n">distribution</span> <span class="p">{</span>
+    <span class="n">no_repeat</span> <span class="n">dist</span> <span class="p">{</span> <span class="mh">0</span> <span class="o">:=</span> <span class="mh">1</span> <span class="p">,</span> <span class="mh">1</span> <span class="o">:=</span> <span class="mh">1</span><span class="p">,</span> <span class="mh">2</span> <span class="o">:=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mh">3</span> <span class="o">:=</span> <span class="mf">0.5</span> <span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="fork">
+<h3><span class="section-number">2.4.11. </span>Fork<a class="headerlink" href="#fork" title="Permalink to this headline"></a></h3>
+<div class="figure align-default">
+<img alt="_images/sv.fork.png" src="_images/sv.fork.png" />
+</div>
+</div>
+<div class="section" id="referencias">
+<h3><span class="section-number">2.4.12. </span>Referencias<a class="headerlink" href="#referencias" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>B. Wile, J. Goss y W. Roesner.  “Comprehensive Functional Verification The Complete Industry Cycle” Elsevier, Primera Edición, 2005.</p></li>
+<li><p>C. Spear, G. Tumbush.  “System Verilog for Verification: A Guide to Learning the Testbench Language Features ” Springer, Tercera Edición, 2005.</p></li>
+<li><p>Accellera. “System Verilog 3.1a Language Reference Manual”, 2004.</p></li>
+<li><p><a class="reference external" href="http://www.testbench.in">www.testbench.in</a></p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="testbench-uvm">
+<h2><span class="section-number">2.5. </span>Testbench UVM<a class="headerlink" href="#testbench-uvm" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Intro</p></li>
+<li><p>UVM</p></li>
+<li><p>Componentes</p></li>
+<li><p>Checkers</p></li>
+</ul>
+<div class="section" id="testbench">
+<h3><span class="section-number">2.5.1. </span>Testbench<a class="headerlink" href="#testbench" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li class="fragment"><p>Modela el universo para el diseño y debe soportar toda las acciones que pueden ocurrir sobre él.</p></li>
+<li class="fragment"><p>Se conoce como banco de pruebas o “testbench”</p></li>
+<li class="fragment"><p>Un ambiente básico de verificación consiste en:</p>
+<ul>
+<li><p>Diseño bajo verificación (DUV/DUT)</p></li>
+<li><p>Componente de estímulo</p></li>
+<li><p>Componente de monitoreo</p></li>
+<li><p>Componente de chequeo</p></li>
+<li><p>Scoreboard</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="uvm">
+<h3><span class="section-number">2.5.2. </span>UVM<a class="headerlink" href="#uvm" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li class="fragment"><p>Sistemas digitales complejos. Se verificaba revisando los waveforms, manual</p></li>
+<li class="fragment"><p>SV lenguaje: clases, covergroups, constraints</p></li>
+<li class="fragment"><p>Metodología de verif es esencial: automatizar, reutilizable, building blocks</p></li>
+<li class="fragment"><p>UVM: SV API opensource (Accellera) para automatizar/crear ambiente de verif eficiente</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/method.trend.jpg" src="_images/method.trend.jpg" />
+</div>
+<div class="figure align-default">
+<img alt="_images/uvm.tb.png" src="_images/uvm.tb.png" />
+</div>
+</div>
+<div class="section" id="uvm-classes">
+<h3><span class="section-number">2.5.3. </span>UVM Classes<a class="headerlink" href="#uvm-classes" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Los componentes son representados como objetos.</p></li>
+<li><p>Cada clase contiene métodos útiles implementados.</p></li>
+</ul>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/uvm.classes.tree.png"><img alt="_images/uvm.classes.tree.png" src="_images/uvm.classes.tree.png" style="width: 447.59999999999997px; height: 300.0px;" /></a>
+</div>
+</div>
+<div class="section" id="driver">
+<h3><span class="section-number">2.5.4. </span>Driver<a class="headerlink" href="#driver" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li class="fragment"><p>Manipula las entradas del DUV.</p></li>
+<li class="fragment"><p>Imita el comportamiento de entidades vecinas.</p></li>
+<li class="fragment"><p>La generación de estímulos no deben restringirse a lo que el DUV es capaz de recibir.</p></li>
+<li class="fragment"><p>De esta forma se estresa el DUV y se pueden encontrar condiciones límite que solo se pueden ver luego de millones de ciclos una prueba a nivel de sistema.</p></li>
+<li class="fragment"><p><a class="reference external" href="http://">Convierte TLM =&gt; señales</a></p></li>
+</ul>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">simpleadder_driver</span> <span class="n">extends</span> <span class="n">uvm_driver</span><span class="p">#(</span><span class="n">simpleadder_transaction</span><span class="p">);</span>
+
+    <span class="c1">//Interface declaration</span>
+    <span class="n">protected</span> <span class="n">virtual</span> <span class="n">simpleadder_if</span> <span class="n">vif</span><span class="p">;</span>
+
+    <span class="k">function</span> <span class="n">new</span><span class="p">(</span><span class="k">string</span> <span class="n">name</span><span class="p">,</span> <span class="n">uvm_component</span> <span class="n">parent</span><span class="p">);</span>
+        <span class="n">super</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="p">);</span>
+    <span class="k">endfunction</span><span class="o">:</span> <span class="n">new</span>
+
+    <span class="k">function</span> <span class="k">void</span> <span class="n">build_phase</span><span class="p">(</span><span class="n">uvm_phase</span> <span class="n">phase</span><span class="p">);</span>
+        <span class="n">super</span><span class="p">.</span><span class="n">build_phase</span><span class="p">(</span><span class="n">phase</span><span class="p">);</span>
+        <span class="k">void</span><span class="p">&#39;(</span><span class="n">uvm_resource_db</span><span class="p">#(</span><span class="n">virtual</span> <span class="n">simpleadder_if</span><span class="p">)</span><span class="o">::</span><span class="n">read_by_name</span><span class="p">(.</span><span class="n">scope</span><span class="p">(</span><span class="s">&quot;ifs&quot;</span><span class="p">),</span> <span class="p">.</span><span class="n">name</span><span class="p">(</span><span class="s">&quot;simpleadder_if&quot;</span><span class="p">),</span> <span class="p">.</span><span class="n">val</span><span class="p">(</span><span class="n">vif</span><span class="p">)));</span>
+    <span class="k">endfunction</span><span class="o">:</span> <span class="n">build_phase</span>
+
+    <span class="k">task</span> <span class="n">run_phase</span><span class="p">(</span><span class="n">uvm_phase</span> <span class="n">phase</span><span class="p">);</span>
+        <span class="c1">//Our code here</span>
+    <span class="k">endtask</span><span class="o">:</span> <span class="n">run_phase</span>
+
+<span class="nl">endclass:</span> <span class="n">simpleadder_driver</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="monitor">
+<h3><span class="section-number">2.5.5. </span>Monitor<a class="headerlink" href="#monitor" title="Permalink to this headline"></a></h3>
+<p>Un monitor es un modelo que observa diferentes aspectos del ambiente como:</p>
+<ul class="simple">
+<li class="fragment"><p>Salidas para se cumpla el protocolo.</p></li>
+<li class="fragment"><p>Entradas para cobertura funcional y actualizaciones del scoreboard</p></li>
+<li class="fragment"><p>Señales internas para eventos de interés para el ambiente</p></li>
+<li class="fragment"><p><a class="reference external" href="http://">Convierte señales =&gt; TLM</a></p></li>
+</ul>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">simpleadder_monitor_before</span> <span class="n">extends</span> <span class="n">uvm_monitor</span><span class="p">;</span>
+
+    <span class="n">uvm_analysis_port</span><span class="p">#(</span><span class="n">simpleadder_transaction</span><span class="p">)</span> <span class="n">mon_ap_before</span><span class="p">;</span>
+
+    <span class="n">virtual</span> <span class="n">simpleadder_if</span> <span class="n">vif</span><span class="p">;</span>
+
+    <span class="k">function</span> <span class="n">new</span><span class="p">(</span><span class="k">string</span> <span class="n">name</span><span class="p">,</span> <span class="n">uvm_component</span> <span class="n">parent</span><span class="p">);</span>
+        <span class="n">super</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="p">);</span>
+    <span class="k">endfunction</span><span class="o">:</span> <span class="n">new</span>
+
+    <span class="k">function</span> <span class="k">void</span> <span class="n">build_phase</span><span class="p">(</span><span class="n">uvm_phase</span> <span class="n">phase</span><span class="p">);</span>
+        <span class="n">super</span><span class="p">.</span><span class="n">build_phase</span><span class="p">(</span><span class="n">phase</span><span class="p">);</span>
+
+        <span class="k">void</span><span class="p">&#39;(</span><span class="n">uvm_resource_db</span><span class="p">#(</span><span class="n">virtual</span> <span class="n">simpleadder_if</span><span class="p">)</span><span class="o">::</span><span class="n">read_by_name</span> <span class="p">(.</span><span class="n">scope</span><span class="p">(</span><span class="s">&quot;ifs&quot;</span><span class="p">),</span> <span class="p">.</span><span class="n">name</span><span class="p">(</span><span class="s">&quot;simpleadder_if&quot;</span><span class="p">),</span> <span class="p">.</span><span class="n">val</span><span class="p">(</span><span class="n">vif</span><span class="p">)));</span>
+        <span class="n">mon_ap_before</span> <span class="o">=</span> <span class="n">new</span><span class="p">(.</span><span class="n">name</span><span class="p">(</span><span class="s">&quot;mon_ap_before&quot;</span><span class="p">),</span> <span class="p">.</span><span class="n">parent</span><span class="p">(</span><span class="n">this</span><span class="p">));</span>
+    <span class="k">endfunction</span><span class="o">:</span> <span class="n">build_phase</span>
+
+    <span class="k">task</span> <span class="n">run_phase</span><span class="p">(</span><span class="n">uvm_phase</span> <span class="n">phase</span><span class="p">);</span>
+        <span class="c1">//Our code here</span>
+    <span class="k">endtask</span><span class="o">:</span> <span class="n">run_phase</span>
+
+<span class="nl">endclass:</span> <span class="n">simpleadder_monitor_before</span>
+</pre></div>
+</div>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/uvm.example.layers.png"><img alt="_images/uvm.example.layers.png" src="_images/uvm.example.layers.png" style="width: 690.6px; height: 490.79999999999995px;" /></a>
+</div>
+<div class="figure align-default">
+<img alt="_images/uvm.layers.png" src="_images/uvm.layers.png" />
+</div>
+</div>
+<div class="section" id="uvm-phases">
+<h3><span class="section-number">2.5.6. </span>UVM Phases<a class="headerlink" href="#uvm-phases" title="Permalink to this headline"></a></h3>
+<p>Todas las clases/obj tienen sim phases.
+Las phases son pasos ordenados de ejecución implementados como métodos.</p>
+<div class="figure align-default">
+<img alt="_images/uvm.phases.png" src="_images/uvm.phases.png" />
+</div>
+<ul class="simple">
+<li class="fragment"><p>build: construye los componentes de la jerarquía. Ej. agent =&gt; driver, monitor</p></li>
+<li class="fragment"><p>connect: conectar sub componentes de la clase.</p></li>
+<li class="fragment"><p>run: fase principal</p></li>
+<li class="fragment"><p>report: se utiliza para recolectar datos al final de la sim para hacer reportes, checkers, resultados</p></li>
+</ul>
+</div>
+<div class="section" id="uvm-macros">
+<h3><span class="section-number">2.5.7. </span>UVM Macros<a class="headerlink" href="#uvm-macros" title="Permalink to this headline"></a></h3>
+<p>Implementan métodos útiles para clases y variables. Opcionales, pero recomendables.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>// This macro registers the new class type.
+// It’s usually used when deriving new classes like a new agent,
+// driver, monitor and so on.
+`uvm_component_utils
+
+// This macro registers a variable in the UVM factory and implements
+// some functions like copy(), compare() and print().
+`uvm_field_int
+
+// This a very useful macro to print messages from the UVM environment
+// during simulation time.
+`uvm_info
+</pre></div>
+</div>
+</div>
+<div class="section" id="agent">
+<h3><span class="section-number">2.5.8. </span>Agent<a class="headerlink" href="#agent" title="Permalink to this headline"></a></h3>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">simpleadder_agent</span> <span class="n">extends</span> <span class="n">uvm_agent</span><span class="p">;</span>
+
+   <span class="c1">//Analysis ports to connect the monitors to the scoreboard</span>
+   <span class="n">uvm_analysis_port</span><span class="p">#(</span><span class="n">simpleadder_transaction</span><span class="p">)</span> <span class="n">agent_ap_before</span><span class="p">;</span>
+   <span class="n">uvm_analysis_port</span><span class="p">#(</span><span class="n">simpleadder_transaction</span><span class="p">)</span> <span class="n">agent_ap_after</span><span class="p">;</span>
+
+   <span class="n">simpleadder_sequencer</span>        <span class="n">sa_seqr</span><span class="p">;</span>
+   <span class="n">simpleadder_driver</span>        <span class="n">sa_drvr</span><span class="p">;</span>
+   <span class="n">simpleadder_monitor_before</span>    <span class="n">sa_mon_before</span><span class="p">;</span>
+   <span class="n">simpleadder_monitor_after</span>    <span class="n">sa_mon_after</span><span class="p">;</span>
+
+   <span class="k">function</span> <span class="n">new</span><span class="p">(</span><span class="k">string</span> <span class="n">name</span><span class="p">,</span> <span class="n">uvm_component</span> <span class="n">parent</span><span class="p">);</span>
+         <span class="n">super</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="p">);</span>
+   <span class="k">endfunction</span><span class="o">:</span> <span class="n">new</span>
+
+   <span class="k">function</span> <span class="k">void</span> <span class="n">build_phase</span><span class="p">(</span><span class="n">uvm_phase</span> <span class="n">phase</span><span class="p">);</span>
+         <span class="n">super</span><span class="p">.</span><span class="n">build_phase</span><span class="p">(</span><span class="n">phase</span><span class="p">);</span>
+
+         <span class="n">agent_ap_before</span>    <span class="o">=</span> <span class="n">new</span><span class="p">(.</span><span class="n">name</span><span class="p">(</span><span class="s">&quot;agent_ap_before&quot;</span><span class="p">),</span> <span class="p">.</span><span class="n">parent</span><span class="p">(</span><span class="n">this</span><span class="p">));</span>
+         <span class="n">agent_ap_after</span>    <span class="o">=</span> <span class="n">new</span><span class="p">(.</span><span class="n">name</span><span class="p">(</span><span class="s">&quot;agent_ap_after&quot;</span><span class="p">),</span> <span class="p">.</span><span class="n">parent</span><span class="p">(</span><span class="n">this</span><span class="p">));</span>
+
+         <span class="n">sa_seqr</span>        <span class="o">=</span> <span class="n">simpleadder_sequencer</span><span class="o">::</span><span class="n">type_id</span><span class="o">::</span><span class="n">create</span><span class="p">(...</span>
+         <span class="n">sa_drvr</span>        <span class="o">=</span> <span class="n">simpleadder_driver</span><span class="o">::</span><span class="n">type_id</span><span class="o">::</span><span class="n">create</span><span class="p">(...</span>
+         <span class="n">sa_mon_before</span>    <span class="o">=</span> <span class="n">simpleadder_monitor_before</span><span class="o">::</span><span class="n">type_id</span><span class="o">::</span><span class="n">create</span><span class="p">(...</span>
+         <span class="n">sa_mon_after</span>    <span class="o">=</span> <span class="n">simpleadder_monitor_after</span><span class="o">::</span><span class="n">type_id</span><span class="o">::</span><span class="n">create</span><span class="p">(...</span>
+   <span class="k">endfunction</span><span class="o">:</span> <span class="n">build_phase</span>
+
+   <span class="k">function</span> <span class="k">void</span> <span class="n">connect_phase</span><span class="p">(</span><span class="n">uvm_phase</span> <span class="n">phase</span><span class="p">);</span>
+         <span class="n">super</span><span class="p">.</span><span class="n">connect_phase</span><span class="p">(</span><span class="n">phase</span><span class="p">);</span>
+         <span class="n">sa_drvr</span><span class="p">.</span><span class="n">seq_item_port</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">sa_seqr</span><span class="p">.</span><span class="n">seq_item_export</span><span class="p">);</span>
+         <span class="n">sa_mon_before</span><span class="p">.</span><span class="n">mon_ap_before</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">agent_ap_before</span><span class="p">);</span>
+         <span class="n">sa_mon_after</span><span class="p">.</span><span class="n">mon_ap_after</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">agent_ap_after</span><span class="p">);</span>
+   <span class="k">endfunction</span><span class="o">:</span> <span class="n">connect_phase</span>
+
+<span class="nl">endclass:</span> <span class="n">simpleadder_agent</span>
+</pre></div>
+</div>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/uvm.example.layers.2.png"><img alt="_images/uvm.example.layers.2.png" src="_images/uvm.example.layers.2.png" style="width: 690.6px; height: 490.79999999999995px;" /></a>
+</div>
+</div>
+<div class="section" id="sequence">
+<h3><span class="section-number">2.5.9. </span>Sequence<a class="headerlink" href="#sequence" title="Permalink to this headline"></a></h3>
+<div class="figure align-default">
+<img alt="_images/uvm.seq.png" src="_images/uvm.seq.png" />
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">simpleadder_transaction</span> <span class="n">extends</span> <span class="n">uvm_sequence_item</span><span class="p">;</span>
+   <span class="n">rand</span> <span class="kt">bit</span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">ina</span><span class="p">;</span>
+   <span class="n">rand</span> <span class="kt">bit</span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">inb</span><span class="p">;</span>
+   <span class="kt">bit</span><span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">out</span><span class="p">;</span>
+
+   <span class="k">function</span> <span class="n">new</span><span class="p">(</span><span class="k">string</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">);</span>
+         <span class="n">super</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+   <span class="k">endfunction</span><span class="o">:</span> <span class="n">new</span>
+
+   <span class="p">&#39;</span><span class="n">uvm_object_utils_begin</span><span class="p">(</span><span class="n">simpleadder_transaction</span><span class="p">)</span>
+   <span class="p">&#39;</span><span class="n">uvm_field_int</span><span class="p">(</span><span class="n">ina</span><span class="p">,</span> <span class="n">UVM_ALL_ON</span><span class="p">)</span>
+   <span class="p">&#39;</span><span class="n">uvm_field_int</span><span class="p">(</span><span class="n">inb</span><span class="p">,</span> <span class="n">UVM_ALL_ON</span><span class="p">)</span>
+   <span class="p">&#39;</span><span class="n">uvm_field_int</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">UVM_ALL_ON</span><span class="p">)</span>
+   <span class="p">&#39;</span><span class="n">uvm_object_utils_end</span>
+<span class="nl">endclass:</span> <span class="n">simpleadder_transaction</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">simpleadder_transaction_3inputs</span> <span class="n">extends</span> <span class="n">simpleadder_transaction</span><span class="p">;</span>
+   <span class="n">rand</span> <span class="kt">bit</span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">inc</span><span class="p">;</span>
+
+   <span class="k">function</span> <span class="n">new</span><span class="p">(</span><span class="k">string</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">);</span>
+      <span class="n">super</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+   <span class="k">endfunction</span><span class="o">:</span> <span class="n">new</span>
+
+   <span class="p">&#39;</span><span class="n">uvm_object_utils_begin</span><span class="p">(</span><span class="n">simpleadder_transaction_3inputs</span><span class="p">)</span>
+   <span class="p">&#39;</span><span class="n">uvm_field_int</span><span class="p">(</span><span class="n">inc</span><span class="p">,</span> <span class="n">UVM_ALL_ON</span><span class="p">)</span>
+   <span class="p">&#39;</span><span class="n">uvm_object_utils_end</span>
+<span class="nl">endclass:</span> <span class="n">simpleadder_transaction_3inputs</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">simpleadder_sequence</span> <span class="n">extends</span> <span class="n">uvm_sequence</span><span class="p">#(</span><span class="n">simpleadder_transaction</span><span class="p">);</span>
+   <span class="p">&#39;</span><span class="n">uvm_object_utils</span><span class="p">(</span><span class="n">simpleadder_sequence</span><span class="p">)</span>
+
+   <span class="k">function</span> <span class="n">new</span><span class="p">(</span><span class="k">string</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">);</span>
+         <span class="n">super</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+   <span class="k">endfunction</span><span class="o">:</span> <span class="n">new</span>
+
+   <span class="k">task</span> <span class="n">body</span><span class="p">();</span>
+         <span class="n">simpleadder_transaction</span> <span class="n">sa_tx</span><span class="p">;</span>
+
+         <span class="k">repeat</span><span class="p">(</span><span class="mh">15</span><span class="p">)</span> <span class="k">begin</span>
+               <span class="n">sa_tx</span> <span class="o">=</span> <span class="n">simpleadder_transaction</span><span class="o">::</span><span class="n">type_id</span><span class="o">::</span><span class="n">create</span><span class="p">(...</span>
+
+               <span class="n">start_item</span><span class="p">(</span><span class="n">sa_tx</span><span class="p">);</span>
+                  <span class="n">assert</span><span class="p">(</span><span class="n">sa_tx</span><span class="p">.</span><span class="n">randomize</span><span class="p">());</span>
+               <span class="n">finish_item</span><span class="p">(</span><span class="n">sa_tx</span><span class="p">);</span>
+         <span class="k">end</span>
+   <span class="k">endtask</span><span class="o">:</span> <span class="n">body</span>
+<span class="nl">endclass:</span> <span class="n">simpleadder_sequence</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="puntos-de-observacion">
+<h3><span class="section-number">2.5.10. </span>Puntos de observación<a class="headerlink" href="#puntos-de-observacion" title="Permalink to this headline"></a></h3>
+<p>Verificación de Caja negra (Black Box):</p>
+<ul class="simple">
+<li class="fragment"><p>el ambiente de verificación solo utiliza interfaces externas (entradas y salidas)</p></li>
+<li class="fragment"><p>la especificación debe explicar claramente la función del DUV</p></li>
+<li class="fragment"><p>revisa el algoritmo/funcionalidad no la implementación</p></li>
+<li class="fragment"><p>poco impacto a cambios estructurales</p></li>
+<li class="fragment"><p>bajo control y observabilidad</p></li>
+</ul>
+<p>Verificación de Caja Blanca (White Box):</p>
+<ul class="simple">
+<li class="fragment"><p>a diferencia de <em>caja negra</em> provee un entendimiento completo de la estructuras internas del DUV</p></li>
+<li class="fragment"><p>revisa la implementación</p></li>
+<li class="fragment"><p>el ambiente de verificación observa y chequea señales internas, modela y predice estructuras</p></li>
+<li class="fragment"><p>alto impacto a cambios estructurales (dependencia)</p></li>
+<li class="fragment"><p>mayor control y observabilidad</p></li>
+<li class="fragment"><p>se realiza a niveles bajos de la jerarquía de verificación</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/black.white.box.png" src="_images/black.white.box.png" />
+</div>
+<p>Verificación de Caja gris (Gray Box):</p>
+<ul class="simple">
+<li><p>es una combinación de los dos métodos anteriores</p></li>
+</ul>
+</div>
+<div class="section" id="checkers">
+<h3><span class="section-number">2.5.11. </span>Checkers<a class="headerlink" href="#checkers" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li class="fragment"><p>Checkers de datos: se utilizan para verificar la integridad de los datos transmitidos por un dispositivo (datapath).</p>
+<ul>
+<li><p>Es conecta en la entradas y salidas del dispositivo.</p></li>
+</ul>
+</li>
+<li class="fragment"><p>Checker de protocolo/interface: revisa que protocolo en la interface donde se conecta.</p></li>
+<li class="fragment"><p>Checker basado en ciclos: se utilizan para revisar que la salida del dispositivo es correcta ciclo a ciclo.</p>
+<ul>
+<li><p>Difíciles de implementar y darles mantenimiento.</p></li>
+</ul>
+</li>
+</ul>
+<blockquote class="pull-quote">
+<div><p>“Even if it’s tested, if it isn’t checked it still doesn’t work!”
+– Bentley’s Corollary</p>
+</div></blockquote>
+</div>
+<div class="section" id="checker-vs-scoreboard">
+<h3><span class="section-number">2.5.12. </span>Checker vs Scoreboard<a class="headerlink" href="#checker-vs-scoreboard" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li class="fragment"><p>ambos son componentes para revisar</p></li>
+<li class="fragment"><p>checker usa señales: protocol checker</p></li>
+<li class="fragment"><p>checker se puede poner dentro del monitor para verificar TLM se generen adecuadamente</p></li>
+<li class="fragment"><p>scoreboard usa TLM: packets IN vs packets OUT</p></li>
+</ul>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/uvm.scoreboard.png"><img alt="_images/uvm.scoreboard.png" src="_images/uvm.scoreboard.png" style="width: 535.8px; height: 466.79999999999995px;" /></a>
+</div>
+</div>
+<div class="section" id="id4">
+<h3><span class="section-number">2.5.13. </span>Referencias<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Pedro Araújo. <a class="reference external" href="https://colorlesscube.com/uvm-guide-for-beginners/">UVM guide for beginners</a></p></li>
+<li><p>Accelera. <a class="reference external" href="https://www.accellera.org/downloads/standards/uvm">UVM downloads</a></p></li>
+<li><p>Accellera. <a class="reference external" href="https://www.accellera.org/images/downloads/standards/uvm/uvm_users_guide_1.2.pdf">UVM users guide</a></p></li>
+<li><p>B. Wile, J. Goss y W. Roesner. “Comprehensive Functional Verification The Complete Industry Cycle” Elsevier, Primera Edición, 2005.</p></li>
+<li><p>C. Spear, G. Tumbush. “System Verilog for Verification: A Guide to Learning the Testbench Language Features ” Springer, Tercera Edición, 2005.</p></li>
+<li><p>S. Vasudevan. “Effective Functional Verification”, Springer, Primera Edición, 2006.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="testbench-estrategia">
+<h2><span class="section-number">2.6. </span>Testbench Estrategia<a class="headerlink" href="#testbench-estrategia" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Intro</p></li>
+<li><p>TB tipos</p></li>
+<li><p>Capas</p></li>
+<li><p>Estrategia</p></li>
+</ul>
+<div class="section" id="tipos">
+<h3><span class="section-number">2.6.1. </span>Tipos<a class="headerlink" href="#tipos" title="Permalink to this headline"></a></h3>
+<p>Test Bench determinístico:</p>
+<ul class="simple">
+<li><p>Se utiliza al principio del ciclo de verificación para probar la funcionalidad básica del DUV.</p></li>
+<li><p>Utiliza casos de prueba determinísticos donde se conoce la función que se desea ejercitar.</p></li>
+</ul>
+<p>Self checking TestBench:</p>
+<ul class="simple">
+<li><p>Agrega el conocimiento de la funcionalidad del DUV para realizar un chequeo automático.</p></li>
+<li><p>Requiere más tiempo de desarrollo.</p></li>
+<li><p>Existen diferentes tipos:</p>
+<ul>
+<li><p>Vectores de referencia.</p></li>
+<li><p>Modelo de referencia</p></li>
+<li><p>Basado en transacciones.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="vectores-de-referencia">
+<h3><span class="section-number">2.6.2. </span>Vectores de referencia<a class="headerlink" href="#vectores-de-referencia" title="Permalink to this headline"></a></h3>
+<p>Vectores de salida válidos se almacenan en el scoreboard y se comparan las salidas DUV con la base.</p>
+<div class="figure align-default">
+<img alt="_images/vec.ref.png" src="_images/vec.ref.png" />
+</div>
+</div>
+<div class="section" id="modelo-de-referencia">
+<h3><span class="section-number">2.6.3. </span>Modelo de referencia<a class="headerlink" href="#modelo-de-referencia" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Calcula las salidas esperadas con base en las entradas.</p></li>
+<li><p>Re-implementa la función del DUV pero a alto nivel.</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/model.ref.png" src="_images/model.ref.png" />
+</div>
+</div>
+<div class="section" id="basado-en-transacciones">
+<h3><span class="section-number">2.6.4. </span>Basado en transacciones<a class="headerlink" href="#basado-en-transacciones" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Un ambiente basado en transacciones es utilizado para un DUV que tiene transacciones identificables a través de comandos y datos.</p></li>
+<li><p>El scoreboard almacena las transacciones que han entrado al DUV y que no se han completado.</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/tlm.scb.png" src="_images/tlm.scb.png" />
+</div>
+</div>
+<div class="section" id="capas">
+<h3><span class="section-number">2.6.5. </span>Capas<a class="headerlink" href="#capas" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li class="fragment"><p>El primer paso consiste en tomar acciones/comandos comunes como: reset, lectura/escritura de bus, etc. y moverlos a subrutinas.</p></li>
+<li class="fragment"><p>La capa de señales contiene las señales DUT que se conectan al testbench.</p></li>
+<li class="fragment"><p>La capa de comandos (TLM):</p>
+<ul>
+<li><p>Maneja la entradas del DUT y aplica comandos como lectura/escritura al bus.</p></li>
+<li><p>Las salidas del DUT manejan el monitor que toma las señales y la agrupa en comandos de respuesta.</p></li>
+</ul>
+</li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/tb.capas.1.png" src="_images/tb.capas.1.png" />
+</div>
+</div>
+<div class="section" id="capa-funcional">
+<h3><span class="section-number">2.6.6. </span>Capa Funcional<a class="headerlink" href="#capa-funcional" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>El bloque agente recibe TLMs (transacciones de alto nivel) y las divide en comandos/transacciones señales.</p></li>
+<li><p>TLMs también son enviados al scoreboard que predice el resultado.</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/tb.capas.2.png" src="_images/tb.capas.2.png" />
+</div>
+</div>
+<div class="section" id="capa-escenario">
+<h3><span class="section-number">2.6.7. </span>Capa Escenario<a class="headerlink" href="#capa-escenario" title="Permalink to this headline"></a></h3>
+<p>La capa funcional es manejada por un generador de escenarios</p>
+<div class="figure align-default">
+<img alt="_images/tb.capas.3.png" src="_images/tb.capas.3.png" />
+</div>
+<p>Al dividir el TB en piezas y capas facilita su mantenimiento y reuso.</p>
+<div class="figure align-default">
+<img alt="_images/tb.capas.3.png" src="_images/tb.capas.3.png" />
+</div>
+</div>
+<div class="section" id="metodologias-de-verificacion">
+<h3><span class="section-number">2.6.8. </span>Metodologías de verificación<a class="headerlink" href="#metodologias-de-verificacion" title="Permalink to this headline"></a></h3>
+<div class="figure align-default">
+<img alt="_images/method.trend.jpg" src="_images/method.trend.jpg" />
+</div>
+</div>
+<div class="section" id="pruebas-directas-dirigidas">
+<h3><span class="section-number">2.6.9. </span>Pruebas directas/dirigidas<a class="headerlink" href="#pruebas-directas-dirigidas" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Este enfoque utiliza la especificación para escribir un plan de verificación con una lista de pruebas.</p></li>
+<li><p>Presenta una progreso incremental y resultados de inmediato hasta completar todas las pruebas.</p></li>
+<li><p>Si la complejidad aumenta al doble, el doble de tiempo o el doble de recursos se requieren para finalizar.</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/tests.direct.png" src="_images/tests.direct.png" />
+</div>
+</div>
+<div class="section" id="pruebas-aleatorias">
+<h3><span class="section-number">2.6.10. </span>Pruebas Aleatorias<a class="headerlink" href="#pruebas-aleatorias" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li class="fragment"><p>Se requieren estímulos aleatorios para diseños complejos.</p></li>
+<li class="fragment"><p>Se requiere cobertura funcional para medir el progreso de verificación.</p></li>
+<li class="fragment"><p>Se requiere un scoreboard o modelo de referencia para para predecir los resultados.</p></li>
+<li class="fragment"><p>En general requiere más tiempo de desarrollo por lo que genera un retardo para correr la primera prueba.</p></li>
+<li class="fragment"><p>Sin embargo, permite encontrar bugs más rápido que pruebas directas.</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/tests.random.png" src="_images/tests.random.png" />
+</div>
+<ul class="simple">
+<li class="fragment"><p>Configuración del dispositivo</p></li>
+<li class="fragment"><p>Configuración del ambiente</p></li>
+<li class="fragment"><p>Datos de entrada</p></li>
+<li class="fragment"><p>Excepciones de protocolo</p></li>
+<li class="fragment"><p>Errores/violaciones</p></li>
+<li class="fragment"><p>Retardos/sincronización</p></li>
+</ul>
+<ul class="simple">
+<li class="fragment"><p>Los valores o parámetros utilizados no son completamente aleatorios sino que son restringidos.</p></li>
+<li class="fragment"><p>Se utilizan restricciones para cumplir ciertos requerimientos (espacio legal).</p></li>
+<li class="fragment"><p>Estas restricciones puede utilizarse para crear pruebas directas.</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/tests.constraints.png" src="_images/tests.constraints.png" />
+</div>
+<p>El tipo de estimulo varia dependiendo del ambiente de verificación, el plan de verificación y el DUT.</p>
+<div class="figure align-default">
+<img alt="_images/estrategia.png" src="_images/estrategia.png" />
+</div>
+<blockquote class="pull-quote">
+<div><p>Passing tests aren’t interesting because they don’t tell us anything; failing tests are interesting.
+That’s why it is dangerous to only track pass rates, and even more dangerous to conclude that verification is ”
+done” when all tests are passing.
+(the fallacy of the test list)</p>
+</div></blockquote>
+<blockquote class="pull-quote">
+<div><p>Running the same tests over and over again will eventually cause them to pass.
+What it doesn’t do is tell you if there are bugs hiding elsewhere. (the fallacy of the regression).</p>
+</div></blockquote>
+</div>
+<div class="section" id="bibliografia">
+<h3><span class="section-number">2.6.11. </span>Bibliografía<a class="headerlink" href="#bibliografia" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>B. Wile, J. Goss y W. Roesner. “Comprehensive Functional Verification The Complete Industry Cycle” Elsevier, Primera Edición, 2005.</p></li>
+<li><p>C. Spear, G. Tumbush. “System Verilog for Verification: A Guide to Learning the Testbench Language Features ” Springer, Tercera Edición, 2005.</p></li>
+<li><p>S. Vasudevan. “Effective Functional Verification”, Springer, Primera Edición, 2006.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="coverage">
+<h2><span class="section-number">2.7. </span>Coverage<a class="headerlink" href="#coverage" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Estructural</p></li>
+<li><p>Assertions</p></li>
+<li><p>Funcional</p></li>
+<li><p>Tape-out</p></li>
+<li><p>Cov SV</p></li>
+<li><p>Cross Cov</p></li>
+</ul>
+<div class="section" id="cobertura-de-verificacion">
+<h3><span class="section-number">2.7.1. </span>Cobertura de verificación<a class="headerlink" href="#cobertura-de-verificacion" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li class="fragment"><p>El equipo de verificación requiere de métricas para medir la calidad y el avance a través del tiempo.</p></li>
+<li class="fragment"><p>La cobertura de verificación es la medición de espacio de estados que se han ejercitado dentro del ambiente de verificación.</p>
+<ul>
+<li><p>Cobertura de prueba: mide la cobertura de un estimulo con respecto a la especificación del diseño.</p></li>
+<li><p>Cobertura de implementación: mide la cobertura de función implementada en el DUV.</p></li>
+</ul>
+</li>
+<li class="fragment"><p>El objetivo del análisis de cobertura es la de guiar el proceso de verificación, no la de probar su completitud.</p></li>
+</ul>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/coverage.1.png"><img alt="_images/coverage.1.png" src="_images/coverage.1.png" style="width: 607.5999999999999px; height: 482.99999999999994px;" /></a>
+</div>
+<blockquote class="pull-quote">
+<div><p>Coverage isn’t an end in itself, it’s a mean to an end (finding bugs).
+It’s what you find in the course of driving up coverage that is important.
+– Milburn’s observation</p>
+</div></blockquote>
+</div>
+<div class="section" id="cobertura-estructural">
+<h3><span class="section-number">2.7.2. </span>Cobertura Estructural<a class="headerlink" href="#cobertura-estructural" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Estos modelos de cobertura están ligados a un aspecto estructural de la implementación del DUV, test bench or HDL.</p></li>
+<li><p>Su fortaleza se encuentra en su facilidad de implementación y su habilidad de mostrar huecos o áreas sin cubrir dentro del diseño.</p></li>
+</ul>
+</div>
+<div class="section" id="tipos-de-cobertura-estructural">
+<h3><span class="section-number">2.7.3. </span>Tipos de cobertura estructural<a class="headerlink" href="#tipos-de-cobertura-estructural" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li class="fragment"><p>Cobertura de transiciones “Toggle”:</p>
+<ul>
+<li><p>Mide cuantas veces una señal o un latch ha cambiado su valor lógico durante la simulación.</p></li>
+<li><p>Es muy simple. No es representativo de la calidad de las prueba a nivel funcional.</p></li>
+</ul>
+</li>
+<li class="fragment"><p>Cobertura de línea (statement coverage):</p>
+<ul>
+<li><p>Mide cuales líneas del HDL fueron ejecutadas durante la simulación.</p></li>
+<li><p>Es muy simple y no resultados no permiten conocer si el código ejecutado es correcto.</p></li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+<li class="fragment"><p>Cobertura de condiciones o saltos (branch coverage):</p>
+<ul>
+<li><p>Revisa líneas condicionales dentro del HDL y almacena cuales condiciones se tomaron dentro la simulación.</p></li>
+<li><p>Tiene limitaciones con estructuras condicionales de bajo nivel como (multiplexores, ANDs y ORs).</p></li>
+</ul>
+</li>
+<li class="fragment"><p>Cobertura de caminos (path coverage):</p>
+<ul>
+<li><p>Realiza un análisis en el HDL e identifica combinaciones de caminos decisión.</p></li>
+<li><p>Tiene limitaciones con estructuras condicionales de bajo nivel como (multiplexores, ANDs y ORs).</p></li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+<li class="fragment"><p>Cobertura de máquinas de estado:</p>
+<ul>
+<li><p>Realiza un análisis en el HDL sobre estructuras de máquinas de estados (explicitas o inferidas). Mide la cobertura de los estados y los arcos.</p></li>
+</ul>
+</li>
+<li class="fragment"><p>Cobertura de múltiples máquinas de estado:</p>
+<ul>
+<li><p>Realiza un análisis sobre múltiples máquinas de estados y relación entre ellas.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="cobertura-de-aserciones">
+<h3><span class="section-number">2.7.4. </span>Cobertura de aserciones<a class="headerlink" href="#cobertura-de-aserciones" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Algunas aserciones pueden revisar condiciones interesantes que sean de interés medir su ocurrencia.</p></li>
+<li><p>Cobertura de aserciones mide cuantas veces las aserciones se ha disparado en una prueba.</p></li>
+<li><p>En estos casos se utiliza cover property en vez de assert property.</p></li>
+</ul>
+</div>
+<div class="section" id="cobertura-funcional">
+<h3><span class="section-number">2.7.5. </span>Cobertura funcional<a class="headerlink" href="#cobertura-funcional" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li class="fragment"><p>Tiene como objetivo los aspectos semánticos del diseño.</p></li>
+<li class="fragment"><p>No existe una forma automatizada de crear modelos de cobertura funcional.</p></li>
+<li class="fragment"><p>Requiere conocimiento del diseño y su complejidad.</p></li>
+<li class="fragment"><p>Conocimiento de áreas propensas a bugs.</p></li>
+<li class="fragment"><p>Experiencia de los ingenieros.</p></li>
+</ul>
+<ul class="simple">
+<li class="fragment"><p>El modelo más básico de cobertura funcional es la cobertura de eventos</p></li>
+<li class="fragment"><p>Se especifica un evento dentro del modelo o test bench que tiene la importancia suficiente para notificar su ocurrencia.</p></li>
+<li class="fragment"><p>Tiene gran similitud a la verificación basada en aserciones.</p></li>
+<li class="fragment"><p>Los eventos pueden ser simples, estáticos, secuencias temporizadas o predefinidas.</p></li>
+<li class="fragment"><p>Los eventos se pueden colectar a través de grupos según funcionalidad o estructura.</p></li>
+<li class="fragment"><p>Una forma de agrupar eventos es mediante un producto cruz de eventos relacionados o dependientes (matriz de eventos).</p></li>
+<li class="fragment"><p>Pueden generarse eventos ilegales o imposibles. Los eventos ilegales se tienen que transformar en aserciones.</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/tests.constraints.png" src="_images/tests.constraints.png" />
+</div>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/coverage.2.png"><img alt="_images/coverage.2.png" src="_images/coverage.2.png" style="width: 695.5px; height: 527.5px;" /></a>
+</div>
+</div>
+<div class="section" id="cobertura">
+<h3><span class="section-number">2.7.6. </span>Cobertura<a class="headerlink" href="#cobertura" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li class="fragment"><p>El objetivo es tener una cobertura estructural y funcional son alta.</p></li>
+<li class="fragment"><p>Al principio del proyecto ambas son bajas y aumentan conformen las pruebas ejercitan el DUV.</p></li>
+<li class="fragment"><p>A pesar de que la cobertura sea alta, se debe revisar la tasa de bugs encontrados o utilizar otras técnicas.</p></li>
+</ul>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/coverage.3.png"><img alt="_images/coverage.3.png" src="_images/coverage.3.png" style="width: 531.0px; height: 336.5px;" /></a>
+</div>
+<blockquote class="pull-quote">
+<div><p>Bugs are Darwinian. Either they are well adapted to the environment (well-hidden) or they are easily discovered and hence easily killed.</p>
+</div></blockquote>
+</div>
+<div class="section" id="criterio-para-tape-out">
+<h3><span class="section-number">2.7.7. </span>Criterio para Tape-out<a class="headerlink" href="#criterio-para-tape-out" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Es una serie de listas de control (“checklist”) que indica la finalización del trabajo planeado antes de liberar el diseño a manufactura.</p></li>
+<li><p>Métricas: permiten al equipo de ingeniería evaluar el progreso del proyecto</p></li>
+</ul>
+<p>Taza de bugs: muestra el ritmo en que el equipo de verificación encuentra bugs y los diseñadores en arreglarlas.</p>
+<div class="figure align-default">
+<img alt="_images/tape.bugs.png" src="_images/tape.bugs.png" />
+</div>
+<ul class="simple">
+<li><p>Métricas: permiten al equipo de ingeniería evaluar el progreso del proyecto:</p></li>
+<li><p>Cierre de cobertura: mide que el equipo de verificación ha llegado a las metas de cobertura estructural y funcional.</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/tape.cov.png" src="_images/tape.cov.png" />
+</div>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/tape.flow.png"><img alt="_images/tape.flow.png" src="_images/tape.flow.png" style="width: 402.0px; height: 581.4px;" /></a>
+</div>
+</div>
+<div class="section" id="cobertura-funcional-en-sv">
+<h3><span class="section-number">2.7.8. </span>Cobertura Funcional en SV<a class="headerlink" href="#cobertura-funcional-en-sv" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>En SV los puntos de cobertura funcional se pueden definir dentro de clases, programas o módulos.</p></li>
+<li><p>Se utilizan grupos de cobertura para definir los eventos que son de interés.</p></li>
+<li><p>Automáticamente crea contenedores (bins) con los valores que puede tomar el punto de cobertura.</p></li>
+</ul>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="n">covergroup</span> <span class="n">cov</span><span class="p">;</span>
+<span class="nl">Feature_1:</span> <span class="n">coverpoint</span> <span class="n">sb</span><span class="p">.</span><span class="n">store</span><span class="p">;</span>
+<span class="n">Feature_2</span> <span class="o">:</span> <span class="n">coverpoint</span> <span class="n">sb</span><span class="p">.</span><span class="n">store</span> <span class="p">{</span><span class="n">bins</span> <span class="n">trans</span> <span class="o">=</span> <span class="p">(</span> <span class="mh">15</span> <span class="o">=&gt;</span> <span class="mh">0</span><span class="p">);}</span>
+<span class="n">endgroup</span>
+
+<span class="k">function</span> <span class="n">new</span><span class="p">();</span>
+    <span class="n">cov</span> <span class="o">=</span> <span class="n">new</span><span class="p">();</span>
+<span class="k">endfunction</span>
+
+<span class="n">cov</span><span class="p">.</span><span class="n">sample</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Grupo de cobertura con disparador:</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="n">covergroup</span> <span class="n">CovDst9</span> <span class="p">@(</span><span class="n">trans_ready</span><span class="p">)</span><span class="o">:</span>
+    <span class="n">coverpoint</span> <span class="n">ifc</span><span class="p">.</span><span class="n">cb</span><span class="p">.</span><span class="n">dst</span><span class="p">;</span> <span class="c1">// measure coverage</span>
+<span class="n">endgroup</span>
+</pre></div>
+</div>
+<p>Limitar el número de contenedores:</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="n">covergroup</span> <span class="n">CovDst12</span><span class="p">;</span>
+    <span class="n">coverpoint</span> <span class="n">tr</span><span class="p">.</span><span class="n">dst</span>
+        <span class="p">{</span> <span class="n">option</span><span class="p">.</span><span class="n">auto_bin_max</span> <span class="o">=</span> <span class="mh">2</span><span class="p">;</span> <span class="p">}</span> <span class="c1">// divide into 2 bins</span>
+<span class="n">endgroup</span>
+</pre></div>
+</div>
+<p>Se pueden asignar nombres a los bins:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>covergroup CovKind18;
+    coverpoint p.kind {
+        bins zero = {0};        // 1 bin for kind=0
+        bins lo = {[1:3], 5};   // 1 bin for values 1:3, 5
+        bins hi[] = {[8:$]};    // 8 separate bins: 8..15
+        bins misc = default;    // 1 bin for rest, does not count
+    }                           // no semicolon
+endgroup
+</pre></div>
+</div>
+<p>Cobertura de transiciones:</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="n">covergroup</span> <span class="n">CovDst25</span><span class="p">;</span>
+    <span class="n">coverpoint</span> <span class="n">tr</span><span class="p">.</span><span class="n">dst</span> <span class="p">{</span>
+        <span class="n">bins</span> <span class="n">t1</span> <span class="o">=</span> <span class="p">(</span><span class="mh">0</span><span class="o">=&gt;</span><span class="mh">1</span><span class="p">),</span> <span class="p">(</span><span class="mh">0</span><span class="o">=&gt;</span><span class="mh">2</span><span class="p">),</span> <span class="p">(</span><span class="mh">0</span><span class="o">=&gt;</span><span class="mh">3</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="n">endgroup</span>
+</pre></div>
+</div>
+<p>Ignorar condiciones:</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="n">covergroup</span> <span class="n">CovDst28</span><span class="p">;</span>
+    <span class="n">coverpoint</span> <span class="n">tr</span><span class="p">.</span><span class="n">dst</span> <span class="p">{</span>
+        <span class="n">option</span><span class="p">.</span><span class="n">auto_bin_max</span> <span class="o">=</span> <span class="mh">4</span><span class="p">;</span>    <span class="c1">// 0:1, 2:3, 4:5, 6:7</span>
+        <span class="n">ignore_bins</span> <span class="n">hi</span> <span class="o">=</span> <span class="p">{</span><span class="mh">6</span><span class="p">,</span><span class="mh">7</span><span class="p">};</span>     <span class="c1">// ignore upper 2 values</span>
+    <span class="p">}</span>
+<span class="n">endgroup</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="n">covergroup</span> <span class="n">CovDst29</span><span class="p">;</span>
+    <span class="n">coverpoint</span> <span class="n">tr</span><span class="p">.</span><span class="n">dst</span> <span class="p">{</span>
+        <span class="n">illegal_bins</span> <span class="n">hi</span> <span class="o">=</span> <span class="p">{</span><span class="mh">6</span><span class="p">,</span><span class="mh">7</span><span class="p">};</span>     <span class="c1">// error if seen</span>
+    <span class="p">}</span>
+<span class="n">endgroup</span>
+</pre></div>
+</div>
+<p>Producto Cruz:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>covergroup CovKind32;
+    dst: coverpoint tr.dst {
+        bins dst[] = {[0:$]};
+    }
+    kind: coverpoint tr.kind {
+        bins zero = {0};        // 1 bin for kind=0
+        bins lo = {[1:3]};      // 1 bin for values 1:3
+        bins hi[] = {[8:$]};    // 8 separate bins: 8..15
+        bins misc = default;    // 1 bin for rest, does not count
+    }
+    cross kind, dst;
+endgroup
+</pre></div>
+</div>
+<p>Contenedores dentro del producto cruz:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">covergroup</span> <span class="n">CrossBinNames</span><span class="p">;</span>
+    <span class="n">a</span><span class="p">:</span> <span class="n">coverpoint</span> <span class="n">sam</span><span class="o">.</span><span class="n">a</span> <span class="p">{</span>
+        <span class="n">bins</span> <span class="n">a0</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+        <span class="n">bins</span> <span class="n">a1</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">};</span>
+        <span class="n">option</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  <span class="o">//</span> <span class="n">don</span><span class="s1">&#39;t count this coverpoint</span>
+    <span class="p">}</span>
+    <span class="n">b</span><span class="p">:</span> <span class="n">coverpoint</span> <span class="n">sam</span><span class="o">.</span><span class="n">b</span> <span class="p">{</span>
+        <span class="n">bins</span> <span class="n">b0</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+        <span class="n">bins</span> <span class="n">b1</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">};</span>
+        <span class="n">option</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  <span class="o">//</span> <span class="n">don</span><span class="s1">&#39;t count this coverpoint</span>
+    <span class="p">}</span>
+    <span class="n">ab</span><span class="p">:</span> <span class="n">cross</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="p">{</span>
+        <span class="n">bins</span> <span class="n">a0b0</span> <span class="o">=</span> <span class="n">binsof</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">a0</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">binsof</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">b0</span><span class="p">);</span>
+        <span class="n">bins</span> <span class="n">a1b1</span> <span class="o">=</span> <span class="n">binsof</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">a1</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">binsof</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">b0</span><span class="p">);</span>
+        <span class="n">bins</span> <span class="n">b1</span> <span class="o">=</span> <span class="n">binsof</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">b1</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="n">endgroup</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3><span class="section-number">2.7.9. </span>Bibliografía<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>B. Wile, J. Goss y W. Roesner. “Comprehensive Functional Verification The Complete Industry Cycle” Elsevier, Primera Edición, 2005.</p></li>
+<li><p>C. Spear, G. Tumbush. “System Verilog for Verification: A Guide to Learning the Testbench Language Features ” Springer, Tercera Edición, 2005.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="ciclo-verif">
+<h2><span class="section-number">2.8. </span>Ciclo Verif<a class="headerlink" href="#ciclo-verif" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Intro</p></li>
+<li><p>Jerarquía</p></li>
+<li><p>Control/Observabilidad</p></li>
+<li><p>Emulacion</p></li>
+<li><p>Estrategia</p></li>
+<li><p>Creación de Escenarios</p></li>
+<li><p>Prioridades</p></li>
+</ul>
+<div class="section" id="id6">
+<h3><span class="section-number">2.8.1. </span>Introducción<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h3>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/verif.cycle.png"><img alt="_images/verif.cycle.png" src="_images/verif.cycle.png" style="width: 511.20000000000005px; height: 553.6px;" /></a>
+</div>
+</div>
+<div class="section" id="jerarquia-de-verificacion">
+<h3><span class="section-number">2.8.2. </span>Jerarquía de verificación<a class="headerlink" href="#jerarquia-de-verificacion" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li class="fragment"><p>Una práctica básica consiste en dividir el diseño en bloques más pequeños y crear una estructura jerárquica del diseño.</p></li>
+<li class="fragment"><p>La verificación primero se enfrentará a los bloques pequeños del sistema, para luego avanzar con las porciones más grandes.</p></li>
+<li class="fragment"><p>La verificación es un proceso bottom-up.</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/verif.bottom.up.png" src="_images/verif.bottom.up.png" />
+</div>
+<ul class="simple">
+<li class="fragment"><p>Siempre escoger el nivel más bajo que contiene por completo la función a verificar.</p></li>
+<li class="fragment"><p>Cada bloque de verificación debe tener su propio documento de especificación.</p></li>
+<li class="fragment"><p>Componentes nuevos o complejos requieren mayor atención.</p></li>
+<li class="fragment"><p>El nivel apropiado de control y observabilidad decide en cual nivel verificar.</p></li>
+<li class="fragment"><p>La función puede dictar los niveles de verificación.</p></li>
+</ul>
+</div>
+<div class="section" id="controlabilidad-y-observabilidad">
+<h3><span class="section-number">2.8.3. </span>Controlabilidad y Observabilidad<a class="headerlink" href="#controlabilidad-y-observabilidad" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li class="fragment"><p>El nivel de controlabilidad y observabilidad que un ingeniero de verificación tiene un correlación directa con la habilidad de encontrar bugs en el diseño.</p></li>
+<li class="fragment"><p>Controlabilidad indica la facilidad con la que se pueden crear escenarios específicos para el área de interés. A nivel alto de
+la jerarquía se tiene menos controlabilidad.</p></li>
+<li class="fragment"><p>Observabilidad indica la facilidad con la que se puede identificar si el diseño se comporta de forma correcta o incorrecta.</p></li>
+<li class="fragment"><p>El ingeniero de verificación estimula (controllability) y revisa (observability) el diseño bajo prueba.</p></li>
+</ul>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/bugs.months.png"><img alt="_images/bugs.months.png" src="_images/bugs.months.png" style="width: 725.5px; height: 483.0px;" /></a>
+</div>
+</div>
+<div class="section" id="id7">
+<h3><span class="section-number">2.8.4. </span>Jerarquía de verificación<a class="headerlink" href="#id7" title="Permalink to this headline"></a></h3>
+<dl class="simple">
+<dt>BFM</dt><dd><p>Modelo funcional de bus, imita el comportamiento de la ifc</p>
+</dd>
+</dl>
+<div class="figure align-default">
+<img alt="_images/tb.bfm.png" src="_images/tb.bfm.png" />
+</div>
+<dl class="simple">
+<dt>Verificación a nivel de sub-sistema:</dt><dd><ul class="simple">
+<li><p>Verificación de la interacción entre bloques.</p></li>
+<li><p>BFMs se remplazan por el RTL a este nivel.</p></li>
+<li><p>El tiempo de simulación es mayor.</p></li>
+<li><p>Es más costoso crear un escenario específico dentro de un bloque.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/tb.cluster.png"><img alt="_images/tb.cluster.png" src="_images/tb.cluster.png" style="width: 402.5px; height: 595.5px;" /></a>
+</div>
+<dl class="simple">
+<dt>Verificación a nivel de chip completo (Full Chip):</dt><dd><ul class="simple">
+<li><p>El RTL es completo.</p></li>
+<li><p>Las simulaciones son lentas.</p></li>
+<li><p>Más difícil de depurar.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/tb.fc.png"><img alt="_images/tb.fc.png" src="_images/tb.fc.png" style="width: 309.59999999999997px; height: 311.4px;" /></a>
+</div>
+</div>
+<div class="section" id="emulacion">
+<h3><span class="section-number">2.8.5. </span>Emulación<a class="headerlink" href="#emulacion" title="Permalink to this headline"></a></h3>
+<p>Emulación mapea el diseño a un dispositivo (FPGA) para acelerar al simulación del RTL.</p>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/emu.veloce.png"><img alt="_images/emu.veloce.png" src="_images/emu.veloce.png" style="width: 409.2px; height: 347.09999999999997px;" /></a>
+</div>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/emu.veloce.2.png"><img alt="_images/emu.veloce.2.png" src="_images/emu.veloce.2.png" style="width: 710.0px; height: 528.5px;" /></a>
+</div>
+</div>
+<div class="section" id="resumen-jerarquia">
+<h3><span class="section-number">2.8.6. </span>Resumen Jerarquía<a class="headerlink" href="#resumen-jerarquia" title="Permalink to this headline"></a></h3>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/verif.hier.png"><img alt="_images/verif.hier.png" src="_images/verif.hier.png" style="width: 606.0px; height: 598.5px;" /></a>
+</div>
+</div>
+<div class="section" id="estrategia-de-verificacion">
+<h3><span class="section-number">2.8.7. </span>Estrategia de verificación<a class="headerlink" href="#estrategia-de-verificacion" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li class="fragment"><p>Las preguntas básicas que un ingeniero en verificación debe hacerse:</p>
+<ul>
+<li><p>¿Estoy creando todos los posibles escenarios?</p></li>
+<li><p>¿Cómo identifico cuando una falla a ocurrido?</p></li>
+</ul>
+</li>
+<li class="fragment"><p>El ingeniero en verificación debe primero leer toda la documentación existente del diseño.</p></li>
+<li class="fragment"><p>Entender todas las entradas y salidas. Para luego entender la funcionalidad del diseño y
+poder predecir la salida con base en las entradas.</p></li>
+</ul>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/verif.design.types.png"><img alt="_images/verif.design.types.png" src="_images/verif.design.types.png" style="width: 883.0px; height: 589.0px;" /></a>
+</div>
+</div>
+<div class="section" id="creacion-de-escenarios">
+<h3><span class="section-number">2.8.8. </span>Creación de escenarios<a class="headerlink" href="#creacion-de-escenarios" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li class="fragment"><p>Es importante que el ingeniero de verificación reciba la descripción de entradas por alguien diferente al autor del RTL.</p></li>
+<li class="fragment"><p>Un diseño probablemente tiene gran cantidad de señales de entrada. Se deben agrupar basadas en su función lógica.</p></li>
+<li class="fragment"><p>La meta es maximizar todos los posibles escenarios que el ambiente de verificación puede crear:</p>
+<ul>
+<li><p>Para señales de control, significa crear todos los tipos de comandos.</p></li>
+<li><p>Para buses de datos, significa crear una variedad amplia de patrones.</p></li>
+<li><p>Para casos frontera, significa crear excepciones, condiciones extrañas y extremas en el diseño.</p></li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+<li class="fragment"><p>Nivel de Aplicación:</p>
+<ul>
+<li><p>Definen el comportamiento del dispositivo.</p></li>
+<li><p>Envuelven múltiples interacciones entre interfaces.</p></li>
+<li><p>Usualmente se prueban a nivel de sub-sistema o “full-chip”.</p></li>
+</ul>
+</li>
+<li class="fragment"><p>Nivel de Interface:</p>
+<ul>
+<li><p>Interfaces internas o externas al dispositivo.</p></li>
+<li><p>La verificación de estos los protocolos se captura a nivel de bloque, sub-sistema y full-chip.</p></li>
+<li><p>Creación de escenarios</p></li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+<li class="fragment"><p>Nivel de Estructura: relacionadas a la implementación del diseño:</p>
+<ul>
+<li><p>Maquinas de Estado (FSM).</p></li>
+<li><p>FIFOs</p></li>
+<li><p>Memorias</p></li>
+<li><p>Árbitros</p></li>
+<li><p>Handshaking</p></li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+<li class="fragment"><p>Configuraciones:</p>
+<ul>
+<li><p>Se deben verificar todos los posibles modos de configuración.</p></li>
+</ul>
+</li>
+<li class="fragment"><p>Estándar y Protocolos:</p>
+<ul>
+<li><p>Si se utilizar un standard o protocolo estándar se debe verificar su conformidad.</p></li>
+</ul>
+</li>
+<li class="fragment"><p>Rendimiento:</p>
+<ul>
+<li><p>Los requerimientos de rendimiento se deben verificar.</p></li>
+</ul>
+</li>
+</ul>
+<p>Para cada característica identificada del diseño, se deben hacer las siguientes preguntas:</p>
+<ul class="simple">
+<li class="fragment"><p>¿Cuáles es la funcionalidad básica?</p></li>
+<li class="fragment"><p>¿Cuáles son sus propiedades o atributos?</p></li>
+<li class="fragment"><p>¿Cuál es el rango de valores que puede utilizarse?</p>
+<ul>
+<li><p>Extremos, valores intermedios e inválidos.</p></li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+<li class="fragment"><p>¿Qué se puede considerar como un error? ¿Se puede aplicar pruebas negativas?</p></li>
+<li class="fragment"><p>¿Tiene múltiples dominios de reloj o de potencia?</p></li>
+<li class="fragment"><p>¿Hay algún protocolo asociado?</p></li>
+<li class="fragment"><p>¿Cuál es la interacción con otras características del diseño?</p>
+<ul>
+<li><p>Espacial o temporalmente</p></li>
+</ul>
+</li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 70%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Bloque</p></th>
+<th class="head"><p>Feature</p></th>
+<th class="head"><p>Prioridad</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Cache</p></td>
+<td><p>Cache arbitration for Port B read</p></td>
+<td><p>P1</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cache</p></td>
+<td><p>Cache arbitration for Port B write</p></td>
+<td><p>P2</p></td>
+</tr>
+<tr class="row-even"><td><p>FIFO</p></td>
+<td><p>Functional soft reset</p></td>
+<td><p>P1</p></td>
+</tr>
+<tr class="row-odd"><td><p>FIFO</p></td>
+<td><p>Insert pattern 0</p></td>
+<td><p>P2</p></td>
+</tr>
+<tr class="row-even"><td><p>LLC</p></td>
+<td><p>Diff n bit positions for L1 and L2</p></td>
+<td><p>P2</p></td>
+</tr>
+</tbody>
+</table>
+<blockquote class="pull-quote">
+<div><p>“If it isn’t tested, it doesn’t work.”
+– Bob Colwell, Chief Architect for IA32 Intel pentium I, II, III, IV.</p>
+</div></blockquote>
+</div>
+<div class="section" id="id8">
+<h3><span class="section-number">2.8.9. </span>Bibliografía<a class="headerlink" href="#id8" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>B. Wile, J. Goss y W. Roesner. “Comprehensive Functional Verification The Complete Industry Cycle” Elsevier, Primera Edición, 2005.</p></li>
+<li><p>C. Spear, G. Tumbush. “System Verilog for Verification: A Guide to Learning the Testbench Language Features ” Springer, Tercera Edición, 2005.</p></li>
+<li><p>S. Vasudevan. “Effective Functional Verification”, Springer, Primera Edición, 2006.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="costo-de-verif">
+<h2><span class="section-number">2.9. </span>Costo de Verif<a class="headerlink" href="#costo-de-verif" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Proceso diseño</p></li>
+<li><p>Causa de re-spin</p></li>
+<li><p>Verificación Funcional</p></li>
+<li><p>Roles</p></li>
+<li><p>Funcional vs Formal</p></li>
+<li><p>Ciclo de verif</p></li>
+<li><p>Grafico tiempo</p></li>
+</ul>
+<div class="section" id="proceso-de-diseno">
+<h3><span class="section-number">2.9.1. </span>Proceso de diseño<a class="headerlink" href="#proceso-de-diseno" title="Permalink to this headline"></a></h3>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/design.flow.2.png"><img alt="_images/design.flow.2.png" src="_images/design.flow.2.png" style="width: 403.20000000000005px; height: 407.20000000000005px;" /></a>
+</div>
+<ul class="simple">
+<li><p>¿Qué pasa si el HDL no expresa la función correctamente?</p></li>
+<li><p>¿Qué pasa si el diseñador omite una condición crítica (corner case)?</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/design.proc.1.png" src="_images/design.proc.1.png" />
+</div>
+<div class="figure align-default">
+<img alt="_images/design.proc.2.png" src="_images/design.proc.2.png" />
+</div>
+<div class="figure align-default">
+<img alt="_images/design.proc.3.png" src="_images/design.proc.3.png" />
+</div>
+</div>
+<div class="section" id="verificacion-funcional">
+<h3><span class="section-number">2.9.2. </span>Verificación Funcional<a class="headerlink" href="#verificacion-funcional" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li class="fragment"><p>La verificación funcional se encarga de asegurar que el diseño  realiza de forma correcta las tareas especificadas por la arquitectura del sistema.</p></li>
+<li class="fragment"><p>El trabajo del verificador se realiza la mayoría del tiempo sobre el RTL en vez de a nivel de compuertas y transistores.</p></li>
+<li class="fragment"><p>RTL es una forma más abstracta de especificar la lógica de un diseño en vez de a nivel de compuertas AND y OR.</p></li>
+<li class="fragment"><p>RTL permite al diseñador especificar el comportamiento a través de construcciones de alto nivel como ecuaciones Booleanas y estructuras IF-THEN-ELSE.</p></li>
+</ul>
+<p>Existen 3 roles diferentes:</p>
+<ul class="simple">
+<li class="fragment"><p>Diseñador de lógica que implementan el RTL de la especificación de la arquitectura utilizando un HDL.</p></li>
+<li class="fragment"><p>Verificador funcional que se asegura que el diseño es funcionalmente correcto.</p></li>
+<li class="fragment"><p>Diseñador de circuitos que acomoda las compuertas dentro del chip y se asegura que la temporización (timing) deseada se cumpla.</p></li>
+</ul>
+<ul class="simple">
+<li class="fragment"><p>El diseño de un chip consiste en miles de líneas de HDL.</p></li>
+<li class="fragment"><p>El trabajo del verificador es encontrar problemas en la implementación del HDL, reportando fallas o bugs cuando el HDL no se comporta
+de acuerdo a la especificación.</p></li>
+<li class="fragment"><p>Un verificador expone estas fallas corriendo simulaciones sobre el diseño.</p></li>
+<li class="fragment"><p>El ingeniero en verificación tiene se enfrenta  dos grandes retos:</p>
+<ul>
+<li><p>El tamaño gigante del espacio de estados.</p></li>
+<li><p>Detectar un comportamiento incorrecto.</p></li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+<li class="fragment"><p>Ejercitar todos escenarios de entradas y transición de estados.</p></li>
+<li class="fragment"><p>Reportar cualquier comportamiento incorrecto que presente del diseño.</p></li>
+<li class="fragment"><p>Existen 2 métodos fundamentales:</p>
+<ul>
+<li><p>Verificación basada en simulación</p></li>
+<li><p>Verificación formal</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="verificacion-simulacion">
+<h3><span class="section-number">2.9.3. </span>Verificación Simulación<a class="headerlink" href="#verificacion-simulacion" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Aplica estímulos a un modelo en software del diseño.</p></li>
+<li><p>Se crea un TB manualmente</p>
+<ul>
+<li><p>Testcase: escenario de estimulo para el RTL</p></li>
+<li><p>Driver: inyectar valores al protocolo/señales</p></li>
+<li><p>Monitor: monitorear protocolo/señales</p></li>
+<li><p>Model: predecir el estado del RTL</p></li>
+<li><p>Checkers: revisa contra modelo de referencia para determinar si la prueba pasa o falla</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="verificacion-formal">
+<h3><span class="section-number">2.9.4. </span>Verificación Formal<a class="headerlink" href="#verificacion-formal" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li class="fragment"><p>Es una técnica más nueva. En vez de verificar posibles secuencias de entrada,
+la verificación formal prueba que una regla de un protocolo, aserción o diseño
+se mantiene verdadera para todos los casos posibles del diseño.</p></li>
+<li class="fragment"><p>Verificación formal se puede utilizar solo en diseños de tamaño limitado porque consume gran
+cantidad de recursos computacionales inclusive en diseños pequeños.</p></li>
+<li class="fragment"><p>SVA (SystemVerilog Assertions) assume, assert, cover.</p></li>
+</ul>
+</div>
+<div class="section" id="formal-vs-simulacion">
+<h3><span class="section-number">2.9.5. </span>Formal vs Simulación<a class="headerlink" href="#formal-vs-simulacion" title="Permalink to this headline"></a></h3>
+<div class="figure align-default">
+<img alt="_images/module.arbiter.png" src="_images/module.arbiter.png" />
+</div>
+<blockquote class="pull-quote">
+<div><p>“Testing only shows the presence of bugs, not their absence.”
+– Dijkstra’s Dictum</p>
+</div></blockquote>
+</div>
+<div class="section" id="verificacion-costo">
+<h3><span class="section-number">2.9.6. </span>Verificación Costo<a class="headerlink" href="#verificacion-costo" title="Permalink to this headline"></a></h3>
+<div class="figure align-default">
+<img alt="_images/design.flow.3.png" src="_images/design.flow.3.png" />
+</div>
+<div class="figure align-default">
+<img alt="_images/bugs.time.png" src="_images/bugs.time.png" />
+</div>
+<div class="figure align-default">
+<img alt="_images/cost.time.png" src="_images/cost.time.png" />
+</div>
+<ul class="simple">
+<li class="fragment"><p>El proceso de diseño tiene restricciones de: tiempo, costo y calidad. Se debe encontrar un balance.</p></li>
+<li class="fragment"><p>Luego de la fabricación en silicio, pruebas a nivel de sistema se realizar y pueden encontrarse bugs que la verificación pre-silicio no encontró.</p>
+<ul>
+<li><p>Impacto en tiempo, alto costo monetario y alto costo en calidad.</p></li>
+</ul>
+</li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/time.spent.verif.png" src="_images/time.spent.verif.png" />
+</div>
+<div class="figure align-default">
+<img alt="_images/proj.schedule.png" src="_images/proj.schedule.png" />
+</div>
+</div>
+<div class="section" id="ciclo-verificacion">
+<h3><span class="section-number">2.9.7. </span>Ciclo Verificación<a class="headerlink" href="#ciclo-verificacion" title="Permalink to this headline"></a></h3>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/verif.cycle.png"><img alt="_images/verif.cycle.png" src="_images/verif.cycle.png" style="width: 511.20000000000005px; height: 553.6px;" /></a>
+</div>
+<ul class="simple">
+<li><p>Especificación funcional.</p></li>
+<li><p>Plan de Verificación.</p></li>
+<li><p>Desarrollo del ambiente de verificación.</p></li>
+<li><p>Depuración del HDL y el ambiente.</p></li>
+<li><p>Regresiones.</p></li>
+<li><p>Fabricación del Hardware.</p></li>
+<li><p>Depuración del Hardware (Pruebas en sistema)</p></li>
+<li><p>Análisis de escapes.</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/verif.cycle.1.png" src="_images/verif.cycle.1.png" />
+</div>
+<div class="figure align-default">
+<img alt="_images/verif.eng.time.png" src="_images/verif.eng.time.png" />
+</div>
+</div>
+<div class="section" id="id9">
+<h3><span class="section-number">2.9.8. </span>Bibliografía<a class="headerlink" href="#id9" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>B. Wile, J. Goss y W. Roesner.  “Comprehensive Functional Verification The Complete Industry Cycle” Elsevier, Primera Edición, 2005.</p></li>
+<li><p>C. Spear, G. Tumbush.  “System Verilog for Verification: A Guide to Learning the Testbench Language Features ” Springer, Tercera Edición, 2005.</p></li>
+<li><p>S. Vasudevan. “Effective Functional Verification”, Springer, Primera Edición, 2006.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="clase-5-sv-para-verif">
+<h2><span class="section-number">2.10. </span>Clase 5: SV para verif<a class="headerlink" href="#clase-5-sv-para-verif" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Intro</p></li>
+<li><p>Tipo de datos</p></li>
+<li><p>Interfaces</p></li>
+<li><p>Clases</p></li>
+<li><p>vIfc</p></li>
+<li><p>Hilos</p></li>
+</ul>
+</div>
+<div class="section" id="clase-6-componentes">
+<h2><span class="section-number">2.11. </span>Clase 6: Componentes<a class="headerlink" href="#clase-6-componentes" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>TB</p></li>
+<li><p>Vectores de referencia</p></li>
+<li><p>Modelo de referencia</p></li>
+<li><p>Transacciones</p></li>
+<li><p>Capas</p></li>
+<li><p>Dirigidas/Aleatorias</p></li>
+</ul>
+</div>
+<div class="section" id="clase-7-coverage">
+<h2><span class="section-number">2.12. </span>Clase 7: Coverage<a class="headerlink" href="#clase-7-coverage" title="Permalink to this headline"></a></h2>
+</div>
+<div class="section" id="clase-8-plan-de-pruebas">
+<h2><span class="section-number">2.13. </span>Clase 8: Plan de pruebas<a class="headerlink" href="#clase-8-plan-de-pruebas" title="Permalink to this headline"></a></h2>
+</div>
+<div class="section" id="clase-9-assertions">
+<h2><span class="section-number">2.14. </span>Clase 9: Assertions<a class="headerlink" href="#clase-9-assertions" title="Permalink to this headline"></a></h2>
+</div>
+<div class="section" id="clase-10-formal">
+<h2><span class="section-number">2.15. </span>Clase 10: Formal<a class="headerlink" href="#clase-10-formal" title="Permalink to this headline"></a></h2>
+</div>
+</div>
+
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Melvin Alvarado.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

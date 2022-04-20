@@ -1,0 +1,37 @@
+
+
+Clase 5: SV para verif
+======================
+
+* Intro
+* Tipo de datos
+* Interfaces
+* Clases
+* vIfc
+* Hilos
+
+
+Clase 6: Componentes
+====================
+
+* TB
+* Vectores de referencia
+* Modelo de referencia
+* Transacciones
+* Capas
+* Dirigidas/Aleatorias
+
+Clase 7: Coverage
+=================
+
+
+Clase 8: Plan de pruebas
+========================
+
+
+Clase 9: Assertions
+===================
+
+
+Clase 10: Formal
+================

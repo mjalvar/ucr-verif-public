@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verilog &mdash; HW Verif  documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="https://wavedrom.com/skins/default.js"></script>
+        <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #00c0f3 " >
+            <a href="index.html"><img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="carta.html">1. Programa del Curso</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clases_all.html">2. Clases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="env.html">3. Ambiente de Verificación</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">4. Diseño</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rest.html">5. ReST</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #00c0f3 " >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">HW Verif</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Verilog</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/clase.verilog.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="verilog">
+<h1>Verilog<a class="headerlink" href="#verilog" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Introducción</p></li>
+<li><p>Historia</p></li>
+<li><p>Sintaxis</p></li>
+<li><p>FSM</p></li>
+<li><p>Ejemplo</p></li>
+</ul>
+<div class="section" id="introduccion">
+<h2>Introducción<a class="headerlink" href="#introduccion" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li class="fragment"><p>Verilog es un lenguaje de descripción de hardware (HDL).</p></li>
+<li class="fragment"><p>Se utiliza para describir un sistema digital, por ejemplo un microprocesador o una memoria o un simple flip-flop.</p></li>
+<li class="fragment"><p>Permite la ejecución en paralelo para modelar sistemas digitales reales.</p></li>
+<li class="fragment"><p>La sintaxis de Verilog es muy similar al lenguaje de programación C.</p></li>
+<li class="fragment"><p>Permite diseñar con metodología bottom-up o top-down.</p></li>
+<li class="fragment"><p>Soporta diferentes niveles de abstracción: nivel estructural o nivel conductual</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/design_flow.png" src="_images/design_flow.png" />
+</div>
+</div>
+<div class="section" id="historia">
+<h2>Historia<a class="headerlink" href="#historia" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li class="fragment"><p>Verilog se inició como un lenguaje propietario de modelado de hardware de Gateway Design Automation Inc., alrededor de 1984.
+El primer simulador de Verilog fue usado en 1985.</p></li>
+<li class="fragment"><p>En 1990, Cadence Design System, decide adquirir Gateway y se convierte en el dueño del lenguaje Verilog.</p></li>
+<li class="fragment"><p>Cadence se da cuenta que si Verilog se mantiene como un lenguaje propietario, la presión por estandarización
+eventualmente causaría que la industria se moviera a VHDL. En 1991, Cadence abre el lenguaje.</p></li>
+<li class="fragment"><p>En 1993, 85% de los diseños de circuitos se realizaban en Verilog.</p></li>
+</ul>
+<ul class="simple">
+<li class="fragment"><p>En Diciembre de 1995, Verilog se convierte en el estándar IEEE 1364-1995 (Verilog 95).</p></li>
+<li class="fragment"><p>En 2001, tiene una extensión IEEE 1364-2001 (Verilog 2001).</p></li>
+<li class="fragment"><p>In 2005, se crea el estándar IEEE 1800 System Verilog, el primer lenguaje unificado de descripción de hardware y verificación (HDVL).</p></li>
+<li class="fragment"><p>SystemVerilog es una gran extensión del estándar IEEE 1364.</p></li>
+</ul>
+</div>
+<div class="section" id="formato-de-los-numeros">
+<h2>Formato de los números<a class="headerlink" href="#formato-de-los-numeros" title="Permalink to this headline"></a></h2>
+<p>Tamaño-Base-Número:</p>
+<ul class="simple">
+<li><p>Tamaño: # bits en decimal (opcional)</p></li>
+<li><p>Base: ‘b ‘d ‘h ‘o (default: ‘d)</p></li>
+<li><p>Número: cantidad (0-9 a-z A-Z x z X Z)</p></li>
+</ul>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="kt">reg</span> <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">A</span><span class="p">;</span>
+<span class="kt">reg</span> <span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">B</span><span class="p">;</span>
+
+<span class="k">always_comb</span> <span class="k">begin</span>
+   <span class="n">A</span> <span class="o">=</span> <span class="mh">187</span><span class="p">;</span>
+   <span class="n">A</span> <span class="o">=</span> <span class="mh">8&#39;ha</span><span class="p">;</span>
+   <span class="n">B</span> <span class="o">=</span> <span class="mh">3</span><span class="mb">&#39;b01</span><span class="n">x</span><span class="p">;</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="comentarios">
+<h2>Comentarios<a class="headerlink" href="#comentarios" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Desde ‘//’ hasta final de línea</p></li>
+<li><p>Región entre ‘/*’ y ‘*/’</p></li>
+</ul>
+<div class="highlight-verilog notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*</span>
+<span class="cm">   En este ejemplo</span>
+<span class="cm">   la línea 12 sobreescribe</span>
+<span class="cm">   el valor de A</span>
+<span class="cm">*/</span>
+
+<span class="kt">reg</span> <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">A</span><span class="p">;</span>
+<span class="kt">reg</span> <span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">B</span><span class="p">;</span>
+
+<span class="k">always_comb</span> <span class="k">begin</span>
+   <span class="n">A</span> <span class="o">=</span> <span class="mh">187</span><span class="p">;</span>
+   <span class="n">A</span> <span class="o">=</span> <span class="mh">8&#39;ha</span><span class="p">;</span> <span class="c1">// &lt;= se sobreescribe A</span>
+   <span class="n">B</span> <span class="o">=</span> <span class="mh">3</span><span class="mb">&#39;b01</span><span class="n">x</span><span class="p">;</span>
+<span class="k">end</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="variables">
+<h2>Variables<a class="headerlink" href="#variables" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>reg: es un registro y permite almacenar un valor</p></li>
+<li><p>wire: es un cable y permite conexiones</p></li>
+<li><p>parameter: valor constante</p></li>
+<li><p>integer: numero de 32 bits con signo</p></li>
+<li><p>time: numero de 64 bit sin signo</p></li>
+</ul>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="kt">reg</span> <span class="p">[</span><span class="mh">5</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">C</span><span class="p">;</span>            <span class="c1">// es un registro de 6 bits, C[0] es LSB.</span>
+<span class="kt">reg</span> <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">mem</span> <span class="p">[</span><span class="mh">0</span><span class="o">:</span><span class="mh">1023</span><span class="p">];</span> <span class="c1">// es una memoria de 1024 bytes.</span>
+<span class="k">parameter</span> <span class="n">T</span><span class="o">=</span><span class="mh">10</span><span class="p">;</span>         <span class="c1">// valor constante T.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="module">
+<h2>Module<a class="headerlink" href="#module" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Cada módulo tiene entradas y salidas y se interconecta con otros módulos.</p></li>
+<li><p>No existen variables globales.</p></li>
+<li><p>Cada modulo puede escribirse formato estructural o conductual.</p></li>
+<li><p>Argumentos:</p>
+<ul>
+<li><p>input: entrada a un modulo (wire).</p></li>
+<li><p>output: salidas a un modulo (wire  si la asignación es continua, reg si es una asignación  procedural).</p></li>
+<li><p>inout: entrada-salida al modulo  (wire).</p></li>
+<li><p>parámetros</p></li>
+</ul>
+</li>
+</ul>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/module.test.png"><img alt="_images/module.test.png" src="_images/module.test.png" style="width: 344.8px; height: 153.60000000000002px;" /></a>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">test</span><span class="p">(</span>
+   <span class="k">input</span> <span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">a</span><span class="p">,</span>
+   <span class="k">inout</span>       <span class="n">b</span><span class="p">,</span>
+   <span class="k">output</span>      <span class="n">c</span><span class="p">,</span>
+<span class="p">);</span>
+
+<span class="cm">/*</span>
+<span class="cm">   funcionalidad</span>
+<span class="cm">*/</span>
+
+<span class="k">endmodule</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="p">#(</span>
+   <span class="k">parameter</span> <span class="n">IN_SZ_P</span> <span class="o">=</span> <span class="mh">2</span>
+<span class="p">)</span> <span class="n">test</span><span class="p">(</span>
+   <span class="k">input</span> <span class="p">[</span><span class="n">IN_SZ_P</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span>  <span class="n">a</span><span class="p">,</span>
+   <span class="k">inout</span>                <span class="n">b</span><span class="p">,</span>
+   <span class="k">output</span>               <span class="n">c</span>
+<span class="p">);</span>
+
+<span class="cm">/*</span>
+<span class="cm">   funcionalidad</span>
+<span class="cm">*/</span>
+
+<span class="k">endmodule</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="interconexion">
+<h2>Interconexión<a class="headerlink" href="#interconexion" title="Permalink to this headline"></a></h2>
+<div class="figure align-default">
+<img alt="_images/module.intercon.png" src="_images/module.intercon.png" />
+</div>
+</div>
+<div class="section" id="niveles-de-abstraccion">
+<h2>Niveles de abstracción<a class="headerlink" href="#niveles-de-abstraccion" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li class="fragment"><p>Gate Level, Estructural:</p>
+<ul>
+<li><p>bajo nivel utilizando primitivas lógicas (AND, OR)</p></li>
+<li><p>circuitos con poco número de gates</p></li>
+<li><p>directa relación entre el circuito y código</p></li>
+</ul>
+</li>
+<li class="fragment"><p>Data Flow, Register Transfer Level:</p>
+<ul>
+<li><p>descripción de operaciones y transferencia de datos entre registros</p></li>
+<li><p>herramientas de diseño hacen la convesión a gates de circuito</p></li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+<li><p>Comportamiento, Conductual, Algorítmico:</p>
+<ul>
+<li><p>descripción del circuito de manera algorítmica</p></li>
+<li><p>sin ninguna consideración de como el diseño se transforma en hardware</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="c1">// Comportamiento</span>
+<span class="n">count</span> <span class="o">&lt;=</span> <span class="n">count</span> <span class="o">+</span> <span class="mh">1</span><span class="p">;</span>
+
+<span class="c1">// Data Flow</span>
+<span class="k">assign</span> <span class="n">a</span> <span class="o">=</span> <span class="n">b</span><span class="o">&amp;</span><span class="n">c</span><span class="p">;</span>
+
+<span class="c1">// Estructural</span>
+<span class="k">and</span> <span class="n">a1</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+<span class="k">or</span> <span class="n">o1</span><span class="p">(</span><span class="n">y2</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">);</span>
+<span class="k">or</span> <span class="n">o2</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">y1</span><span class="p">,</span><span class="n">y1</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/mux.gates.png"><img alt="_images/mux.gates.png" src="_images/mux.gates.png" style="width: 207.5px; height: 179.5px;" /></a>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">mux_from_gates</span><span class="p">();</span>
+   <span class="kt">reg</span> <span class="n">c0</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">c2</span><span class="p">,</span><span class="n">c3</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">;</span>
+   <span class="kt">wire</span> <span class="n">Y</span><span class="p">;</span>
+   <span class="c1">//Invert the sel signals</span>
+   <span class="k">not</span> <span class="p">(</span><span class="n">a_inv</span><span class="p">,</span> <span class="n">A</span><span class="p">);</span>
+   <span class="k">not</span> <span class="p">(</span><span class="n">b_inv</span><span class="p">,</span> <span class="n">B</span><span class="p">);</span>
+   <span class="c1">// 3-input AND gate</span>
+   <span class="k">and</span> <span class="p">(</span><span class="n">y0</span><span class="p">,</span><span class="n">c0</span><span class="p">,</span><span class="n">a_inv</span><span class="p">,</span><span class="n">b_inv</span><span class="p">);</span>
+   <span class="k">and</span> <span class="p">(</span><span class="n">y1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">a_inv</span><span class="p">,</span><span class="n">B</span><span class="p">);</span>
+   <span class="k">and</span> <span class="p">(</span><span class="n">y2</span><span class="p">,</span><span class="n">c2</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">b_inv</span><span class="p">);</span>
+   <span class="k">and</span> <span class="p">(</span><span class="n">y3</span><span class="p">,</span><span class="n">c3</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">);</span>
+   <span class="c1">// 4-input OR gate</span>
+   <span class="k">or</span> <span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span><span class="n">y1</span><span class="p">,</span><span class="n">y2</span><span class="p">,</span><span class="n">y3</span><span class="p">);</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<blockquote class="pull-quote">
+<div><p>Comúnmente el término RTL es usado para la combinación de Data Flow y modelado por Comportamiento</p>
+</div></blockquote>
+</div>
+<div class="section" id="operadores">
+<h2>Operadores<a class="headerlink" href="#operadores" title="Permalink to this headline"></a></h2>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="c1">// Aritméticos</span>
+<span class="o">+</span> <span class="o">-</span> <span class="o">*</span> <span class="o">/</span> <span class="o">%</span>
+
+<span class="c1">// Relacionales</span>
+<span class="o">&gt;</span> <span class="o">&lt;</span> <span class="o">&gt;=</span> <span class="o">&lt;=</span> <span class="o">!=</span> <span class="o">==</span> <span class="o">!==</span> <span class="o">===</span>
+
+<span class="c1">// Lógicos</span>
+<span class="o">!</span> <span class="o">&amp;&amp;</span> <span class="o">||</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="c1">// Operaciones bits (bit a bit)</span>
+<span class="o">~</span> <span class="o">&amp;</span> <span class="o">|</span> <span class="o">^</span>
+<span class="o">~&amp;</span> <span class="n">NAND</span>
+<span class="o">~|</span> <span class="n">NOR</span>
+<span class="o">~^</span> <span class="o">^~</span> <span class="n">NOT</span> <span class="n">XOR</span>
+
+<span class="c1">// Reducción lógica (1 operando, resultado 1 bit)</span>
+<span class="o">&amp;</span> <span class="o">|</span> <span class="o">^</span> <span class="o">~&amp;</span> <span class="o">~|</span> <span class="o">~^</span> <span class="o">^~</span>
+<span class="n">num</span> <span class="o">=</span> <span class="mh">8&#39;hF0</span>
+<span class="o">|</span><span class="n">num</span> <span class="o">=</span> <span class="mh">1</span><span class="mb">&#39;b1</span>
+
+<span class="c1">// Otros</span>
+<span class="p">{</span> <span class="p">}</span> <span class="o">&lt;&lt;</span> <span class="o">&gt;&gt;</span><span class="p">,</span> <span class="n">condicional</span> <span class="o">?</span> <span class="o">:</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="asignaciones">
+<h2>Asignaciones<a class="headerlink" href="#asignaciones" title="Permalink to this headline"></a></h2>
+<p>Continuas</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="kt">wire</span> <span class="n">A</span><span class="p">;</span>
+<span class="k">assign</span> <span class="n">A</span> <span class="o">=</span> <span class="n">B</span><span class="o">&amp;</span><span class="n">C</span><span class="p">;</span>
+
+<span class="k">always_comb</span>
+   <span class="n">A</span> <span class="o">=</span> <span class="n">B</span><span class="o">&amp;</span><span class="n">C</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Procedural</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="kt">reg</span> <span class="n">A</span><span class="p">;</span>
+<span class="k">initial</span> <span class="k">begin</span>
+   <span class="n">A</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+   <span class="p">...</span>
+   <span class="n">A</span><span class="o">=</span><span class="n">B</span><span class="o">+</span><span class="n">C</span><span class="p">;</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="procedimientos">
+<h2>Procedimientos<a class="headerlink" href="#procedimientos" title="Permalink to this headline"></a></h2>
+<dl class="simple">
+<dt>initial</dt><dd><p>termina cuando se ejecuta la última línea</p>
+</dd>
+</dl>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">initial</span> <span class="k">begin</span>
+   <span class="n">A</span> <span class="o">=</span> <span class="mh">5</span><span class="p">;</span>
+   <span class="n">B</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+   <span class="n">C</span> <span class="o">=</span> <span class="mh">1</span><span class="p">&#39;</span><span class="n">bz</span><span class="p">;</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>always</dt><dd><p>cuando se ejecuta la última línea, vuelve a empezar</p>
+</dd>
+</dl>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">always</span> <span class="k">begin</span>
+   <span class="p">#(</span><span class="mh">10</span><span class="p">)</span> <span class="n">CLK</span><span class="o">=</span><span class="mh">0</span><span class="p">;</span>
+   <span class="p">#(</span><span class="mh">10</span><span class="p">)</span> <span class="n">CLK</span><span class="o">=</span><span class="mh">1</span><span class="p">;</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="asignaciones-procedurales">
+<h2>Asignaciones Procedurales<a class="headerlink" href="#asignaciones-procedurales" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><strong>Bloqueantes</strong>: se realiza antes de proceder con la siguiente (bloquea la ejecución)</p></li>
+<li><p><strong>No bloqueantes</strong>: se ejecutan en paralelo, describe <em>assigns</em> que ocurren a la vez</p></li>
+</ul>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">test</span><span class="p">;</span>
+   <span class="kt">reg</span> <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">;</span>
+   <span class="k">initial</span> <span class="k">begin</span>
+      <span class="n">a</span> <span class="o">=</span> <span class="mh">5</span><span class="p">;</span>
+      <span class="p">#</span><span class="mh">1</span> <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="o">+</span><span class="mh">1</span><span class="p">;</span>
+         <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">+</span><span class="mh">1</span><span class="p">;</span>
+      <span class="p">#</span><span class="mh">1</span> <span class="nb">$display</span><span class="p">(</span><span class="s">&quot;[%0t] a=%d b=%d&quot;</span><span class="p">,</span><span class="nb">$time</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+         <span class="n">a</span> <span class="o">=</span> <span class="mh">5</span><span class="p">;</span>
+      <span class="p">#</span><span class="mh">1</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="n">a</span><span class="o">+</span><span class="mh">1</span><span class="p">;</span>
+         <span class="n">b</span> <span class="o">&lt;=</span> <span class="n">a</span><span class="o">+</span><span class="mh">1</span><span class="p">;</span>
+      <span class="p">#</span><span class="mh">1</span> <span class="nb">$display</span><span class="p">(</span><span class="s">&quot;[%0t] a=%d b=%d&quot;</span><span class="p">,</span><span class="nb">$time</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+   <span class="k">end</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="control-por-evento">
+<h2>Control por evento<a class="headerlink" href="#control-por-evento" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Una asignación procedural puede ser controlada por el cambio de una variable, denominándose control por evento.</p></li>
+<li><p>Para ello se emplea el carácter &#64; seguido del evento que permite la ejecución de la asignación procedural.</p></li>
+<li><p>Se distinguen dos tipos de eventos:</p></li>
+</ul>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="c1">// Eventos de nivel: el cambio de valor de una o un conjunto de variables controla el acceso.</span>
+<span class="k">always</span> <span class="p">@(</span><span class="n">C</span> <span class="k">or</span> <span class="n">D</span><span class="p">)</span> <span class="c1">// lista de sensibilidad</span>
+   <span class="n">B</span><span class="o">=</span><span class="n">C</span><span class="o">+</span><span class="n">D</span><span class="p">;</span>
+
+<span class="c1">// Eventos de flanco: la combinación de flanco/s de subida (0 / 1) y de bajada (1 / 0)</span>
+<span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">CLK</span><span class="p">)</span>
+   <span class="n">B</span><span class="o">=</span><span class="n">C</span><span class="o">+</span><span class="mh">1</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="parametros">
+<h2>Parámetros<a class="headerlink" href="#parametros" title="Permalink to this headline"></a></h2>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="c1">// Reloj</span>
+<span class="k">parameter</span> <span class="n">T</span><span class="o">=</span><span class="mh">10</span><span class="n">_000</span><span class="p">;</span>
+<span class="kt">reg</span> <span class="n">CLK</span><span class="p">;</span>
+<span class="k">always</span> <span class="k">begin</span>
+   <span class="p">#(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">T</span><span class="p">)</span> <span class="n">CLK</span><span class="o">=</span><span class="mh">0</span><span class="p">;</span>
+   <span class="p">#(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">T</span><span class="p">)</span> <span class="n">CLK</span><span class="o">=</span><span class="mh">1</span><span class="p">;</span>
+<span class="k">end</span>
+
+<span class="c1">// Ancho de bus</span>
+<span class="k">parameter</span> <span class="n">N</span><span class="o">=</span><span class="mh">8</span><span class="p">;</span>
+<span class="kt">reg</span> <span class="p">[</span><span class="n">N</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">bus_A</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="directivas-para-el-compilador">
+<h2>Directivas para el compilador<a class="headerlink" href="#directivas-para-el-compilador" title="Permalink to this headline"></a></h2>
+<dl class="simple">
+<dt>timescale</dt><dd><p>la sim de verilog requiere una definición de tiempo: #1
+el <em>time_unit</em> es la medida de la unidad de sim, mientras <em>time_presicion</em> específica como
+son redondeados los retardos (<em>time_unit</em> &gt;= <em>time_presicion</em>)</p>
+</dd>
+</dl>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="no">`timescale</span> <span class="mh">1</span><span class="n">ns</span><span class="o">/</span><span class="mh">100</span><span class="n">ps</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>define</dt><dd><p>define un macro, de forma que cada vez que aparezca en el texto será sustituida por el valor.</p>
+</dd>
+</dl>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="cp">`define MACRO value</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>include</dt><dd><p>permite insertar el archivo en la posición donde aparezca esta directiva</p>
+</dd>
+</dl>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="no">`include</span> <span class="s">&quot;filename&quot;</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>ifdef</dt><dd><p>si la macro está definida, el código es incluido, en caso contrario es ignorado.</p>
+</dd>
+</dl>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="no">`ifdef</span> <span class="n">VAR</span>
+   <span class="n">code</span>
+<span class="no">`endif</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="estructuras-de-control">
+<h2>Estructuras de Control<a class="headerlink" href="#estructuras-de-control" title="Permalink to this headline"></a></h2>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="c1">// if</span>
+<span class="k">if</span>  <span class="p">(</span><span class="n">expression</span><span class="p">)</span>
+   <span class="n">command1</span><span class="p">;</span>
+<span class="k">else</span> <span class="p">(</span><span class="n">expression</span><span class="p">)</span>
+   <span class="n">command2</span><span class="p">;</span>
+
+<span class="c1">// case</span>
+<span class="k">case</span> <span class="p">(</span><span class="n">expression</span><span class="p">)</span>
+   <span class="nl">val1:</span>
+      <span class="n">command1</span><span class="p">;</span>
+   <span class="nl">val2:</span>
+      <span class="n">command2</span><span class="p">;</span>
+   <span class="p">...</span>
+   <span class="k">default</span><span class="o">:</span>
+      <span class="n">commandN</span><span class="p">;</span>
+<span class="k">endcase</span>
+
+<span class="c1">// for</span>
+<span class="k">for</span>  <span class="p">(</span><span class="n">init</span><span class="p">;</span> <span class="n">cond</span><span class="p">;</span> <span class="n">rep</span><span class="p">)</span>
+   <span class="n">command</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="c1">// while</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">cond</span><span class="p">)</span> <span class="n">command</span><span class="p">;</span>
+
+<span class="c1">// repeat</span>
+<span class="k">repeat</span> <span class="p">(</span><span class="n">Ntimes</span><span class="p">)</span> <span class="n">command</span><span class="p">;</span>
+
+<span class="c1">// wait</span>
+<span class="k">wait</span> <span class="p">(</span><span class="n">cond</span><span class="p">)</span> <span class="n">command</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="funciones-sistema">
+<h2>Funciones Sistema<a class="headerlink" href="#funciones-sistema" title="Permalink to this headline"></a></h2>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="c1">// esto es como la función print en otro lenguaje de programación</span>
+<span class="nb">$display</span><span class="p">(</span><span class="s">&quot;mem[0]  = %b&quot;</span><span class="p">,</span> <span class="n">mem</span><span class="p">[</span><span class="mh">0</span><span class="p">]);</span>
+
+<span class="c1">// indica el final de la simulación</span>
+<span class="nb">$finish</span><span class="p">;</span>
+
+<span class="c1">// retorna el instante de tiempo en el que se encuentra la simulación</span>
+<span class="nb">$time</span><span class="p">;</span>
+
+<span class="c1">// retorna un valor pseudo-aleatorio entero de 32 bits cada vez que se invoca.</span>
+<span class="nb">$random</span><span class="p">();</span>
+
+<span class="c1">// sin signo</span>
+<span class="n">$urandom</span><span class="p">();</span>
+
+<span class="c1">// sin signo, en rango</span>
+<span class="n">$urandom_range</span><span class="p">(</span><span class="n">N1</span><span class="p">,</span><span class="n">N2</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="maquinas-de-estado">
+<h2>Máquinas de Estado<a class="headerlink" href="#maquinas-de-estado" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Mealy: la salida depende del estado presente y las entradas.</p></li>
+<li><p>Moore: la salida depende del estado presente.</p></li>
+</ul>
+</div>
+<div class="section" id="arbitro">
+<h2>Árbitro<a class="headerlink" href="#arbitro" title="Permalink to this headline"></a></h2>
+<div class="figure align-default">
+<img alt="_images/module.arbiter.png" src="_images/module.arbiter.png" />
+</div>
+<ul class="simple">
+<li><p>Cuando <em>req_0</em> esta en alto , <em>gnt_0</em> esta en alto.</p></li>
+<li><p>Cuando <em>req_1</em> esta en alto, <em>gnt_1</em> esta en alto.</p></li>
+<li><p>Cuando ambos <em>req_0</em> y <em>req_1</em> esta en alto, <em>gnt_0</em> esta en alto teniendo mayor prioridad <em>req_0</em> sobre <em>req_1</em>.</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/fsm.arbiter.png" src="_images/fsm.arbiter.png" />
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">arbiter</span> <span class="p">(</span>
+   <span class="n">clock</span><span class="p">,</span>
+   <span class="n">reset</span><span class="p">,</span>
+   <span class="n">req_0</span><span class="p">,</span>
+   <span class="n">req_1</span><span class="p">,</span>
+   <span class="n">gnt_0</span><span class="p">,</span>
+   <span class="n">gnt_1</span>
+<span class="p">);</span>
+
+<span class="k">input</span> <span class="n">clock</span><span class="p">,</span> <span class="n">reset</span><span class="p">,</span> <span class="n">req_0</span><span class="p">,</span> <span class="n">req_1</span><span class="p">;</span>
+<span class="k">output</span> <span class="n">gnt_0</span><span class="p">,</span> <span class="n">gnt_1</span><span class="p">;</span>
+<span class="kt">reg</span> <span class="n">gnt_0</span><span class="p">,</span> <span class="n">gnt_1</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">arbiter</span> <span class="p">(</span>
+   <span class="k">input</span> <span class="n">clock</span><span class="p">,</span>
+   <span class="k">input</span> <span class="n">reset</span><span class="p">,</span>
+   <span class="k">input</span> <span class="n">req_0</span><span class="p">,</span>
+   <span class="k">input</span> <span class="n">req_1</span><span class="p">,</span>
+   <span class="k">output</span> <span class="kt">reg</span> <span class="n">gnt_0</span><span class="p">,</span>
+   <span class="k">output</span> <span class="kt">reg</span> <span class="n">gnt_1</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">always</span> <span class="p">@</span> <span class="p">(</span><span class="k">posedge</span> <span class="n">clock</span> <span class="k">or</span> <span class="k">posedge</span> <span class="n">reset</span><span class="p">)</span>
+   <span class="k">if</span> <span class="p">(</span><span class="n">reset</span><span class="p">)</span> <span class="k">begin</span> <span class="c1">// IDLE</span>
+      <span class="n">gnt_0</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
+      <span class="n">gnt_1</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
+   <span class="k">end</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">req_0</span><span class="p">)</span> <span class="k">begin</span> <span class="c1">// GNT0</span>
+      <span class="n">gnt_0</span> <span class="o">&lt;=</span> <span class="mh">1</span><span class="p">;</span>
+      <span class="n">gnt_1</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
+   <span class="k">end</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">req_1</span><span class="p">)</span> <span class="k">begin</span> <span class="c1">// GNT1</span>
+      <span class="n">gnt_0</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
+      <span class="n">gnt_1</span> <span class="o">&lt;=</span> <span class="mh">1</span><span class="p">;</span>
+   <span class="k">end</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="documentacion">
+<h2>Documentación<a class="headerlink" href="#documentacion" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.asic-world.com/verilog/veritut.html">Deepak Kumar: Verilog Tutorial</a></p></li>
+<li><p>Jorge Chavez: Verilog Manual</p></li>
+<li><p>D Thomas, P Moorby: The Verilog Hardware Description Language</p></li>
+</ul>
+</div>
+</div>
+
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Melvin Alvarado.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

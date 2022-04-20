@@ -1,0 +1,15 @@
+#################
+   Clases
+#################
+
+
+.. include:: clase.intro.rst
+.. include:: clase.verilog.rst
+.. include:: clase.sim.rst
+.. include:: clase.sv.verif.rst
+.. include:: clase.tb.uvm.rst
+.. include:: clase.tb.estrategia.rst
+.. include:: clase.coverage.rst
+.. include:: clase.ciclo.verif.rst
+.. include:: clase.costo.verif.rst
+.. include:: clases.rst

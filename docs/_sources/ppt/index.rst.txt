@@ -1,0 +1,26 @@
+
+#######################
+Verificación Funcional
+#######################
+
+.. figure:: media/logo.png
+
+`Melvin Alvarado <html://>`__
+
+Universidad de Costa Rica
+
+2022 Semestre I
+
+*basado en material de Prof. Gerardo Castro*
+
+.. include:: ../clase.intro.rst
+.. include:: ../env.rst
+.. include:: ../clase.verilog.rst
+.. include:: ../clase.sim.rst
+.. include:: ../clase.sv.verif.rst
+.. include:: ../clase.tb.uvm.rst
+.. include:: ../clase.tb.estrategia.rst
+.. include:: ../clase.coverage.rst
+.. include:: ../clase.ciclo.verif.rst
+.. include:: ../clase.costo.verif.rst
+.. include:: ../clases.rst

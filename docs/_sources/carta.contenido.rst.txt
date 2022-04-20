@@ -1,0 +1,73 @@
+
+.. container:: twocol
+
+   .. container:: leftside
+
+      1. Introducción a lenguajes de descripción de Hardware
+
+         1.1. Niveles de modelado en HDL.
+
+         1.2. Lógica combinacional.
+
+         1.3. Lógica secuencial.
+
+         1.4. Descripción de máquinas de estados.
+
+      2. Introducción a la verificación.
+
+         2.1. Espacio de Estados.
+
+         2.2. Detección de un comportamiento incorrecto.
+
+         2.3. Misión y objetivo de la verificación.
+
+      3. Costo de verificación
+
+         3.1. Costos de ingeniería
+
+         3.2. Costos de herramientas de diseño.
+
+         3.3. Tiempo.
+
+
+      4. Ciclo de Verificación
+
+         4.1. Especificación funcional.
+
+         4.2. Creación del plan de verificación.
+
+
+   .. container:: leftside
+
+
+         4.3. Desarrollo del ambiente de verificación.
+
+         4.4. Depuración del HDL y el ambiente.
+
+         4.5. Regresiones
+
+         4.6. Depuración del Hardware
+
+         4.7. Análisis de escapes
+
+      5. Flujo de Verificación
+
+         5.1. Jerarquía de verificación.
+
+         5.2. Estrategia de verificación.
+
+      6. Fundamentos de verificación basada en simulación.
+
+         6.1. Ambiente básico de verificación.
+
+         6.2. Puntos de Observación.
+
+         6.3. Estrategias de prueba.
+
+      7. Plan de verificación
+
+         7.1. Especificación funcional.
+
+         7.2. Estrategia de verificación.
+
+         7.3. Ejecución del plan de verificación.

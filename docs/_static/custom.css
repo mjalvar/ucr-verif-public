@@ -1,0 +1,57 @@
+.wy-nav-content {
+    max-width: 1200px !important;
+}
+
+a {
+    color: #00c0f3;
+}
+
+
+
+/* fix for enumerated lists*/
+.rst-content ol.arabic > li { list-style-type: decimal !important }
+.rst-content ol > li > ol { margin-bottom:0 !important }
+.rst-content ol.lowerroman > li { list-style-type: lower-roman !important }
+
+
+/* override table width restrictions */
+@media screen and (min-width: 767px) {
+
+    .wy-table-responsive table td {
+       /* !important prevents the common CSS stylesheets from overriding
+          this as on RTD they are loaded after this stylesheet */
+       white-space: normal !important;
+    }
+
+    .wy-table-responsive {
+       overflow: visible !important;
+    }
+ }
+
+ .strike {
+    text-decoration: line-through;
+ }
+
+
+img {
+   margin-left: auto;
+   margin-right: auto;
+   text-align:center;
+   display:block;
+}
+
+
+div.leftside {
+   width: 50%;
+   padding: 10px;
+   float: left;
+ }
+
+ div.rightside {
+   margin-left: 50%;
+   /* float: right; */
+ }
+
+.yellow {
+   background-color: yellow;
+ }

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Costo de Verif &mdash; HW Verif  documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="https://wavedrom.com/skins/default.js"></script>
+        <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #00c0f3 " >
+            <a href="index.html"><img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="carta.html">1. Programa del Curso</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clases_all.html">2. Clases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="env.html">3. Ambiente de Verificación</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">4. Diseño</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rest.html">5. ReST</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #00c0f3 " >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">HW Verif</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Costo de Verif</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/clase.costo.verif.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="costo-de-verif">
+<h1>Costo de Verif<a class="headerlink" href="#costo-de-verif" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Proceso diseño</p></li>
+<li><p>Causa de re-spin</p></li>
+<li><p>Verificación Funcional</p></li>
+<li><p>Roles</p></li>
+<li><p>Funcional vs Formal</p></li>
+<li><p>Ciclo de verif</p></li>
+<li><p>Grafico tiempo</p></li>
+</ul>
+<div class="section" id="proceso-de-diseno">
+<h2>Proceso de diseño<a class="headerlink" href="#proceso-de-diseno" title="Permalink to this headline"></a></h2>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/design.flow.2.png"><img alt="_images/design.flow.2.png" src="_images/design.flow.2.png" style="width: 403.20000000000005px; height: 407.20000000000005px;" /></a>
+</div>
+<ul class="simple">
+<li><p>¿Qué pasa si el HDL no expresa la función correctamente?</p></li>
+<li><p>¿Qué pasa si el diseñador omite una condición crítica (corner case)?</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/design.proc.1.png" src="_images/design.proc.1.png" />
+</div>
+<div class="figure align-default">
+<img alt="_images/design.proc.2.png" src="_images/design.proc.2.png" />
+</div>
+<div class="figure align-default">
+<img alt="_images/design.proc.3.png" src="_images/design.proc.3.png" />
+</div>
+</div>
+<div class="section" id="verificacion-funcional">
+<h2>Verificación Funcional<a class="headerlink" href="#verificacion-funcional" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li class="fragment"><p>La verificación funcional se encarga de asegurar que el diseño  realiza de forma correcta las tareas especificadas por la arquitectura del sistema.</p></li>
+<li class="fragment"><p>El trabajo del verificador se realiza la mayoría del tiempo sobre el RTL en vez de a nivel de compuertas y transistores.</p></li>
+<li class="fragment"><p>RTL es una forma más abstracta de especificar la lógica de un diseño en vez de a nivel de compuertas AND y OR.</p></li>
+<li class="fragment"><p>RTL permite al diseñador especificar el comportamiento a través de construcciones de alto nivel como ecuaciones Booleanas y estructuras IF-THEN-ELSE.</p></li>
+</ul>
+<p>Existen 3 roles diferentes:</p>
+<ul class="simple">
+<li class="fragment"><p>Diseñador de lógica que implementan el RTL de la especificación de la arquitectura utilizando un HDL.</p></li>
+<li class="fragment"><p>Verificador funcional que se asegura que el diseño es funcionalmente correcto.</p></li>
+<li class="fragment"><p>Diseñador de circuitos que acomoda las compuertas dentro del chip y se asegura que la temporización (timing) deseada se cumpla.</p></li>
+</ul>
+<ul class="simple">
+<li class="fragment"><p>El diseño de un chip consiste en miles de líneas de HDL.</p></li>
+<li class="fragment"><p>El trabajo del verificador es encontrar problemas en la implementación del HDL, reportando fallas o bugs cuando el HDL no se comporta
+de acuerdo a la especificación.</p></li>
+<li class="fragment"><p>Un verificador expone estas fallas corriendo simulaciones sobre el diseño.</p></li>
+<li class="fragment"><p>El ingeniero en verificación tiene se enfrenta  dos grandes retos:</p>
+<ul>
+<li><p>El tamaño gigante del espacio de estados.</p></li>
+<li><p>Detectar un comportamiento incorrecto.</p></li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+<li class="fragment"><p>Ejercitar todos escenarios de entradas y transición de estados.</p></li>
+<li class="fragment"><p>Reportar cualquier comportamiento incorrecto que presente del diseño.</p></li>
+<li class="fragment"><p>Existen 2 métodos fundamentales:</p>
+<ul>
+<li><p>Verificación basada en simulación</p></li>
+<li><p>Verificación formal</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="verificacion-simulacion">
+<h2>Verificación Simulación<a class="headerlink" href="#verificacion-simulacion" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Aplica estímulos a un modelo en software del diseño.</p></li>
+<li><p>Se crea un TB manualmente</p>
+<ul>
+<li><p>Testcase: escenario de estimulo para el RTL</p></li>
+<li><p>Driver: inyectar valores al protocolo/señales</p></li>
+<li><p>Monitor: monitorear protocolo/señales</p></li>
+<li><p>Model: predecir el estado del RTL</p></li>
+<li><p>Checkers: revisa contra modelo de referencia para determinar si la prueba pasa o falla</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="verificacion-formal">
+<h2>Verificación Formal<a class="headerlink" href="#verificacion-formal" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li class="fragment"><p>Es una técnica más nueva. En vez de verificar posibles secuencias de entrada,
+la verificación formal prueba que una regla de un protocolo, aserción o diseño
+se mantiene verdadera para todos los casos posibles del diseño.</p></li>
+<li class="fragment"><p>Verificación formal se puede utilizar solo en diseños de tamaño limitado porque consume gran
+cantidad de recursos computacionales inclusive en diseños pequeños.</p></li>
+<li class="fragment"><p>SVA (SystemVerilog Assertions) assume, assert, cover.</p></li>
+</ul>
+</div>
+<div class="section" id="formal-vs-simulacion">
+<h2>Formal vs Simulación<a class="headerlink" href="#formal-vs-simulacion" title="Permalink to this headline"></a></h2>
+<div class="figure align-default">
+<img alt="_images/module.arbiter.png" src="_images/module.arbiter.png" />
+</div>
+<blockquote class="pull-quote">
+<div><p>“Testing only shows the presence of bugs, not their absence.”
+– Dijkstra’s Dictum</p>
+</div></blockquote>
+</div>
+<div class="section" id="verificacion-costo">
+<h2>Verificación Costo<a class="headerlink" href="#verificacion-costo" title="Permalink to this headline"></a></h2>
+<div class="figure align-default">
+<img alt="_images/design.flow.3.png" src="_images/design.flow.3.png" />
+</div>
+<div class="figure align-default">
+<img alt="_images/bugs.time.png" src="_images/bugs.time.png" />
+</div>
+<div class="figure align-default">
+<img alt="_images/cost.time.png" src="_images/cost.time.png" />
+</div>
+<ul class="simple">
+<li class="fragment"><p>El proceso de diseño tiene restricciones de: tiempo, costo y calidad. Se debe encontrar un balance.</p></li>
+<li class="fragment"><p>Luego de la fabricación en silicio, pruebas a nivel de sistema se realizar y pueden encontrarse bugs que la verificación pre-silicio no encontró.</p>
+<ul>
+<li><p>Impacto en tiempo, alto costo monetario y alto costo en calidad.</p></li>
+</ul>
+</li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/time.spent.verif.png" src="_images/time.spent.verif.png" />
+</div>
+<div class="figure align-default">
+<img alt="_images/proj.schedule.png" src="_images/proj.schedule.png" />
+</div>
+</div>
+<div class="section" id="ciclo-verificacion">
+<h2>Ciclo Verificación<a class="headerlink" href="#ciclo-verificacion" title="Permalink to this headline"></a></h2>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/verif.cycle.png"><img alt="_images/verif.cycle.png" src="_images/verif.cycle.png" style="width: 511.20000000000005px; height: 553.6px;" /></a>
+</div>
+<ul class="simple">
+<li><p>Especificación funcional.</p></li>
+<li><p>Plan de Verificación.</p></li>
+<li><p>Desarrollo del ambiente de verificación.</p></li>
+<li><p>Depuración del HDL y el ambiente.</p></li>
+<li><p>Regresiones.</p></li>
+<li><p>Fabricación del Hardware.</p></li>
+<li><p>Depuración del Hardware (Pruebas en sistema)</p></li>
+<li><p>Análisis de escapes.</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/verif.cycle.1.png" src="_images/verif.cycle.1.png" />
+</div>
+<div class="figure align-default">
+<img alt="_images/verif.eng.time.png" src="_images/verif.eng.time.png" />
+</div>
+</div>
+<div class="section" id="bibliografia">
+<h2>Bibliografía<a class="headerlink" href="#bibliografia" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>B. Wile, J. Goss y W. Roesner.  “Comprehensive Functional Verification The Complete Industry Cycle” Elsevier, Primera Edición, 2005.</p></li>
+<li><p>C. Spear, G. Tumbush.  “System Verilog for Verification: A Guide to Learning the Testbench Language Features ” Springer, Tercera Edición, 2005.</p></li>
+<li><p>S. Vasudevan. “Effective Functional Verification”, Springer, Primera Edición, 2006.</p></li>
+</ul>
+</div>
+</div>
+
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Melvin Alvarado.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

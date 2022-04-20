@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Testbench UVM &mdash; HW Verif  documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="https://wavedrom.com/skins/default.js"></script>
+        <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #00c0f3 " >
+            <a href="index.html"><img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="carta.html">1. Programa del Curso</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clases_all.html">2. Clases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="env.html">3. Ambiente de Verificación</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">4. Diseño</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rest.html">5. ReST</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #00c0f3 " >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">HW Verif</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Testbench UVM</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/clase.tb.uvm.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="testbench-uvm">
+<h1>Testbench UVM<a class="headerlink" href="#testbench-uvm" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Intro</p></li>
+<li><p>UVM</p></li>
+<li><p>Componentes</p></li>
+<li><p>Checkers</p></li>
+</ul>
+<div class="section" id="testbench">
+<h2>Testbench<a class="headerlink" href="#testbench" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li class="fragment"><p>Modela el universo para el diseño y debe soportar toda las acciones que pueden ocurrir sobre él.</p></li>
+<li class="fragment"><p>Se conoce como banco de pruebas o “testbench”</p></li>
+<li class="fragment"><p>Un ambiente básico de verificación consiste en:</p>
+<ul>
+<li><p>Diseño bajo verificación (DUV/DUT)</p></li>
+<li><p>Componente de estímulo</p></li>
+<li><p>Componente de monitoreo</p></li>
+<li><p>Componente de chequeo</p></li>
+<li><p>Scoreboard</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="uvm">
+<h2>UVM<a class="headerlink" href="#uvm" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li class="fragment"><p>Sistemas digitales complejos. Se verificaba revisando los waveforms, manual</p></li>
+<li class="fragment"><p>SV lenguaje: clases, covergroups, constraints</p></li>
+<li class="fragment"><p>Metodología de verif es esencial: automatizar, reutilizable, building blocks</p></li>
+<li class="fragment"><p>UVM: SV API opensource (Accellera) para automatizar/crear ambiente de verif eficiente</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/method.trend.jpg" src="_images/method.trend.jpg" />
+</div>
+<div class="figure align-default">
+<img alt="_images/uvm.tb.png" src="_images/uvm.tb.png" />
+</div>
+</div>
+<div class="section" id="uvm-classes">
+<h2>UVM Classes<a class="headerlink" href="#uvm-classes" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Los componentes son representados como objetos.</p></li>
+<li><p>Cada clase contiene métodos útiles implementados.</p></li>
+</ul>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/uvm.classes.tree.png"><img alt="_images/uvm.classes.tree.png" src="_images/uvm.classes.tree.png" style="width: 447.59999999999997px; height: 300.0px;" /></a>
+</div>
+</div>
+<div class="section" id="driver">
+<h2>Driver<a class="headerlink" href="#driver" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li class="fragment"><p>Manipula las entradas del DUV.</p></li>
+<li class="fragment"><p>Imita el comportamiento de entidades vecinas.</p></li>
+<li class="fragment"><p>La generación de estímulos no deben restringirse a lo que el DUV es capaz de recibir.</p></li>
+<li class="fragment"><p>De esta forma se estresa el DUV y se pueden encontrar condiciones límite que solo se pueden ver luego de millones de ciclos una prueba a nivel de sistema.</p></li>
+<li class="fragment"><p><a class="reference external" href="http://">Convierte TLM =&gt; señales</a></p></li>
+</ul>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">simpleadder_driver</span> <span class="n">extends</span> <span class="n">uvm_driver</span><span class="p">#(</span><span class="n">simpleadder_transaction</span><span class="p">);</span>
+
+    <span class="c1">//Interface declaration</span>
+    <span class="n">protected</span> <span class="n">virtual</span> <span class="n">simpleadder_if</span> <span class="n">vif</span><span class="p">;</span>
+
+    <span class="k">function</span> <span class="n">new</span><span class="p">(</span><span class="k">string</span> <span class="n">name</span><span class="p">,</span> <span class="n">uvm_component</span> <span class="n">parent</span><span class="p">);</span>
+        <span class="n">super</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="p">);</span>
+    <span class="k">endfunction</span><span class="o">:</span> <span class="n">new</span>
+
+    <span class="k">function</span> <span class="k">void</span> <span class="n">build_phase</span><span class="p">(</span><span class="n">uvm_phase</span> <span class="n">phase</span><span class="p">);</span>
+        <span class="n">super</span><span class="p">.</span><span class="n">build_phase</span><span class="p">(</span><span class="n">phase</span><span class="p">);</span>
+        <span class="k">void</span><span class="p">&#39;(</span><span class="n">uvm_resource_db</span><span class="p">#(</span><span class="n">virtual</span> <span class="n">simpleadder_if</span><span class="p">)</span><span class="o">::</span><span class="n">read_by_name</span><span class="p">(.</span><span class="n">scope</span><span class="p">(</span><span class="s">&quot;ifs&quot;</span><span class="p">),</span> <span class="p">.</span><span class="n">name</span><span class="p">(</span><span class="s">&quot;simpleadder_if&quot;</span><span class="p">),</span> <span class="p">.</span><span class="n">val</span><span class="p">(</span><span class="n">vif</span><span class="p">)));</span>
+    <span class="k">endfunction</span><span class="o">:</span> <span class="n">build_phase</span>
+
+    <span class="k">task</span> <span class="n">run_phase</span><span class="p">(</span><span class="n">uvm_phase</span> <span class="n">phase</span><span class="p">);</span>
+        <span class="c1">//Our code here</span>
+    <span class="k">endtask</span><span class="o">:</span> <span class="n">run_phase</span>
+
+<span class="nl">endclass:</span> <span class="n">simpleadder_driver</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="monitor">
+<h2>Monitor<a class="headerlink" href="#monitor" title="Permalink to this headline"></a></h2>
+<p>Un monitor es un modelo que observa diferentes aspectos del ambiente como:</p>
+<ul class="simple">
+<li class="fragment"><p>Salidas para se cumpla el protocolo.</p></li>
+<li class="fragment"><p>Entradas para cobertura funcional y actualizaciones del scoreboard</p></li>
+<li class="fragment"><p>Señales internas para eventos de interés para el ambiente</p></li>
+<li class="fragment"><p><a class="reference external" href="http://">Convierte señales =&gt; TLM</a></p></li>
+</ul>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">simpleadder_monitor_before</span> <span class="n">extends</span> <span class="n">uvm_monitor</span><span class="p">;</span>
+
+    <span class="n">uvm_analysis_port</span><span class="p">#(</span><span class="n">simpleadder_transaction</span><span class="p">)</span> <span class="n">mon_ap_before</span><span class="p">;</span>
+
+    <span class="n">virtual</span> <span class="n">simpleadder_if</span> <span class="n">vif</span><span class="p">;</span>
+
+    <span class="k">function</span> <span class="n">new</span><span class="p">(</span><span class="k">string</span> <span class="n">name</span><span class="p">,</span> <span class="n">uvm_component</span> <span class="n">parent</span><span class="p">);</span>
+        <span class="n">super</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="p">);</span>
+    <span class="k">endfunction</span><span class="o">:</span> <span class="n">new</span>
+
+    <span class="k">function</span> <span class="k">void</span> <span class="n">build_phase</span><span class="p">(</span><span class="n">uvm_phase</span> <span class="n">phase</span><span class="p">);</span>
+        <span class="n">super</span><span class="p">.</span><span class="n">build_phase</span><span class="p">(</span><span class="n">phase</span><span class="p">);</span>
+
+        <span class="k">void</span><span class="p">&#39;(</span><span class="n">uvm_resource_db</span><span class="p">#(</span><span class="n">virtual</span> <span class="n">simpleadder_if</span><span class="p">)</span><span class="o">::</span><span class="n">read_by_name</span> <span class="p">(.</span><span class="n">scope</span><span class="p">(</span><span class="s">&quot;ifs&quot;</span><span class="p">),</span> <span class="p">.</span><span class="n">name</span><span class="p">(</span><span class="s">&quot;simpleadder_if&quot;</span><span class="p">),</span> <span class="p">.</span><span class="n">val</span><span class="p">(</span><span class="n">vif</span><span class="p">)));</span>
+        <span class="n">mon_ap_before</span> <span class="o">=</span> <span class="n">new</span><span class="p">(.</span><span class="n">name</span><span class="p">(</span><span class="s">&quot;mon_ap_before&quot;</span><span class="p">),</span> <span class="p">.</span><span class="n">parent</span><span class="p">(</span><span class="n">this</span><span class="p">));</span>
+    <span class="k">endfunction</span><span class="o">:</span> <span class="n">build_phase</span>
+
+    <span class="k">task</span> <span class="n">run_phase</span><span class="p">(</span><span class="n">uvm_phase</span> <span class="n">phase</span><span class="p">);</span>
+        <span class="c1">//Our code here</span>
+    <span class="k">endtask</span><span class="o">:</span> <span class="n">run_phase</span>
+
+<span class="nl">endclass:</span> <span class="n">simpleadder_monitor_before</span>
+</pre></div>
+</div>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/uvm.example.layers.png"><img alt="_images/uvm.example.layers.png" src="_images/uvm.example.layers.png" style="width: 690.6px; height: 490.79999999999995px;" /></a>
+</div>
+<div class="figure align-default">
+<img alt="_images/uvm.layers.png" src="_images/uvm.layers.png" />
+</div>
+</div>
+<div class="section" id="uvm-phases">
+<h2>UVM Phases<a class="headerlink" href="#uvm-phases" title="Permalink to this headline"></a></h2>
+<p>Todas las clases/obj tienen sim phases.
+Las phases son pasos ordenados de ejecución implementados como métodos.</p>
+<div class="figure align-default">
+<img alt="_images/uvm.phases.png" src="_images/uvm.phases.png" />
+</div>
+<ul class="simple">
+<li class="fragment"><p>build: construye los componentes de la jerarquía. Ej. agent =&gt; driver, monitor</p></li>
+<li class="fragment"><p>connect: conectar sub componentes de la clase.</p></li>
+<li class="fragment"><p>run: fase principal</p></li>
+<li class="fragment"><p>report: se utiliza para recolectar datos al final de la sim para hacer reportes, checkers, resultados</p></li>
+</ul>
+</div>
+<div class="section" id="uvm-macros">
+<h2>UVM Macros<a class="headerlink" href="#uvm-macros" title="Permalink to this headline"></a></h2>
+<p>Implementan métodos útiles para clases y variables. Opcionales, pero recomendables.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>// This macro registers the new class type.
+// It’s usually used when deriving new classes like a new agent,
+// driver, monitor and so on.
+`uvm_component_utils
+
+// This macro registers a variable in the UVM factory and implements
+// some functions like copy(), compare() and print().
+`uvm_field_int
+
+// This a very useful macro to print messages from the UVM environment
+// during simulation time.
+`uvm_info
+</pre></div>
+</div>
+</div>
+<div class="section" id="agent">
+<h2>Agent<a class="headerlink" href="#agent" title="Permalink to this headline"></a></h2>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">simpleadder_agent</span> <span class="n">extends</span> <span class="n">uvm_agent</span><span class="p">;</span>
+
+   <span class="c1">//Analysis ports to connect the monitors to the scoreboard</span>
+   <span class="n">uvm_analysis_port</span><span class="p">#(</span><span class="n">simpleadder_transaction</span><span class="p">)</span> <span class="n">agent_ap_before</span><span class="p">;</span>
+   <span class="n">uvm_analysis_port</span><span class="p">#(</span><span class="n">simpleadder_transaction</span><span class="p">)</span> <span class="n">agent_ap_after</span><span class="p">;</span>
+
+   <span class="n">simpleadder_sequencer</span>        <span class="n">sa_seqr</span><span class="p">;</span>
+   <span class="n">simpleadder_driver</span>        <span class="n">sa_drvr</span><span class="p">;</span>
+   <span class="n">simpleadder_monitor_before</span>    <span class="n">sa_mon_before</span><span class="p">;</span>
+   <span class="n">simpleadder_monitor_after</span>    <span class="n">sa_mon_after</span><span class="p">;</span>
+
+   <span class="k">function</span> <span class="n">new</span><span class="p">(</span><span class="k">string</span> <span class="n">name</span><span class="p">,</span> <span class="n">uvm_component</span> <span class="n">parent</span><span class="p">);</span>
+         <span class="n">super</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="p">);</span>
+   <span class="k">endfunction</span><span class="o">:</span> <span class="n">new</span>
+
+   <span class="k">function</span> <span class="k">void</span> <span class="n">build_phase</span><span class="p">(</span><span class="n">uvm_phase</span> <span class="n">phase</span><span class="p">);</span>
+         <span class="n">super</span><span class="p">.</span><span class="n">build_phase</span><span class="p">(</span><span class="n">phase</span><span class="p">);</span>
+
+         <span class="n">agent_ap_before</span>    <span class="o">=</span> <span class="n">new</span><span class="p">(.</span><span class="n">name</span><span class="p">(</span><span class="s">&quot;agent_ap_before&quot;</span><span class="p">),</span> <span class="p">.</span><span class="n">parent</span><span class="p">(</span><span class="n">this</span><span class="p">));</span>
+         <span class="n">agent_ap_after</span>    <span class="o">=</span> <span class="n">new</span><span class="p">(.</span><span class="n">name</span><span class="p">(</span><span class="s">&quot;agent_ap_after&quot;</span><span class="p">),</span> <span class="p">.</span><span class="n">parent</span><span class="p">(</span><span class="n">this</span><span class="p">));</span>
+
+         <span class="n">sa_seqr</span>        <span class="o">=</span> <span class="n">simpleadder_sequencer</span><span class="o">::</span><span class="n">type_id</span><span class="o">::</span><span class="n">create</span><span class="p">(...</span>
+         <span class="n">sa_drvr</span>        <span class="o">=</span> <span class="n">simpleadder_driver</span><span class="o">::</span><span class="n">type_id</span><span class="o">::</span><span class="n">create</span><span class="p">(...</span>
+         <span class="n">sa_mon_before</span>    <span class="o">=</span> <span class="n">simpleadder_monitor_before</span><span class="o">::</span><span class="n">type_id</span><span class="o">::</span><span class="n">create</span><span class="p">(...</span>
+         <span class="n">sa_mon_after</span>    <span class="o">=</span> <span class="n">simpleadder_monitor_after</span><span class="o">::</span><span class="n">type_id</span><span class="o">::</span><span class="n">create</span><span class="p">(...</span>
+   <span class="k">endfunction</span><span class="o">:</span> <span class="n">build_phase</span>
+
+   <span class="k">function</span> <span class="k">void</span> <span class="n">connect_phase</span><span class="p">(</span><span class="n">uvm_phase</span> <span class="n">phase</span><span class="p">);</span>
+         <span class="n">super</span><span class="p">.</span><span class="n">connect_phase</span><span class="p">(</span><span class="n">phase</span><span class="p">);</span>
+         <span class="n">sa_drvr</span><span class="p">.</span><span class="n">seq_item_port</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">sa_seqr</span><span class="p">.</span><span class="n">seq_item_export</span><span class="p">);</span>
+         <span class="n">sa_mon_before</span><span class="p">.</span><span class="n">mon_ap_before</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">agent_ap_before</span><span class="p">);</span>
+         <span class="n">sa_mon_after</span><span class="p">.</span><span class="n">mon_ap_after</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">agent_ap_after</span><span class="p">);</span>
+   <span class="k">endfunction</span><span class="o">:</span> <span class="n">connect_phase</span>
+
+<span class="nl">endclass:</span> <span class="n">simpleadder_agent</span>
+</pre></div>
+</div>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/uvm.example.layers.2.png"><img alt="_images/uvm.example.layers.2.png" src="_images/uvm.example.layers.2.png" style="width: 690.6px; height: 490.79999999999995px;" /></a>
+</div>
+</div>
+<div class="section" id="sequence">
+<h2>Sequence<a class="headerlink" href="#sequence" title="Permalink to this headline"></a></h2>
+<div class="figure align-default">
+<img alt="_images/uvm.seq.png" src="_images/uvm.seq.png" />
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">simpleadder_transaction</span> <span class="n">extends</span> <span class="n">uvm_sequence_item</span><span class="p">;</span>
+   <span class="n">rand</span> <span class="kt">bit</span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">ina</span><span class="p">;</span>
+   <span class="n">rand</span> <span class="kt">bit</span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">inb</span><span class="p">;</span>
+   <span class="kt">bit</span><span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">out</span><span class="p">;</span>
+
+   <span class="k">function</span> <span class="n">new</span><span class="p">(</span><span class="k">string</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">);</span>
+         <span class="n">super</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+   <span class="k">endfunction</span><span class="o">:</span> <span class="n">new</span>
+
+   <span class="p">&#39;</span><span class="n">uvm_object_utils_begin</span><span class="p">(</span><span class="n">simpleadder_transaction</span><span class="p">)</span>
+   <span class="p">&#39;</span><span class="n">uvm_field_int</span><span class="p">(</span><span class="n">ina</span><span class="p">,</span> <span class="n">UVM_ALL_ON</span><span class="p">)</span>
+   <span class="p">&#39;</span><span class="n">uvm_field_int</span><span class="p">(</span><span class="n">inb</span><span class="p">,</span> <span class="n">UVM_ALL_ON</span><span class="p">)</span>
+   <span class="p">&#39;</span><span class="n">uvm_field_int</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">UVM_ALL_ON</span><span class="p">)</span>
+   <span class="p">&#39;</span><span class="n">uvm_object_utils_end</span>
+<span class="nl">endclass:</span> <span class="n">simpleadder_transaction</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">simpleadder_transaction_3inputs</span> <span class="n">extends</span> <span class="n">simpleadder_transaction</span><span class="p">;</span>
+   <span class="n">rand</span> <span class="kt">bit</span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">inc</span><span class="p">;</span>
+
+   <span class="k">function</span> <span class="n">new</span><span class="p">(</span><span class="k">string</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">);</span>
+      <span class="n">super</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+   <span class="k">endfunction</span><span class="o">:</span> <span class="n">new</span>
+
+   <span class="p">&#39;</span><span class="n">uvm_object_utils_begin</span><span class="p">(</span><span class="n">simpleadder_transaction_3inputs</span><span class="p">)</span>
+   <span class="p">&#39;</span><span class="n">uvm_field_int</span><span class="p">(</span><span class="n">inc</span><span class="p">,</span> <span class="n">UVM_ALL_ON</span><span class="p">)</span>
+   <span class="p">&#39;</span><span class="n">uvm_object_utils_end</span>
+<span class="nl">endclass:</span> <span class="n">simpleadder_transaction_3inputs</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">simpleadder_sequence</span> <span class="n">extends</span> <span class="n">uvm_sequence</span><span class="p">#(</span><span class="n">simpleadder_transaction</span><span class="p">);</span>
+   <span class="p">&#39;</span><span class="n">uvm_object_utils</span><span class="p">(</span><span class="n">simpleadder_sequence</span><span class="p">)</span>
+
+   <span class="k">function</span> <span class="n">new</span><span class="p">(</span><span class="k">string</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">);</span>
+         <span class="n">super</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+   <span class="k">endfunction</span><span class="o">:</span> <span class="n">new</span>
+
+   <span class="k">task</span> <span class="n">body</span><span class="p">();</span>
+         <span class="n">simpleadder_transaction</span> <span class="n">sa_tx</span><span class="p">;</span>
+
+         <span class="k">repeat</span><span class="p">(</span><span class="mh">15</span><span class="p">)</span> <span class="k">begin</span>
+               <span class="n">sa_tx</span> <span class="o">=</span> <span class="n">simpleadder_transaction</span><span class="o">::</span><span class="n">type_id</span><span class="o">::</span><span class="n">create</span><span class="p">(...</span>
+
+               <span class="n">start_item</span><span class="p">(</span><span class="n">sa_tx</span><span class="p">);</span>
+                  <span class="n">assert</span><span class="p">(</span><span class="n">sa_tx</span><span class="p">.</span><span class="n">randomize</span><span class="p">());</span>
+               <span class="n">finish_item</span><span class="p">(</span><span class="n">sa_tx</span><span class="p">);</span>
+         <span class="k">end</span>
+   <span class="k">endtask</span><span class="o">:</span> <span class="n">body</span>
+<span class="nl">endclass:</span> <span class="n">simpleadder_sequence</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="puntos-de-observacion">
+<h2>Puntos de observación<a class="headerlink" href="#puntos-de-observacion" title="Permalink to this headline"></a></h2>
+<p>Verificación de Caja negra (Black Box):</p>
+<ul class="simple">
+<li class="fragment"><p>el ambiente de verificación solo utiliza interfaces externas (entradas y salidas)</p></li>
+<li class="fragment"><p>la especificación debe explicar claramente la función del DUV</p></li>
+<li class="fragment"><p>revisa el algoritmo/funcionalidad no la implementación</p></li>
+<li class="fragment"><p>poco impacto a cambios estructurales</p></li>
+<li class="fragment"><p>bajo control y observabilidad</p></li>
+</ul>
+<p>Verificación de Caja Blanca (White Box):</p>
+<ul class="simple">
+<li class="fragment"><p>a diferencia de <em>caja negra</em> provee un entendimiento completo de la estructuras internas del DUV</p></li>
+<li class="fragment"><p>revisa la implementación</p></li>
+<li class="fragment"><p>el ambiente de verificación observa y chequea señales internas, modela y predice estructuras</p></li>
+<li class="fragment"><p>alto impacto a cambios estructurales (dependencia)</p></li>
+<li class="fragment"><p>mayor control y observabilidad</p></li>
+<li class="fragment"><p>se realiza a niveles bajos de la jerarquía de verificación</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/black.white.box.png" src="_images/black.white.box.png" />
+</div>
+<p>Verificación de Caja gris (Gray Box):</p>
+<ul class="simple">
+<li><p>es una combinación de los dos métodos anteriores</p></li>
+</ul>
+</div>
+<div class="section" id="checkers">
+<h2>Checkers<a class="headerlink" href="#checkers" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li class="fragment"><p>Checkers de datos: se utilizan para verificar la integridad de los datos transmitidos por un dispositivo (datapath).</p>
+<ul>
+<li><p>Es conecta en la entradas y salidas del dispositivo.</p></li>
+</ul>
+</li>
+<li class="fragment"><p>Checker de protocolo/interface: revisa que protocolo en la interface donde se conecta.</p></li>
+<li class="fragment"><p>Checker basado en ciclos: se utilizan para revisar que la salida del dispositivo es correcta ciclo a ciclo.</p>
+<ul>
+<li><p>Difíciles de implementar y darles mantenimiento.</p></li>
+</ul>
+</li>
+</ul>
+<blockquote class="pull-quote">
+<div><p>“Even if it’s tested, if it isn’t checked it still doesn’t work!”
+– Bentley’s Corollary</p>
+</div></blockquote>
+</div>
+<div class="section" id="checker-vs-scoreboard">
+<h2>Checker vs Scoreboard<a class="headerlink" href="#checker-vs-scoreboard" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li class="fragment"><p>ambos son componentes para revisar</p></li>
+<li class="fragment"><p>checker usa señales: protocol checker</p></li>
+<li class="fragment"><p>checker se puede poner dentro del monitor para verificar TLM se generen adecuadamente</p></li>
+<li class="fragment"><p>scoreboard usa TLM: packets IN vs packets OUT</p></li>
+</ul>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/uvm.scoreboard.png"><img alt="_images/uvm.scoreboard.png" src="_images/uvm.scoreboard.png" style="width: 535.8px; height: 466.79999999999995px;" /></a>
+</div>
+</div>
+<div class="section" id="referencias">
+<h2>Referencias<a class="headerlink" href="#referencias" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Pedro Araújo. <a class="reference external" href="https://colorlesscube.com/uvm-guide-for-beginners/">UVM guide for beginners</a></p></li>
+<li><p>Accelera. <a class="reference external" href="https://www.accellera.org/downloads/standards/uvm">UVM downloads</a></p></li>
+<li><p>Accellera. <a class="reference external" href="https://www.accellera.org/images/downloads/standards/uvm/uvm_users_guide_1.2.pdf">UVM users guide</a></p></li>
+<li><p>B. Wile, J. Goss y W. Roesner. “Comprehensive Functional Verification The Complete Industry Cycle” Elsevier, Primera Edición, 2005.</p></li>
+<li><p>C. Spear, G. Tumbush. “System Verilog for Verification: A Guide to Learning the Testbench Language Features ” Springer, Tercera Edición, 2005.</p></li>
+<li><p>S. Vasudevan. “Effective Functional Verification”, Springer, Primera Edición, 2006.</p></li>
+</ul>
+</div>
+</div>
+
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Melvin Alvarado.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

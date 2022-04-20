@@ -1,0 +1,254 @@
+
+SV para verificación
+====================
+
+* Diff RTL vs Verif
+* Tipos de datos
+* Interfaces
+* Clases
+* vifc
+* Random
+* Fork
+
+Intro
+-----
+
+.. figure:: media/design.lang.trend.jpg
+
+.. revealjs_break::
+
+.. figure:: media/verif.lang.trend.jpg
+
+
+SystemVerilog
+-------------
+
+.. revealjs_fragments::
+    * Verilog 95 y Verilog 2001 no eran lenguajes para verificación
+    * Para verificación se tenía que utilizar lenguajes como “e”, VERA, Testbuilder
+
+      * Es difícil tener dos lenguajes, uno para del diseño y otro para verificación
+
+    * System Verilog es una evolución de Verilog-2001 y un lenguaje poderoso para:
+
+      * Diseño
+      * Verificación
+      * Testbench
+
+.. revealjs_break::
+
+* Las características principales para validación son:
+
+  * Aserciones, Cobertura, generación aleatoria.
+  * Incorpora características de lenguajes de alto nivel como C++
+
+
+Diff RTL vs Verif
+-----------------
+
+.. code-block:: verilog
+
+    module
+    interface
+
+.. code-block:: verilog
+
+    class
+    virtual
+
+
+Tipos de Datos
+--------------
+
+.. table::
+
+    =========== =====================================================================
+    Tipo        Definición
+    =========== =====================================================================
+    shortint    SV: 2 estados, 16b con signo
+    int         SV: 2 estados, 32b con signo
+    longint     SV: 2 estados, 64b con signo
+    byte        SV: 2 estados, 8b con signo o char ASCII
+    =========== =====================================================================
+
+.. revealjs_break::
+
+.. table::
+
+    =========== =====================================================================
+    Tipo        Definición
+    =========== =====================================================================
+    bit         SV: 2 estados, tamaño vector definido por usuario
+    logic       SV: 4 estados, tamaño vector definido por usuario
+    reg         V: 4 estados,  tamaño vector definido por usuario
+    interger    V: 4 estados, 32b con signo
+    time        V: 4 estados, 64b sin signo
+    =========== =====================================================================
+
+
+Logic
+-----
+
+* En Verilog, se podían crean confusiones con el uso de reg y wire.
+* System Verilog soluciona el problema con logic:
+
+  * Puede ser utilizado con asignaciones continuas, compuertas, módulos o puede ser una variable.
+  * Excepción: no se puede utilizar cuando se tienen varios “drivers”. Por ejemplo: buses bidireccionales.
+
+
+Queue
+-----
+
+.. code-block::
+
+    int q2[$] = {3,4};
+    int q[$] = {0,2,5};
+    int j = 1;
+
+.. code-block:: verilog
+
+    initial begin
+        q.insert(1, j);     // {0,1,2,5} Inserta 1 antes del 2
+        q.insert(3, q2);    // {0,1,2,3,4,5} Inserta q2 en q1
+        q.delete(1);        // {0,2,3,4,5} Borra el elemento  #1
+
+        // Operaciones  rápidas
+        q.push_front(6);    // {6,0,2,3,4,5} Inserta al principio
+        j = q.pop_back;     // {6,0,2,3,4} j = 5
+        q.push_back(8);     // {6,0,2,3,4,8} Insert al final
+        j = q.pop_front;    // {0,2,3,4,8} j = 6
+        foreach (q[i])
+            $display(q[i]); // Imprime el queue por completo
+        q.delete();         // {} Borra el queue por completo
+    end
+
+.. revealjs_break::
+
+.. code-block:: verilog
+
+    initial begin
+        q = {q[0], j, q[1:$]};      // {0,1,2,5} Inserta 1 antes que 2
+        q = {q[0:2], q2, q[3:$]};   // {0,1,2,3,4,5} Inserta q2 en q
+        q = {q[0], q[2:$]};         // {0,2,3,4,5} Borra el elemento #1
+
+        //Operaciones rápidas
+        q = {6, q};             // {6,0,2,3,4,5} Inserta al principio
+        j = q[$];               // j = 5 Equivalente a
+        q = q[0:$-1];           // {6,0,2,3,4} Retira al final
+        q = {q, 8};             // {6,0,2,3,4,8} Inserta al final
+        j = q[0];               // j = 6 Equivalente a
+        q = q[1:$];             // {0,2,3,4,8} Retira al principio
+        q = {};                 // {} Borra por completo el queue
+    end
+
+
+Interfaces
+----------
+
+* Permite encapsular la comunicación entre el DUT y el TB.
+* Permite lista de puertos compactas y evita puertos sin conectar.
+
+.. figure:: media/vifc.png
+
+.. revealjs_break::
+
+.. figure:: media/uvm.example.dut.png
+
+.. code-block:: verilog
+
+    interface simpleadder_if;
+        logic    sig_clock;
+        logic    sig_ina;
+        logic    sig_inb;
+        logic    sig_en_i;
+        logic    sig_out;
+        logic    sig_en_o;
+    endinterface: simpleadder_if
+
+
+
+Clases
+------
+
+.. code-block:: verilog
+
+    class simpleadder_test extends uvm_test;
+
+        simpleadder_env sa_env;
+
+        function new(string name, uvm_component parent);
+            super.new(name, parent);
+        endfunction: new
+
+        function void build_phase(uvm_phase phase);
+            super.build_phase(phase);
+            sa_env = simpleadder_env::type_id::create(...
+        endfunction: build_phase
+
+        task run_phase(uvm_phase phase);
+            simpleadder_sequence sa_seq;
+        endtask: run_phase
+
+    endclass: simpleadder_test
+
+
+Virtual interface
+-----------------
+
+.. code-block:: verilog
+
+    module simpleadder_tb_top;
+        import uvm_pkg::*;
+
+        //Interface declaration
+        simpleadder_if vif();
+
+        //Connects the Interface to the DUT
+        simpleadder dut(vif.sig_clock,
+                        vif.sig_en_i,
+                        vif.sig_ina,
+                        vif.sig_inb,
+                        vif.sig_en_o,
+                        vif.sig_out);
+        initial begin
+            //Registers the Interface in the configuration block
+            //so that other blocks can use it
+            uvm_resource_db#(virtual simpleadder_if)::set(.scope("ifs"), .name("simpleadder_if"), .val(vif));
+
+            //Executes the test
+            run_test();
+        end
+
+Random & Constraints
+--------------------
+
+.. code-block:: verilog
+
+    rand integer len;
+    randc bit [1:0] no_repeat;
+    rand bit  [7:0] payload [];
+
+    // Restringir miembros
+    constraint legal {
+        len >= 2;
+        len <= 5;
+        payload.size() == len;
+    }
+    constraint distribution {
+        no_repeat dist { 0 := 1 , 1 := 1, 2 := 0.5, 3 := 0.5 };
+    }
+
+Fork
+-----
+
+.. figure:: media/sv.fork.png
+         
+
+
+Referencias
+-----------
+
+* B\. Wile, J. Goss y W. Roesner.  “Comprehensive Functional Verification The Complete Industry Cycle” Elsevier, Primera Edición, 2005.
+* C\. Spear, G. Tumbush.  “System Verilog for Verification: A Guide to Learning the Testbench Language Features ” Springer, Tercera Edición, 2005.
+* Accellera. “System Verilog 3.1a Language Reference Manual”, 2004.
+* `www.testbench.in <http://www.testbench.in>`__

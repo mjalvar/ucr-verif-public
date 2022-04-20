@@ -1,0 +1,173 @@
+
+
+Testbench Estrategia
+====================
+
+* Intro
+* TB tipos
+* Capas
+* Estrategia
+
+Tipos
+-----
+
+Test Bench determinístico:
+
+* Se utiliza al principio del ciclo de verificación para probar la funcionalidad básica del DUV.
+* Utiliza casos de prueba determinísticos donde se conoce la función que se desea ejercitar.
+
+.. revealjs_break::
+
+Self checking TestBench:
+
+* Agrega el conocimiento de la funcionalidad del DUV para realizar un chequeo automático.
+* Requiere más tiempo de desarrollo.
+* Existen diferentes tipos:
+
+  * Vectores de referencia.
+  * Modelo de referencia
+  * Basado en transacciones.
+
+
+Vectores de referencia
+----------------------
+Vectores de salida válidos se almacenan en el scoreboard y se comparan las salidas DUV con la base.
+
+
+.. figure:: media/vec.ref.png
+
+
+Modelo de referencia
+--------------------
+
+* Calcula las salidas esperadas con base en las entradas.
+* Re-implementa la función del DUV pero a alto nivel.
+
+.. figure:: media/model.ref.png
+
+
+Basado en transacciones
+-----------------------
+
+* Un ambiente basado en transacciones es utilizado para un DUV que tiene transacciones identificables a través de comandos y datos.
+* El scoreboard almacena las transacciones que han entrado al DUV y que no se han completado.
+
+.. figure:: media/tlm.scb.png
+
+Capas
+-----
+
+.. revealjs_fragments::
+
+  * El primer paso consiste en tomar acciones/comandos comunes como: reset, lectura/escritura de bus, etc. y moverlos a subrutinas.
+  * La capa de señales contiene las señales DUT que se conectan al testbench.
+  * La capa de comandos (TLM):
+
+    * Maneja la entradas del DUT y aplica comandos como lectura/escritura al bus.
+    * Las salidas del DUT manejan el monitor que toma las señales y la agrupa en comandos de respuesta.
+
+
+.. revealjs_break::
+
+.. figure:: media/tb.capas.1.png
+
+
+Capa Funcional
+--------------
+* El bloque agente recibe TLMs (transacciones de alto nivel) y las divide en comandos/transacciones señales.
+* TLMs también son enviados al scoreboard que predice el resultado.
+
+.. figure:: media/tb.capas.2.png
+
+
+Capa Escenario
+--------------
+La capa funcional es manejada por un generador de escenarios
+
+.. figure:: media/tb.capas.3.png
+
+
+.. revealjs_break::
+
+Al dividir el TB en piezas y capas facilita su mantenimiento y reuso.
+
+.. figure:: media/tb.capas.3.png
+
+
+Metodologías de verificación
+----------------------------
+
+.. figure:: media/method.trend.jpg
+
+Pruebas directas/dirigidas
+--------------------------
+
+* Este enfoque utiliza la especificación para escribir un plan de verificación con una lista de pruebas.
+* Presenta una progreso incremental y resultados de inmediato hasta completar todas las pruebas.
+* Si la complejidad aumenta al doble, el doble de tiempo o el doble de recursos se requieren para finalizar.
+
+.. figure:: media/tests.direct.png
+
+
+Pruebas Aleatorias
+------------------
+
+.. revealjs_fragments::
+  * Se requieren estímulos aleatorios para diseños complejos.
+  * Se requiere cobertura funcional para medir el progreso de verificación.
+  * Se requiere un scoreboard o modelo de referencia para para predecir los resultados.
+  * En general requiere más tiempo de desarrollo por lo que genera un retardo para correr la primera prueba.
+  * Sin embargo, permite encontrar bugs más rápido que pruebas directas.
+
+.. revealjs_break::
+
+.. figure:: media/tests.random.png
+
+.. revealjs_break::
+
+.. revealjs_fragments::
+  * Configuración del dispositivo
+  * Configuración del ambiente
+  * Datos de entrada
+  * Excepciones de protocolo
+  * Errores/violaciones
+  * Retardos/sincronización
+
+.. revealjs_break::
+
+
+.. revealjs_fragments::
+  * Los valores o parámetros utilizados no son completamente aleatorios sino que son restringidos.
+  * Se utilizan restricciones para cumplir ciertos requerimientos (espacio legal).
+  * Estas restricciones puede utilizarse para crear pruebas directas.
+
+.. figure:: media/tests.constraints.png
+
+.. revealjs_break::
+   :notitle:
+
+El tipo de estimulo varia dependiendo del ambiente de verificación, el plan de verificación y el DUT.
+
+.. figure:: media/estrategia.png
+
+.. revealjs_break::
+   :notitle:
+
+.. pull-quote::
+
+    Passing tests aren't interesting because they don't tell us anything; failing tests are interesting.
+    That's why it is dangerous to only track pass rates, and even more dangerous to conclude that verification is "
+    done" when all tests are passing.
+    (the fallacy of the test list)
+
+.. pull-quote::
+
+    Running the same tests over and over again will eventually cause them to pass.
+    What it doesn't do is tell you if there are bugs hiding elsewhere. (the fallacy of the regression).
+
+
+Bibliografía
+------------
+* B\. Wile, J. Goss y W. Roesner. “Comprehensive Functional Verification The Complete Industry Cycle” Elsevier, Primera Edición, 2005.
+* C\. Spear, G. Tumbush. “System Verilog for Verification: A Guide to Learning the Testbench Language Features ” Springer, Tercera Edición, 2005.
+* S\. Vasudevan. “Effective Functional Verification”, Springer, Primera Edición, 2006.

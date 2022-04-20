@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ciclo Verif &mdash; HW Verif  documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="https://wavedrom.com/skins/default.js"></script>
+        <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #00c0f3 " >
+            <a href="index.html"><img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="carta.html">1. Programa del Curso</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clases_all.html">2. Clases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="env.html">3. Ambiente de Verificación</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">4. Diseño</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rest.html">5. ReST</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #00c0f3 " >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">HW Verif</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Ciclo Verif</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/clase.ciclo.verif.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="ciclo-verif">
+<h1>Ciclo Verif<a class="headerlink" href="#ciclo-verif" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Intro</p></li>
+<li><p>Jerarquía</p></li>
+<li><p>Control/Observabilidad</p></li>
+<li><p>Emulacion</p></li>
+<li><p>Estrategia</p></li>
+<li><p>Creación de Escenarios</p></li>
+<li><p>Prioridades</p></li>
+</ul>
+<div class="section" id="introduccion">
+<h2>Introducción<a class="headerlink" href="#introduccion" title="Permalink to this headline"></a></h2>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/verif.cycle.png"><img alt="_images/verif.cycle.png" src="_images/verif.cycle.png" style="width: 511.20000000000005px; height: 553.6px;" /></a>
+</div>
+</div>
+<div class="section" id="jerarquia-de-verificacion">
+<h2>Jerarquía de verificación<a class="headerlink" href="#jerarquia-de-verificacion" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li class="fragment"><p>Una práctica básica consiste en dividir el diseño en bloques más pequeños y crear una estructura jerárquica del diseño.</p></li>
+<li class="fragment"><p>La verificación primero se enfrentará a los bloques pequeños del sistema, para luego avanzar con las porciones más grandes.</p></li>
+<li class="fragment"><p>La verificación es un proceso bottom-up.</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/verif.bottom.up.png" src="_images/verif.bottom.up.png" />
+</div>
+<ul class="simple">
+<li class="fragment"><p>Siempre escoger el nivel más bajo que contiene por completo la función a verificar.</p></li>
+<li class="fragment"><p>Cada bloque de verificación debe tener su propio documento de especificación.</p></li>
+<li class="fragment"><p>Componentes nuevos o complejos requieren mayor atención.</p></li>
+<li class="fragment"><p>El nivel apropiado de control y observabilidad decide en cual nivel verificar.</p></li>
+<li class="fragment"><p>La función puede dictar los niveles de verificación.</p></li>
+</ul>
+</div>
+<div class="section" id="controlabilidad-y-observabilidad">
+<h2>Controlabilidad y Observabilidad<a class="headerlink" href="#controlabilidad-y-observabilidad" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li class="fragment"><p>El nivel de controlabilidad y observabilidad que un ingeniero de verificación tiene un correlación directa con la habilidad de encontrar bugs en el diseño.</p></li>
+<li class="fragment"><p>Controlabilidad indica la facilidad con la que se pueden crear escenarios específicos para el área de interés. A nivel alto de
+la jerarquía se tiene menos controlabilidad.</p></li>
+<li class="fragment"><p>Observabilidad indica la facilidad con la que se puede identificar si el diseño se comporta de forma correcta o incorrecta.</p></li>
+<li class="fragment"><p>El ingeniero de verificación estimula (controllability) y revisa (observability) el diseño bajo prueba.</p></li>
+</ul>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/bugs.months.png"><img alt="_images/bugs.months.png" src="_images/bugs.months.png" style="width: 725.5px; height: 483.0px;" /></a>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>Jerarquía de verificación<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
+<dl class="simple">
+<dt>BFM</dt><dd><p>Modelo funcional de bus, imita el comportamiento de la ifc</p>
+</dd>
+</dl>
+<div class="figure align-default">
+<img alt="_images/tb.bfm.png" src="_images/tb.bfm.png" />
+</div>
+<dl class="simple">
+<dt>Verificación a nivel de sub-sistema:</dt><dd><ul class="simple">
+<li><p>Verificación de la interacción entre bloques.</p></li>
+<li><p>BFMs se remplazan por el RTL a este nivel.</p></li>
+<li><p>El tiempo de simulación es mayor.</p></li>
+<li><p>Es más costoso crear un escenario específico dentro de un bloque.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/tb.cluster.png"><img alt="_images/tb.cluster.png" src="_images/tb.cluster.png" style="width: 402.5px; height: 595.5px;" /></a>
+</div>
+<dl class="simple">
+<dt>Verificación a nivel de chip completo (Full Chip):</dt><dd><ul class="simple">
+<li><p>El RTL es completo.</p></li>
+<li><p>Las simulaciones son lentas.</p></li>
+<li><p>Más difícil de depurar.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/tb.fc.png"><img alt="_images/tb.fc.png" src="_images/tb.fc.png" style="width: 309.59999999999997px; height: 311.4px;" /></a>
+</div>
+</div>
+<div class="section" id="emulacion">
+<h2>Emulación<a class="headerlink" href="#emulacion" title="Permalink to this headline"></a></h2>
+<p>Emulación mapea el diseño a un dispositivo (FPGA) para acelerar al simulación del RTL.</p>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/emu.veloce.png"><img alt="_images/emu.veloce.png" src="_images/emu.veloce.png" style="width: 409.2px; height: 347.09999999999997px;" /></a>
+</div>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/emu.veloce.2.png"><img alt="_images/emu.veloce.2.png" src="_images/emu.veloce.2.png" style="width: 710.0px; height: 528.5px;" /></a>
+</div>
+</div>
+<div class="section" id="resumen-jerarquia">
+<h2>Resumen Jerarquía<a class="headerlink" href="#resumen-jerarquia" title="Permalink to this headline"></a></h2>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/verif.hier.png"><img alt="_images/verif.hier.png" src="_images/verif.hier.png" style="width: 606.0px; height: 598.5px;" /></a>
+</div>
+</div>
+<div class="section" id="estrategia-de-verificacion">
+<h2>Estrategia de verificación<a class="headerlink" href="#estrategia-de-verificacion" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li class="fragment"><p>Las preguntas básicas que un ingeniero en verificación debe hacerse:</p>
+<ul>
+<li><p>¿Estoy creando todos los posibles escenarios?</p></li>
+<li><p>¿Cómo identifico cuando una falla a ocurrido?</p></li>
+</ul>
+</li>
+<li class="fragment"><p>El ingeniero en verificación debe primero leer toda la documentación existente del diseño.</p></li>
+<li class="fragment"><p>Entender todas las entradas y salidas. Para luego entender la funcionalidad del diseño y
+poder predecir la salida con base en las entradas.</p></li>
+</ul>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/verif.design.types.png"><img alt="_images/verif.design.types.png" src="_images/verif.design.types.png" style="width: 883.0px; height: 589.0px;" /></a>
+</div>
+</div>
+<div class="section" id="creacion-de-escenarios">
+<h2>Creación de escenarios<a class="headerlink" href="#creacion-de-escenarios" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li class="fragment"><p>Es importante que el ingeniero de verificación reciba la descripción de entradas por alguien diferente al autor del RTL.</p></li>
+<li class="fragment"><p>Un diseño probablemente tiene gran cantidad de señales de entrada. Se deben agrupar basadas en su función lógica.</p></li>
+<li class="fragment"><p>La meta es maximizar todos los posibles escenarios que el ambiente de verificación puede crear:</p>
+<ul>
+<li><p>Para señales de control, significa crear todos los tipos de comandos.</p></li>
+<li><p>Para buses de datos, significa crear una variedad amplia de patrones.</p></li>
+<li><p>Para casos frontera, significa crear excepciones, condiciones extrañas y extremas en el diseño.</p></li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+<li class="fragment"><p>Nivel de Aplicación:</p>
+<ul>
+<li><p>Definen el comportamiento del dispositivo.</p></li>
+<li><p>Envuelven múltiples interacciones entre interfaces.</p></li>
+<li><p>Usualmente se prueban a nivel de sub-sistema o “full-chip”.</p></li>
+</ul>
+</li>
+<li class="fragment"><p>Nivel de Interface:</p>
+<ul>
+<li><p>Interfaces internas o externas al dispositivo.</p></li>
+<li><p>La verificación de estos los protocolos se captura a nivel de bloque, sub-sistema y full-chip.</p></li>
+<li><p>Creación de escenarios</p></li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+<li class="fragment"><p>Nivel de Estructura: relacionadas a la implementación del diseño:</p>
+<ul>
+<li><p>Maquinas de Estado (FSM).</p></li>
+<li><p>FIFOs</p></li>
+<li><p>Memorias</p></li>
+<li><p>Árbitros</p></li>
+<li><p>Handshaking</p></li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+<li class="fragment"><p>Configuraciones:</p>
+<ul>
+<li><p>Se deben verificar todos los posibles modos de configuración.</p></li>
+</ul>
+</li>
+<li class="fragment"><p>Estándar y Protocolos:</p>
+<ul>
+<li><p>Si se utilizar un standard o protocolo estándar se debe verificar su conformidad.</p></li>
+</ul>
+</li>
+<li class="fragment"><p>Rendimiento:</p>
+<ul>
+<li><p>Los requerimientos de rendimiento se deben verificar.</p></li>
+</ul>
+</li>
+</ul>
+<p>Para cada característica identificada del diseño, se deben hacer las siguientes preguntas:</p>
+<ul class="simple">
+<li class="fragment"><p>¿Cuáles es la funcionalidad básica?</p></li>
+<li class="fragment"><p>¿Cuáles son sus propiedades o atributos?</p></li>
+<li class="fragment"><p>¿Cuál es el rango de valores que puede utilizarse?</p>
+<ul>
+<li><p>Extremos, valores intermedios e inválidos.</p></li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+<li class="fragment"><p>¿Qué se puede considerar como un error? ¿Se puede aplicar pruebas negativas?</p></li>
+<li class="fragment"><p>¿Tiene múltiples dominios de reloj o de potencia?</p></li>
+<li class="fragment"><p>¿Hay algún protocolo asociado?</p></li>
+<li class="fragment"><p>¿Cuál es la interacción con otras características del diseño?</p>
+<ul>
+<li><p>Espacial o temporalmente</p></li>
+</ul>
+</li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 70%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Bloque</p></th>
+<th class="head"><p>Feature</p></th>
+<th class="head"><p>Prioridad</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Cache</p></td>
+<td><p>Cache arbitration for Port B read</p></td>
+<td><p>P1</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cache</p></td>
+<td><p>Cache arbitration for Port B write</p></td>
+<td><p>P2</p></td>
+</tr>
+<tr class="row-even"><td><p>FIFO</p></td>
+<td><p>Functional soft reset</p></td>
+<td><p>P1</p></td>
+</tr>
+<tr class="row-odd"><td><p>FIFO</p></td>
+<td><p>Insert pattern 0</p></td>
+<td><p>P2</p></td>
+</tr>
+<tr class="row-even"><td><p>LLC</p></td>
+<td><p>Diff n bit positions for L1 and L2</p></td>
+<td><p>P2</p></td>
+</tr>
+</tbody>
+</table>
+<blockquote class="pull-quote">
+<div><p>“If it isn’t tested, it doesn’t work.”
+– Bob Colwell, Chief Architect for IA32 Intel pentium I, II, III, IV.</p>
+</div></blockquote>
+</div>
+<div class="section" id="bibliografia">
+<h2>Bibliografía<a class="headerlink" href="#bibliografia" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>B. Wile, J. Goss y W. Roesner. “Comprehensive Functional Verification The Complete Industry Cycle” Elsevier, Primera Edición, 2005.</p></li>
+<li><p>C. Spear, G. Tumbush. “System Verilog for Verification: A Guide to Learning the Testbench Language Features ” Springer, Tercera Edición, 2005.</p></li>
+<li><p>S. Vasudevan. “Effective Functional Verification”, Springer, Primera Edición, 2006.</p></li>
+</ul>
+</div>
+</div>
+
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Melvin Alvarado.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

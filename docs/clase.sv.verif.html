@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SV para verificación &mdash; HW Verif  documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="https://wavedrom.com/skins/default.js"></script>
+        <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #00c0f3 " >
+            <a href="index.html"><img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="carta.html">1. Programa del Curso</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clases_all.html">2. Clases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="env.html">3. Ambiente de Verificación</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">4. Diseño</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rest.html">5. ReST</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #00c0f3 " >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">HW Verif</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>SV para verificación</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/clase.sv.verif.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="sv-para-verificacion">
+<h1>SV para verificación<a class="headerlink" href="#sv-para-verificacion" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Diff RTL vs Verif</p></li>
+<li><p>Tipos de datos</p></li>
+<li><p>Interfaces</p></li>
+<li><p>Clases</p></li>
+<li><p>vifc</p></li>
+<li><p>Random</p></li>
+<li><p>Fork</p></li>
+</ul>
+<div class="section" id="intro">
+<h2>Intro<a class="headerlink" href="#intro" title="Permalink to this headline"></a></h2>
+<div class="figure align-default">
+<img alt="_images/design.lang.trend.jpg" src="_images/design.lang.trend.jpg" />
+</div>
+<div class="figure align-default">
+<img alt="_images/verif.lang.trend.jpg" src="_images/verif.lang.trend.jpg" />
+</div>
+</div>
+<div class="section" id="systemverilog">
+<h2>SystemVerilog<a class="headerlink" href="#systemverilog" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li class="fragment"><p>Verilog 95 y Verilog 2001 no eran lenguajes para verificación</p></li>
+<li class="fragment"><p>Para verificación se tenía que utilizar lenguajes como “e”, VERA, Testbuilder</p>
+<ul>
+<li><p>Es difícil tener dos lenguajes, uno para del diseño y otro para verificación</p></li>
+</ul>
+</li>
+<li class="fragment"><p>System Verilog es una evolución de Verilog-2001 y un lenguaje poderoso para:</p>
+<ul>
+<li><p>Diseño</p></li>
+<li><p>Verificación</p></li>
+<li><p>Testbench</p></li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+<li><p>Las características principales para validación son:</p>
+<ul>
+<li><p>Aserciones, Cobertura, generación aleatoria.</p></li>
+<li><p>Incorpora características de lenguajes de alto nivel como C++</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="diff-rtl-vs-verif">
+<h2>Diff RTL vs Verif<a class="headerlink" href="#diff-rtl-vs-verif" title="Permalink to this headline"></a></h2>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span>
+<span class="n">interface</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="n">class</span>
+<span class="n">virtual</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tipos-de-datos">
+<h2>Tipos de Datos<a class="headerlink" href="#tipos-de-datos" title="Permalink to this headline"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 86%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Tipo</p></th>
+<th class="head"><p>Definición</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>shortint</p></td>
+<td><p>SV: 2 estados, 16b con signo</p></td>
+</tr>
+<tr class="row-odd"><td><p>int</p></td>
+<td><p>SV: 2 estados, 32b con signo</p></td>
+</tr>
+<tr class="row-even"><td><p>longint</p></td>
+<td><p>SV: 2 estados, 64b con signo</p></td>
+</tr>
+<tr class="row-odd"><td><p>byte</p></td>
+<td><p>SV: 2 estados, 8b con signo o char ASCII</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 86%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Tipo</p></th>
+<th class="head"><p>Definición</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bit</p></td>
+<td><p>SV: 2 estados, tamaño vector definido por usuario</p></td>
+</tr>
+<tr class="row-odd"><td><p>logic</p></td>
+<td><p>SV: 4 estados, tamaño vector definido por usuario</p></td>
+</tr>
+<tr class="row-even"><td><p>reg</p></td>
+<td><p>V: 4 estados,  tamaño vector definido por usuario</p></td>
+</tr>
+<tr class="row-odd"><td><p>interger</p></td>
+<td><p>V: 4 estados, 32b con signo</p></td>
+</tr>
+<tr class="row-even"><td><p>time</p></td>
+<td><p>V: 4 estados, 64b sin signo</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="logic">
+<h2>Logic<a class="headerlink" href="#logic" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>En Verilog, se podían crean confusiones con el uso de reg y wire.</p></li>
+<li><p>System Verilog soluciona el problema con logic:</p>
+<ul>
+<li><p>Puede ser utilizado con asignaciones continuas, compuertas, módulos o puede ser una variable.</p></li>
+<li><p>Excepción: no se puede utilizar cuando se tienen varios “drivers”. Por ejemplo: buses bidireccionales.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="queue">
+<h2>Queue<a class="headerlink" href="#queue" title="Permalink to this headline"></a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>int q2[$] = {3,4};
+int q[$] = {0,2,5};
+int j = 1;
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">initial</span> <span class="k">begin</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="mh">1</span><span class="p">,</span> <span class="n">j</span><span class="p">);</span>     <span class="c1">// {0,1,2,5} Inserta 1 antes del 2</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="mh">3</span><span class="p">,</span> <span class="n">q2</span><span class="p">);</span>    <span class="c1">// {0,1,2,3,4,5} Inserta q2 en q1</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="mh">1</span><span class="p">);</span>        <span class="c1">// {0,2,3,4,5} Borra el elemento  #1</span>
+
+    <span class="c1">// Operaciones  rápidas</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">push_front</span><span class="p">(</span><span class="mh">6</span><span class="p">);</span>    <span class="c1">// {6,0,2,3,4,5} Inserta al principio</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">pop_back</span><span class="p">;</span>     <span class="c1">// {6,0,2,3,4} j = 5</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mh">8</span><span class="p">);</span>     <span class="c1">// {6,0,2,3,4,8} Insert al final</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">pop_front</span><span class="p">;</span>    <span class="c1">// {0,2,3,4,8} j = 6</span>
+    <span class="n">foreach</span> <span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="nb">$display</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span> <span class="c1">// Imprime el queue por completo</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">delete</span><span class="p">();</span>         <span class="c1">// {} Borra el queue por completo</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span>initial begin
+    q = {q[0], j, q[1:$]};      // {0,1,2,5} Inserta 1 antes que 2
+    q = {q[0:2], q2, q[3:$]};   // {0,1,2,3,4,5} Inserta q2 en q
+    q = {q[0], q[2:$]};         // {0,2,3,4,5} Borra el elemento #1
+
+    //Operaciones rápidas
+    q = {6, q};             // {6,0,2,3,4,5} Inserta al principio
+    j = q[$];               // j = 5 Equivalente a
+    q = q[0:$-1];           // {6,0,2,3,4} Retira al final
+    q = {q, 8};             // {6,0,2,3,4,8} Inserta al final
+    j = q[0];               // j = 6 Equivalente a
+    q = q[1:$];             // {0,2,3,4,8} Retira al principio
+    q = {};                 // {} Borra por completo el queue
+end
+</pre></div>
+</div>
+</div>
+<div class="section" id="interfaces">
+<h2>Interfaces<a class="headerlink" href="#interfaces" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Permite encapsular la comunicación entre el DUT y el TB.</p></li>
+<li><p>Permite lista de puertos compactas y evita puertos sin conectar.</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/vifc.png" src="_images/vifc.png" />
+</div>
+<div class="figure align-default">
+<img alt="_images/uvm.example.dut.png" src="_images/uvm.example.dut.png" />
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="n">interface</span> <span class="n">simpleadder_if</span><span class="p">;</span>
+    <span class="kt">logic</span>    <span class="n">sig_clock</span><span class="p">;</span>
+    <span class="kt">logic</span>    <span class="n">sig_ina</span><span class="p">;</span>
+    <span class="kt">logic</span>    <span class="n">sig_inb</span><span class="p">;</span>
+    <span class="kt">logic</span>    <span class="n">sig_en_i</span><span class="p">;</span>
+    <span class="kt">logic</span>    <span class="n">sig_out</span><span class="p">;</span>
+    <span class="kt">logic</span>    <span class="n">sig_en_o</span><span class="p">;</span>
+<span class="nl">endinterface:</span> <span class="n">simpleadder_if</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="clases">
+<h2>Clases<a class="headerlink" href="#clases" title="Permalink to this headline"></a></h2>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">simpleadder_test</span> <span class="n">extends</span> <span class="n">uvm_test</span><span class="p">;</span>
+
+    <span class="n">simpleadder_env</span> <span class="n">sa_env</span><span class="p">;</span>
+
+    <span class="k">function</span> <span class="n">new</span><span class="p">(</span><span class="k">string</span> <span class="n">name</span><span class="p">,</span> <span class="n">uvm_component</span> <span class="n">parent</span><span class="p">);</span>
+        <span class="n">super</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="p">);</span>
+    <span class="k">endfunction</span><span class="o">:</span> <span class="n">new</span>
+
+    <span class="k">function</span> <span class="k">void</span> <span class="n">build_phase</span><span class="p">(</span><span class="n">uvm_phase</span> <span class="n">phase</span><span class="p">);</span>
+        <span class="n">super</span><span class="p">.</span><span class="n">build_phase</span><span class="p">(</span><span class="n">phase</span><span class="p">);</span>
+        <span class="n">sa_env</span> <span class="o">=</span> <span class="n">simpleadder_env</span><span class="o">::</span><span class="n">type_id</span><span class="o">::</span><span class="n">create</span><span class="p">(...</span>
+    <span class="k">endfunction</span><span class="o">:</span> <span class="n">build_phase</span>
+
+    <span class="k">task</span> <span class="n">run_phase</span><span class="p">(</span><span class="n">uvm_phase</span> <span class="n">phase</span><span class="p">);</span>
+        <span class="n">simpleadder_sequence</span> <span class="n">sa_seq</span><span class="p">;</span>
+    <span class="k">endtask</span><span class="o">:</span> <span class="n">run_phase</span>
+
+<span class="nl">endclass:</span> <span class="n">simpleadder_test</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="virtual-interface">
+<h2>Virtual interface<a class="headerlink" href="#virtual-interface" title="Permalink to this headline"></a></h2>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">simpleadder_tb_top</span><span class="p">;</span>
+    <span class="n">import</span> <span class="n">uvm_pkg</span><span class="o">::*</span><span class="p">;</span>
+
+    <span class="c1">//Interface declaration</span>
+    <span class="n">simpleadder_if</span> <span class="n">vif</span><span class="p">();</span>
+
+    <span class="c1">//Connects the Interface to the DUT</span>
+    <span class="n">simpleadder</span> <span class="n">dut</span><span class="p">(</span><span class="n">vif</span><span class="p">.</span><span class="n">sig_clock</span><span class="p">,</span>
+                    <span class="n">vif</span><span class="p">.</span><span class="n">sig_en_i</span><span class="p">,</span>
+                    <span class="n">vif</span><span class="p">.</span><span class="n">sig_ina</span><span class="p">,</span>
+                    <span class="n">vif</span><span class="p">.</span><span class="n">sig_inb</span><span class="p">,</span>
+                    <span class="n">vif</span><span class="p">.</span><span class="n">sig_en_o</span><span class="p">,</span>
+                    <span class="n">vif</span><span class="p">.</span><span class="n">sig_out</span><span class="p">);</span>
+    <span class="k">initial</span> <span class="k">begin</span>
+        <span class="c1">//Registers the Interface in the configuration block</span>
+        <span class="c1">//so that other blocks can use it</span>
+        <span class="n">uvm_resource_db</span><span class="p">#(</span><span class="n">virtual</span> <span class="n">simpleadder_if</span><span class="p">)</span><span class="o">::</span><span class="n">set</span><span class="p">(.</span><span class="n">scope</span><span class="p">(</span><span class="s">&quot;ifs&quot;</span><span class="p">),</span> <span class="p">.</span><span class="n">name</span><span class="p">(</span><span class="s">&quot;simpleadder_if&quot;</span><span class="p">),</span> <span class="p">.</span><span class="n">val</span><span class="p">(</span><span class="n">vif</span><span class="p">));</span>
+
+        <span class="c1">//Executes the test</span>
+        <span class="n">run_test</span><span class="p">();</span>
+    <span class="k">end</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="random-constraints">
+<h2>Random &amp; Constraints<a class="headerlink" href="#random-constraints" title="Permalink to this headline"></a></h2>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="n">rand</span> <span class="k">integer</span> <span class="n">len</span><span class="p">;</span>
+<span class="n">randc</span> <span class="kt">bit</span> <span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">no_repeat</span><span class="p">;</span>
+<span class="n">rand</span> <span class="kt">bit</span>  <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">payload</span> <span class="p">[];</span>
+
+<span class="c1">// Restringir miembros</span>
+<span class="n">constraint</span> <span class="n">legal</span> <span class="p">{</span>
+    <span class="n">len</span> <span class="o">&gt;=</span> <span class="mh">2</span><span class="p">;</span>
+    <span class="n">len</span> <span class="o">&lt;=</span> <span class="mh">5</span><span class="p">;</span>
+    <span class="n">payload</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="n">len</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">constraint</span> <span class="n">distribution</span> <span class="p">{</span>
+    <span class="n">no_repeat</span> <span class="n">dist</span> <span class="p">{</span> <span class="mh">0</span> <span class="o">:=</span> <span class="mh">1</span> <span class="p">,</span> <span class="mh">1</span> <span class="o">:=</span> <span class="mh">1</span><span class="p">,</span> <span class="mh">2</span> <span class="o">:=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mh">3</span> <span class="o">:=</span> <span class="mf">0.5</span> <span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="fork">
+<h2>Fork<a class="headerlink" href="#fork" title="Permalink to this headline"></a></h2>
+<div class="figure align-default">
+<img alt="_images/sv.fork.png" src="_images/sv.fork.png" />
+</div>
+</div>
+<div class="section" id="referencias">
+<h2>Referencias<a class="headerlink" href="#referencias" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>B. Wile, J. Goss y W. Roesner.  “Comprehensive Functional Verification The Complete Industry Cycle” Elsevier, Primera Edición, 2005.</p></li>
+<li><p>C. Spear, G. Tumbush.  “System Verilog for Verification: A Guide to Learning the Testbench Language Features ” Springer, Tercera Edición, 2005.</p></li>
+<li><p>Accellera. “System Verilog 3.1a Language Reference Manual”, 2004.</p></li>
+<li><p><a class="reference external" href="http://www.testbench.in">www.testbench.in</a></p></li>
+</ul>
+</div>
+</div>
+
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Melvin Alvarado.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

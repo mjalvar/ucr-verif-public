@@ -1,0 +1,85 @@
+
+Vivavo Simulator
+================
+
+* Línea de comandos
+* Fases
+* Ejemplo
+
+
+Intro
+-----
+
+.. revealjs_fragments::
+    * Icarus Verilog: `iverilog`
+    * Cadence Incisive: `irun`
+    * Cadence Xcelium: `xrun`
+    * Synopsys Verilog Compiler Simulator: `vcs`
+    * Xilinx Vivado: `vivado`
+
+.. figure:: media/sim.logos.png
+
+
+Vivado
+------
+
+Es un simulador de HDL que realiza simulaciones conductuales, funcionales y de tiempo para VHDL, Verilog
+y diseños mixtos.
+
+Cuenta con los siguientes componentes:
+
+.. revealjs_fragments::
+    * `xvhdl/xvlog: <#>`__ lee archivos VHDL y Verilog y los guarda en librerías HDL en disco.
+    * `xelab: <#>`__ elaborador y linker. Dado una unidad top-level, carga las sub unidades del diseño
+      y las covierte en código ejecutable (exe sim snapshot)
+    * `xsim: <#>`__ comando para cargar un ejecutable (exe sim snapshot) y lanzarlo en modo batch, gui o tcl interactivo.
+    * `IDE: <#>`__ ambiente integrado para edición de diseños con interface de usuario para simulación.
+
+
+.. revealjs_break::
+
+.. figure:: media/vivado.1.png
+
+.. revealjs_break::
+
+.. figure:: media/vivado.2.png
+
+
+xvlog
+------
+
+.. code-block::
+
+   xvlog -sv --incr /home/developer/code/counter/rtl/counter.v -i /home/developer/code/counter/rtl
+   xvlog -sv --incr /home/developer/code/counter/dv/tb.v -i /home/developer/code/counter/dv -i /home/developer/code/counter/rtl
+
+
+.. figure:: media/xvlog.png
+   :scale: 60%
+
+
+
+xelab
+------
+
+.. code-block::
+
+   xelab tb -s tb -timescale 1ns/1ns -debug wave
+
+
+.. figure:: media/xelab.png
+   :scale: 60%
+
+
+xsim
+------
+
+.. code-block::
+
+   xsim tb --stats -tclbatch /home/developer/code/common/utils/xsim.tcl
+
+
+.. figure:: media/xsim.png
+   :scale: 60%
+
+
