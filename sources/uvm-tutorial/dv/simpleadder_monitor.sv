@@ -61,7 +61,7 @@ class simpleadder_monitor_after extends uvm_monitor;
 	virtual simpleadder_if vif;
 
 	simpleadder_transaction sa_tx;
-	
+
 	//For coverage
 	simpleadder_transaction sa_tx_cg;
 

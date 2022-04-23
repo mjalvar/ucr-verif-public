@@ -12,7 +12,7 @@ Programa del Curso
 
 **Profesor**: Melvin Alvarado
 **Oficina**: Virtual
-**Correo**: :yellow:`---`
+**Correo**: :yellow:`melvin.alvarado@ucr.ac.cr`
 
 **Créditos**: 3
 **Horas lectivas**: 3 horas por semana
@@ -44,7 +44,9 @@ en capacidad de:
 
 **Metodología**:
 El curso se imparte mediante clases magistrales apoyadas con material didáctico
-y proyectos de verificación.
+y proyectos de verificación. Se utilizará la plataforma Mediación Virtual para colocar documentos, presentaciones
+y para mantener comunicación con los estudiantes respecto a las calificaciones de los proyectos,
+los cuales se evaluarán por medio de exposiciones durante las clases.
 
 
 

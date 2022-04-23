@@ -29,10 +29,12 @@ class simpleadder_driver extends uvm_driver#(simpleadder_transaction);
 			if(counter==0)
 			begin
 				seq_item_port.get_next_item(sa_tx);
-				//`uvm_info("sa_driver", sa_tx.sprint(), UVM_LOW);
+				`uvm_info("sa_driver", sa_tx.sprint(), UVM_LOW);
 			end
 
 			@(posedge vif.sig_clock)
+			`uvm_info("sa_driver", $sformatf("sa_driver, counter: %0d", counter), UVM_LOW);
+			`uvm_info("sa_driver", $sformatf("sa_driver, state: %0d", state), UVM_LOW);
 			begin
 				if(counter==0)
 				begin
@@ -52,7 +54,7 @@ class simpleadder_driver extends uvm_driver#(simpleadder_transaction);
 
 						sa_tx.ina = sa_tx.ina << 1;
 						sa_tx.inb = sa_tx.inb << 1;
-						
+
 						counter = counter + 1;
 						if(counter==2) state = 2;
 					end
