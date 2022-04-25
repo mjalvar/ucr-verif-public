@@ -192,7 +192,10 @@
 <p>Todas las clases/obj tienen sim phases.
 Las phases son pasos ordenados de ejecución implementados como métodos.</p>
 <div class="figure align-default">
-<img alt="_images/uvm.phases.png" src="_images/uvm.phases.png" />
+<img alt="_images/uvm.phases.1.png" src="_images/uvm.phases.1.png" />
+</div>
+<div class="figure align-default">
+<img alt="_images/uvm.phases.2.png" src="_images/uvm.phases.2.png" />
 </div>
 <ul class="simple">
 <li class="fragment"><p>build: construye los componentes de la jerarquía. Ej. agent =&gt; driver, monitor</p></li>
@@ -319,6 +322,47 @@ Las phases son pasos ordenados de ejecución implementados como métodos.</p>
 </pre></div>
 </div>
 </div>
+<div class="section" id="uvm-factory">
+<h2>UVM Factory<a class="headerlink" href="#uvm-factory" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li class="fragment"><p>en UVM no se recomienda usar <cite>new()</cite> sino <cite>create()</cite></p></li>
+<li class="fragment"><p>facilita el sobreescribir un objecto, por un objeto de un tipo derivado sin tener que cambiar la estructura del TB.</p></li>
+<li class="fragment"><p>registrar componentes y transacciones utilizando macros.</p></li>
+<li class="fragment"><p>recomendado siempre extender de clases UVM.</p></li>
+<li class="fragment"><p>definir arguments <cite>default</cite> en el constructor.</p></li>
+<li class="fragment"><p>creación de componentes en cascada.</p></li>
+<li class="fragment"><p><a class="reference external" href="https://verificationacademy.com/verification-methodology-reference/uvm/docs_1.1a/html/files/base/uvm_factory-svh.html">link</a></p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/uvm.factory.1.png" src="_images/uvm.factory.1.png" />
+</div>
+<div class="figure align-default">
+<img alt="_images/uvm.factory.2.png" src="_images/uvm.factory.2.png" />
+</div>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/uvm.test.png"><img alt="_images/uvm.test.png" src="_images/uvm.test.png" style="width: 1004.8000000000001px; height: 677.6px;" /></a>
+</div>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/uvm.env.1.png"><img alt="_images/uvm.env.1.png" src="_images/uvm.env.1.png" style="width: 1004.8000000000001px; height: 730.4000000000001px;" /></a>
+</div>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/uvm.env.2.png"><img alt="_images/uvm.env.2.png" src="_images/uvm.env.2.png" style="width: 986.4000000000001px; height: 734.4000000000001px;" /></a>
+</div>
+<ul class="simple">
+<li class="fragment"><p>UVM 4 servicios:</p>
+<ul>
+<li><p>Reportes <cite>uvm_report_server</cite></p></li>
+<li><p>Factory <cite>uvm_factory</cite></p></li>
+<li><p>Base de datos de config <cite>uvm_config_db</cite></p></li>
+<li><p>Sim Execution Manager <cite>uvm_root</cite></p></li>
+</ul>
+</li>
+<li class="fragment"><p><a class="reference external" href="https://youtu.be/eI7Vo53vS9o">Override/Sobreescritura Video</a></p></li>
+</ul>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/uvm.logo.png"><img alt="_images/uvm.logo.png" src="_images/uvm.logo.png" style="width: 308.0px; height: 236.0px;" /></a>
+</div>
+</div>
 <div class="section" id="puntos-de-observacion">
 <h2>Puntos de observación<a class="headerlink" href="#puntos-de-observacion" title="Permalink to this headline"></a></h2>
 <p>Verificación de Caja negra (Black Box):</p>
@@ -382,6 +426,7 @@ Las phases son pasos ordenados de ejecución implementados como métodos.</p>
 <h2>Referencias<a class="headerlink" href="#referencias" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Pedro Araújo. <a class="reference external" href="https://colorlesscube.com/uvm-guide-for-beginners/">UVM guide for beginners</a></p></li>
+<li><p>Learn UVM. <a class="reference external" href="https://learnuvmverification.com/index.php/2015/08/19/how-uvm-factory-works/">UVM Factory</a></p></li>
 <li><p>Accelera. <a class="reference external" href="https://www.accellera.org/downloads/standards/uvm">UVM downloads</a></p></li>
 <li><p>Accellera. <a class="reference external" href="https://www.accellera.org/images/downloads/standards/uvm/uvm_users_guide_1.2.pdf">UVM users guide</a></p></li>
 <li><p>B. Wile, J. Goss y W. Roesner. “Comprehensive Functional Verification The Complete Industry Cycle” Elsevier, Primera Edición, 2005.</p></li>

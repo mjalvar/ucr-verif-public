@@ -145,7 +145,10 @@ UVM Phases
 Todas las clases/obj tienen sim phases.
 Las phases son pasos ordenados de ejecución implementados como métodos.
 
-.. figure:: media/uvm.phases.png
+.. figure:: media/uvm.phases.1.png
+
+.. revealjs_break::
+.. figure:: media/uvm.phases.2.png
 
 
 .. revealjs_break::
@@ -293,6 +296,60 @@ Sequence
    endclass: simpleadder_sequence
 
 
+UVM Factory
+-----------
+
+.. revealjs_fragments::
+  * en UVM no se recomienda usar `new()` sino `create()`
+  * facilita el sobreescribir un objecto, por un objeto de un tipo derivado sin tener que cambiar la estructura del TB.
+  * registrar componentes y transacciones utilizando macros.
+  * recomendado siempre extender de clases UVM.
+  * definir arguments `default` en el constructor.
+  * creación de componentes en cascada.
+  * `link <https://verificationacademy.com/verification-methodology-reference/uvm/docs_1.1a/html/files/base/uvm_factory-svh.html>`__
+
+
+.. revealjs_break::
+   :notitle:
+.. figure:: media/uvm.factory.1.png
+
+
+.. revealjs_break::
+   :notitle:
+.. figure:: media/uvm.factory.2.png
+
+.. revealjs_break::
+   :notitle:
+.. figure:: media/uvm.test.png
+   :scale: 80
+
+.. revealjs_break::
+   :notitle:
+.. figure:: media/uvm.env.1.png
+   :scale: 80
+
+.. revealjs_break::
+   :notitle:
+.. figure:: media/uvm.env.2.png
+   :scale: 80
+
+
+.. revealjs_break::
+   :notitle:
+.. revealjs_fragments::
+   * UVM 4 servicios:
+
+     * Reportes `uvm_report_server`
+     * Factory `uvm_factory`
+     * Base de datos de config `uvm_config_db`
+     * Sim Execution Manager `uvm_root`
+
+   * `Override/Sobreescritura Video <https://youtu.be/eI7Vo53vS9o>`__
+
+.. figure:: media/uvm.logo.png
+   :scale: 80
+
+
 Puntos de observación
 ---------------------
 
@@ -375,6 +432,7 @@ Referencias
 -----------
 
 * Pedro Araújo. `UVM guide for beginners <https://colorlesscube.com/uvm-guide-for-beginners/>`__
+* Learn UVM. `UVM Factory <https://learnuvmverification.com/index.php/2015/08/19/how-uvm-factory-works/>`__
 * Accelera. `UVM downloads <https://www.accellera.org/downloads/standards/uvm>`__
 * Accellera. `UVM users guide <https://www.accellera.org/images/downloads/standards/uvm/uvm_users_guide_1.2.pdf>`__
 * B\. Wile, J. Goss y W. Roesner. “Comprehensive Functional Verification The Complete Industry Cycle” Elsevier, Primera Edición, 2005.
