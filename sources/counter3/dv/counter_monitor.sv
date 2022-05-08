@@ -3,7 +3,7 @@ class counter_monitor_before extends uvm_monitor;
 
 	uvm_analysis_port#(counter_transaction) mon_ap_before;
 
-	///virtual counter_if vif;
+	virtual counter_if vif;
 
 	function new(string name, uvm_component parent);
 		super.new(name, parent);
@@ -12,8 +12,8 @@ class counter_monitor_before extends uvm_monitor;
 	function void build_phase(uvm_phase phase);
 		super.build_phase(phase);
 
-		///void'(uvm_resource_db#(virtual counter_if)::read_by_name
-		///	(.scope("ifs"), .name("counter_if"), .val(vif)));
+		void'(uvm_resource_db#(virtual counter_if)::read_by_name
+			(.scope("ifs"), .name("counter_if"), .val(vif)));
 		mon_ap_before = new(.name("mon_ap_before"), .parent(this));
 	endfunction: build_phase
 
@@ -58,7 +58,7 @@ class counter_monitor_after extends uvm_monitor;
 
 	uvm_analysis_port#(counter_transaction) mon_ap_after;
 
-	///virtual counter_if vif;
+	virtual counter_if vif;
 
 	counter_transaction ct_tx;
 
@@ -80,9 +80,9 @@ class counter_monitor_after extends uvm_monitor;
 	function void build_phase(uvm_phase phase);
 		super.build_phase(phase);
 
-		///void'(uvm_resource_db#(virtual counter_if)::read_by_name
-		///	(.scope("ifs"), .name("counter_if"), .val(vif)));
-		///mon_ap_after= new(.name("mon_ap_after"), .parent(this));
+		void'(uvm_resource_db#(virtual counter_if)::read_by_name
+			(.scope("ifs"), .name("counter_if"), .val(vif)));
+		mon_ap_after= new(.name("mon_ap_after"), .parent(this));
 	endfunction: build_phase
 
 	task run_phase(uvm_phase phase);

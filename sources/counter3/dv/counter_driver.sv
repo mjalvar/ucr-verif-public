@@ -10,8 +10,8 @@ class counter_driver extends uvm_driver#(counter_transaction);
 	function void build_phase(uvm_phase phase);
 		super.build_phase(phase);
 
-		///void'(uvm_resource_db#(virtual counter_if)::read_by_name
-		///	(.scope("ifs"), .name("counter_if"), .val(vif)));
+		void'(uvm_resource_db#(virtual counter_if)::read_by_name
+			(.scope("ifs"), .name("counter_if"), .val(vif)));
 	endfunction: build_phase
 
 	task run_phase(uvm_phase phase);

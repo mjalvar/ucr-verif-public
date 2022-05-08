@@ -12,8 +12,8 @@ DUT_LIST = $(shell find sources/*/rtl/ -iname "*.v" |grep -v mem-control)
 targets = $(addsuffix .o, $(basename $(DUT_LIST)))
 
 MOUNT = -v $$HOME/.Xauthority:/home/developer/.Xauthority:ro \
-	-v $(PWD)/sources:/home/developer/code/:rw  \
-	-v $(PWD)/test-sim:/home/developer/test-sim/:rw
+	-v $(shell pwd)/sources:/home/developer/code/:rw  \
+	-v $(shell pwd)/test-sim:/home/developer/test-sim/:rw
 ifeq ($(INSTALL),1)
 	MOUNT += -v $(PWD)/docker/install:/tmp/install/:rw
 endif

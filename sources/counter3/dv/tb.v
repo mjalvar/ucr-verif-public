@@ -22,6 +22,20 @@ module tb();
     reg reset_L;
     reg en;
 
+	//Interface declaration
+	counter_if vif();
+
+	//Connects the Interface to the DUT
+	counter dut(vif.clk,
+			vif.reset_L,
+			vif.en,
+			vif.clr,
+			vif.inc,
+			vif.overflow,
+			vif.non_zero,
+			vif.val);
+
+
 
     // initial begin
     //     $display("Starting simulation");
@@ -70,8 +84,8 @@ module tb();
     initial begin
 		// //Registers the Interface in the configuration block so that other
 		// //blocks can use it
-		// uvm_resource_db#(virtual simpleadder_if)::set
-		// 	(.scope("ifs"), .name("simpleadder_if"), .val(vif));
+		uvm_resource_db#(virtual counter_if)::set
+			(.scope("ifs"), .name("counter_if"), .val(vif));
 
 		//Executes the test
 		run_test();
