@@ -11,14 +11,9 @@ RST = $(shell find ./* -iname "*.rst" -o -iname "*.py" -o -iname "*.css" -o -ina
 DUT_LIST = $(shell find sources/*/rtl/ -iname "*.v" |grep -v mem-control)
 targets = $(addsuffix .o, $(basename $(DUT_LIST)))
 
-<<<<<<< HEAD
 MOUNT = -v $$HOME/.Xauthority:/home/developer/.Xauthority:ro \
 	-v $(shell pwd)/sources:/home/developer/code/:rw  \
 	-v $(shell pwd)/test-sim:/home/developer/test-sim/:rw
-=======
-MOUNT = -v $(PWD)/sources:/home/developer/code/:rw  \
-	-v $(PWD)/test-sim:/home/developer/test-sim/:rw
->>>>>>> origin/main
 ifeq ($(INSTALL),1)
 	MOUNT += -v $(PWD)/docker/install:/tmp/install/:rw
 endif
