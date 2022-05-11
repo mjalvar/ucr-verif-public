@@ -35,7 +35,7 @@ class unpacker_scoreboard extends uvm_scoreboard;
 
    virtual function void compare();
          `uvm_info("transaction", transaction.sprint(), UVM_LOW);
-      if (transaction.data == 32'h0) begin
+      if (transaction.pkt.data[0] == 0) begin
          `uvm_info("compare", {"Test: OK!"}, UVM_LOW);
       end else begin
          `uvm_info("compare", {"Test: Fail!"}, UVM_LOW);

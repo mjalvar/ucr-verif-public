@@ -23,7 +23,7 @@ class unpacker_monitor extends uvm_monitor;
       unpacker_transaction tx;
       tx = unpacker_transaction::type_id::create
               (.name("tx"), .contxt(get_full_name()));
-      tx.data = 32'h0;
+      tx.pkt.data[0] = 0;
 
       `uvm_info(get_full_name(), "monitor: start",UVM_LOW)
 

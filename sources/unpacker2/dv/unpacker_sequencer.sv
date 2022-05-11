@@ -1,13 +1,35 @@
-class unpacker_transaction extends uvm_sequence_item;
-   // TODO: Implement transaction
-   rand integer data;
+class txn_packet #(max_size=1024) extends uvm_object;
+   rand bit [max_size*8-1:0] data;
+   rand int   size;
+
+   constraint data_size { size <= max_size; }
 
    function new(string name = "");
       super.new(name);
    endfunction: new
 
+   `uvm_object_utils_begin(txn_packet)
+      `uvm_field_int(data,UVM_ALL_ON)
+      `uvm_field_int(size,UVM_ALL_ON)
+   `uvm_object_utils_end
+endclass: txn_packet
+
+class unpacker_transaction extends uvm_sequence_item;
+   typedef enum {
+      OP_PACKET
+   } op_t;
+
+   op_t op;
+   rand txn_packet pkt;
+
+   function new(string name = "");
+      super.new(name);
+      pkt = new("pkt");
+   endfunction: new
+
    `uvm_object_utils_begin(unpacker_transaction)
-      `uvm_field_int(data, UVM_ALL_ON)
+      `uvm_field_enum(op_t,op,UVM_ALL_ON)
+      `uvm_field_object(pkt,UVM_ALL_ON)
    `uvm_object_utils_end
 endclass: unpacker_transaction
 
