@@ -50,12 +50,14 @@ class unpacker_monitor extends uvm_monitor;
                
                counter = counter - 1;
 
+               // state = 2 -> val = 1, sop = 1, eop = 0
                if(state == 2)
                begin
                   counter = 5;
                   pkg = vif.sig_vbc;
                end
 
+               // state = 3 -> val = 1, sop = 0, eop = 0
                if(state == 3)
                begin
                   if(counter == 0)
@@ -65,6 +67,7 @@ class unpacker_monitor extends uvm_monitor;
                   end
                end
 
+               // state = 4 -> val = 1, sop = 0, eop = 1
                if(state == 4)
                begin
                   if(vif.sig_vbc > 128)
@@ -88,7 +91,7 @@ class unpacker_monitor extends uvm_monitor;
                   end
                   
                   pkg = pkg + vif.sig_vbc;
-                  /// write transaccion
+                  /// write transaccion /////////
 
                end
 
