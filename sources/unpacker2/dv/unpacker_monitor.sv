@@ -18,7 +18,8 @@ class unpacker_monitor_in extends uvm_monitor;
    endfunction: build_phase
 
    task run_phase(uvm_phase phase);
-      integer unpacker_mon = 0, state = 0, pkg = 0, counter = 0;
+      integer unpacker_mon = 0, state = 0, pkg_size = 0, counter = 0;
+      //logical [9:0] pkg_size;
 
       unpacker_transaction tx;
       tx = unpacker_transaction::type_id::create
@@ -33,7 +34,7 @@ class unpacker_monitor_in extends uvm_monitor;
                if(vif.sig_val==1'b0)
                begin
                   state = 0;
-                  pkg = 0;
+                  pkg_size = 0;
                end else begin
                   if(vif.sig_sop==1'b1)
                   begin
@@ -54,7 +55,7 @@ class unpacker_monitor_in extends uvm_monitor;
                if(state == 2)
                begin
                   counter = 5;
-                  pkg = vif.sig_vbc;
+                  pkg_size = vif.sig_vbc;
                end
 
                // state = 3 -> val = 1, sop = 0, eop = 0
@@ -63,7 +64,7 @@ class unpacker_monitor_in extends uvm_monitor;
                   if(counter == 0)
                   begin
                      counter = 5;
-                     pkg = pkg + vif.sig_vbc;
+                     pkg_size = pkg_size + vif.sig_vbc;
                   end
                end
 
@@ -90,7 +91,7 @@ class unpacker_monitor_in extends uvm_monitor;
                      counter = 1;
                   end
                   
-                  pkg = pkg + vif.sig_vbc;
+                  pkg_size = pkg_size + vif.sig_vbc;
                   /// write transaccion /////////
 
                end
