@@ -16,6 +16,7 @@ class unpacker_env extends uvm_env;
 
    function void connect_phase(uvm_phase phase);
       super.connect_phase(phase);
-      agent.agent_ap.connect(sb.sb_export);
+      agent.agent_ap_in.connect(sb.sb_export_in);
+      agent.agent_ap_out.connect(sb.sb_export_out);
    endfunction: connect_phase
 endclass: unpacker_env
