@@ -18,7 +18,7 @@ class unpacker_monitor_in extends uvm_monitor;
    endfunction: build_phase
 
    task run_phase(uvm_phase phase);
-      integer unpacker_mon = 0, state = 0, pkg_size = 0, a = 0, b = 0, size = 0;
+      integer unpacker_mon = 0, pkg_size = 0, a = 0, b = 0, size = 0;
       //logical [9:0] pkg_size;
       
 
@@ -78,7 +78,9 @@ class unpacker_monitor_out extends uvm_monitor;
    endfunction: build_phase
 
    task run_phase(uvm_phase phase);
-      integer unpacker_mon = 0, state = 0, pkg_size = 0, a = 0, b = 0, size = 0;
+      integer unpacker_mon = 0, pkg_size = 0, a = 0, b = 0, size = 0;
+      enum integer {OVAL_0=0, OVAL_1=1, OSOP_1=2, OSOP_OEOP_0=3, OEOP_1=4} state;
+
 
       unpacker_transaction tx;
       tx = unpacker_transaction::type_id::create
@@ -92,24 +94,24 @@ class unpacker_monitor_out extends uvm_monitor;
          begin
             if(vif.sig_val==1'b0)
             begin
-               state = 0;
+               state = OVAL_0;
                tx.pkt.size = 0;
             end else begin
                if(vif.sig_sop==1'b1)
                begin
-                  state = 2;
+                  state = OSOP_1;
                end else begin
                   if(vif.sig_eop==1'b1)
                   begin
-                     state = 4;
+                     state = OEOP_1;
                   end else begin
-                     state = 3;
+                     state = OSOP_OEOP_0;
                   end
                end
             end
 
             // state = 2 -> val = 1, sop = 1, eop = 0
-            if(state == 2)
+            if(state == OSOP_1)
             begin
                tx.pkt.size = vif.sig_o_vbc;
                size = vif.sig_o_vbc;
@@ -117,7 +119,7 @@ class unpacker_monitor_out extends uvm_monitor;
             end
 
             // state = 3 -> val = 1, sop = 0, eop = 0
-            if(state == 3)
+            if(state == OSOP_OEOP_0)
             begin
                tx.pkt.size = tx.pkt.size + vif.sig_o_vbc;
                a = size + vif.sig_o_vbc;
@@ -126,7 +128,7 @@ class unpacker_monitor_out extends uvm_monitor;
             end
 
             // state = 4 -> val = 1, sop = 0, eop = 1
-            if(state == 4)
+            if(state == OEOP_1)
             begin
                tx.pkt.size = tx.pkt.size + vif.sig_o_vbc;
                a = size + vif.sig_o_vbc;
