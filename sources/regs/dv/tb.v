@@ -17,8 +17,8 @@ module tb();
     reg [3:0]  addr;
     reg req, rd_wr, ack;
 
-    reg cfg_ctrl_err;
-    reg cfg_ctrl_idle;
+    reg [1:0] cfg_ctrl_err;
+    reg [1:0] cfg_ctrl_idle;
 
 
 
