@@ -19,13 +19,12 @@ class unpacker_monitor_in extends uvm_monitor;
 
    task run_phase(uvm_phase phase);
       integer unpacker_mon = 0, pkg_size = 0, a = 0, b = 0, size = 0;
-      //logical [9:0] pkg_size;
       
 
       unpacker_transaction tx;
       tx = unpacker_transaction::type_id::create
               (.name("tx"), .contxt(get_full_name()));
-      tx.pkt.data[0] = 0;
+      tx.pkt.data = 0;
 
       `uvm_info(get_full_name(), "monitor_in: start", UVM_LOW)
 
@@ -37,14 +36,12 @@ class unpacker_monitor_in extends uvm_monitor;
                   if(vif.sig_ready==1'b1)
                   begin
                      tx.pkt.size = tx.pkt.size + vif.sig_vbc;
-                     a = size + vif.sig_vbc;
-                     b = size;
-                     ///tx.pkt.data[a-1:b]=vif.sig_data;
+                     tx.pkt.data = tx.pkt.data << vif.sig_vbc;
+                     tx.pkt.data = tx.pkt.data + vif.sig_data;
                      if (vif.sig_sop==1'b1)
                      begin
                         tx.pkt.size = vif.sig_vbc;
-                        size = vif.sig_vbc;
-                        ///tx.pkt.data[size-1:0]=vif.sig_data;
+                        tx.pkt.data = vif.sig_data;
                         end
                      if (vif.sig_eop==1'b1)
                      begin
@@ -85,7 +82,7 @@ class unpacker_monitor_out extends uvm_monitor;
       unpacker_transaction tx;
       tx = unpacker_transaction::type_id::create
               (.name("tx"), .contxt(get_full_name()));
-      tx.pkt.data[0] = 0;
+      tx.pkt.data = 0;
 
       `uvm_info(get_full_name(), "monitor_out: start", UVM_LOW)
 
@@ -115,25 +112,23 @@ class unpacker_monitor_out extends uvm_monitor;
             begin
                tx.pkt.size = vif.sig_o_vbc;
                size = vif.sig_o_vbc;
-               ///tx.pkt.data[size-1:0] = vif.sig_o_data;
+               tx.pkt.data = vif.sig_o_data;
             end
 
             // state = 3 -> val = 1, sop = 0, eop = 0
             if(state == OSOP_OEOP_0)
             begin
                tx.pkt.size = tx.pkt.size + vif.sig_o_vbc;
-               a = size + vif.sig_o_vbc;
-               b = size;
-               ///tx.pkt.data[a-1:b] = vif.sig_o_data;
+               tx.pkt.data = tx.pkt.data << vif.sig_o_vbc;
+               tx.pkt.data = tx.pkt.data + vif.sig_o_data;
             end
 
             // state = 4 -> val = 1, sop = 0, eop = 1
             if(state == OEOP_1)
             begin
                tx.pkt.size = tx.pkt.size + vif.sig_o_vbc;
-               a = size + vif.sig_o_vbc;
-               b = size;
-               ///tx.pkt.data[a-1:b] = vif.sig_o_data;
+               tx.pkt.data = tx.pkt.data << vif.sig_o_vbc;
+               tx.pkt.data = tx.pkt.data + vif.sig_o_data;
                // write transaction ////
                mon_ap.write(tx);
             end
