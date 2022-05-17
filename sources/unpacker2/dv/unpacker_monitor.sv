@@ -48,7 +48,7 @@ class unpacker_monitor_in extends uvm_monitor;
                         end
                      if (vif.sig_eop==1'b1)
                      begin
-                        /// write transcaction ////
+                        /// write transaction ////
                         mon_ap.write(tx);
                      end
                   end
