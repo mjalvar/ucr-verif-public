@@ -18,8 +18,9 @@ class unpacker_monitor_in extends uvm_monitor;
    endfunction: build_phase
 
    task run_phase(uvm_phase phase);
-      integer unpacker_mon = 0, state = 0, pkg_size = 0, counter = 0;
+      integer unpacker_mon = 0, state = 0, pkg_size = 0, a = 0, b = 0, size = 0;
       //logical [9:0] pkg_size;
+      
 
       unpacker_transaction tx;
       tx = unpacker_transaction::type_id::create
@@ -30,75 +31,29 @@ class unpacker_monitor_in extends uvm_monitor;
 
       forever begin
          @(posedge vif.sig_clock)
-           begin
-               if(vif.sig_val==1'b0)
+            begin
+               if(vif.sig_val==1'b1)
                begin
-                  state = 0;
-                  pkg_size = 0;
-               end else begin
-                  if(vif.sig_sop==1'b1)
+                  if(vif.sig_ready==1'b1)
                   begin
-                     state = 2;
-                  end else begin
-                     if(vif.sig_eop==1'b1)
+                     tx.pkt.size = tx.pkt.size + vif.sig_vbc;
+                     a = size + vif.sig_vbc;
+                     b = size;
+                     tx.pkt.data[a-1:b]=vif.sig_data;
+                     if (sig_sop==1'b1)
                      begin
-                        state = 4;
-                     end else begin
-                        state = 3;
+                        tx.pkt.size = sig_vbc;
+                        size = sig_vbc;
+                        tx.pkt.data[size-1:0]=vif.sig_data;
+                        end
+                     if (sig_eop==1'b1)
+                     begin
+                        /// write transcaction ////
+                        mon_ap.write(tx);
                      end
                   end
                end
-               
-               counter = counter - 1;
-
-               // state = 2 -> val = 1, sop = 1, eop = 0
-               if(state == 2)
-               begin
-                  counter = 5;
-                  pkg_size = vif.sig_vbc;
-               end
-
-               // state = 3 -> val = 1, sop = 0, eop = 0
-               if(state == 3)
-               begin
-                  if(counter == 0)
-                  begin
-                     counter = 5;
-                     pkg_size = pkg_size + vif.sig_vbc;
-                  end
-               end
-
-               // state = 4 -> val = 1, sop = 0, eop = 1
-               if(state == 4)
-               begin
-                  if(vif.sig_vbc > 128)
-                  begin
-                     counter = 5;
-                  end 
-                  else if(vif.sig_vbc > 96)
-                  begin
-                     counter = 4;
-                  end
-                  else if(vif.sig_vbc > 64)
-                  begin
-                     counter = 3;
-                  end
-                  else if(vif.sig_vbc > 32)
-                  begin
-                     counter = 2;
-                  end
-                  else begin
-                     counter = 1;
-                  end
-                  
-                  pkg_size = pkg_size + vif.sig_vbc;
-                  /// write transaccion /////////
-
-               end
-
-              //Send the transaction to the analysis port
-              mon_ap.write(tx);
-           end
+            end
       end
    endtask: run_phase
 endclass: unpacker_monitor_in
@@ -123,7 +78,7 @@ class unpacker_monitor_out extends uvm_monitor;
    endfunction: build_phase
 
    task run_phase(uvm_phase phase);
-      integer unpacker_mon = 0, state = 0;
+      integer unpacker_mon = 0, state = 0, pkg_size = 0, a = 0, b = 0, size = 0;
 
       unpacker_transaction tx;
       tx = unpacker_transaction::type_id::create
@@ -134,10 +89,53 @@ class unpacker_monitor_out extends uvm_monitor;
 
       forever begin
          @(posedge vif.sig_clock)
-           begin
-              //Send the transaction to the analysis port
-              mon_ap.write(tx);
-           end
+         begin
+            if(vif.sig_val==1'b0)
+            begin
+               state = 0;
+               tx.pkt.size = 0;
+            end else begin
+               if(vif.sig_sop==1'b1)
+               begin
+                  state = 2;
+               end else begin
+                  if(vif.sig_eop==1'b1)
+                  begin
+                     state = 4;
+                  end else begin
+                     state = 3;
+                  end
+               end
+            end
+
+            // state = 2 -> val = 1, sop = 1, eop = 0
+            if(state == 2)
+            begin
+               tx.pkt.size = vif.sig_o_vbc;
+               size = vif.sig_o_vbc;
+               tx.pkt.data[size-1:0] = sig_o_data;
+            end
+
+            // state = 3 -> val = 1, sop = 0, eop = 0
+            if(state == 3)
+            begin
+               tx.pkt.size = tx.pkt.size + vif.sig_o_vbc;
+               a = size + vif.sig_o_vbc;
+               b = size;
+               tx.pkt.data[a-1:b] = sig_o_data;
+            end
+
+            // state = 4 -> val = 1, sop = 0, eop = 1
+            if(state == 4)
+            begin
+               tx.pkt.size = tx.pkt.size + vif.sig_o_vbc;
+               a = size + vif.sig_o_vbc;
+               b = size;
+               tx.pkt.data[a-1:b] = sig_o_data;
+               // write transaction ////
+               mon_ap.write(tx);
+            end
+         end  
       end
    endtask: run_phase
 endclass: unpacker_monitor_out
