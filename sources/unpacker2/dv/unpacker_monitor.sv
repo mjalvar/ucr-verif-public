@@ -39,14 +39,14 @@ class unpacker_monitor_in extends uvm_monitor;
                      tx.pkt.size = tx.pkt.size + vif.sig_vbc;
                      a = size + vif.sig_vbc;
                      b = size;
-                     tx.pkt.data[a-1:b]=vif.sig_data;
-                     if (sig_sop==1'b1)
+                     ///tx.pkt.data[a-1:b]=vif.sig_data;
+                     if (vif.sig_sop==1'b1)
                      begin
-                        tx.pkt.size = sig_vbc;
-                        size = sig_vbc;
-                        tx.pkt.data[size-1:0]=vif.sig_data;
+                        tx.pkt.size = vif.sig_vbc;
+                        size = vif.sig_vbc;
+                        ///tx.pkt.data[size-1:0]=vif.sig_data;
                         end
-                     if (sig_eop==1'b1)
+                     if (vif.sig_eop==1'b1)
                      begin
                         /// write transcaction ////
                         mon_ap.write(tx);
@@ -113,7 +113,7 @@ class unpacker_monitor_out extends uvm_monitor;
             begin
                tx.pkt.size = vif.sig_o_vbc;
                size = vif.sig_o_vbc;
-               tx.pkt.data[size-1:0] = sig_o_data;
+               ///tx.pkt.data[size-1:0] = vif.sig_o_data;
             end
 
             // state = 3 -> val = 1, sop = 0, eop = 0
@@ -122,7 +122,7 @@ class unpacker_monitor_out extends uvm_monitor;
                tx.pkt.size = tx.pkt.size + vif.sig_o_vbc;
                a = size + vif.sig_o_vbc;
                b = size;
-               tx.pkt.data[a-1:b] = sig_o_data;
+               ///tx.pkt.data[a-1:b] = vif.sig_o_data;
             end
 
             // state = 4 -> val = 1, sop = 0, eop = 1
@@ -131,7 +131,7 @@ class unpacker_monitor_out extends uvm_monitor;
                tx.pkt.size = tx.pkt.size + vif.sig_o_vbc;
                a = size + vif.sig_o_vbc;
                b = size;
-               tx.pkt.data[a-1:b] = sig_o_data;
+               ///tx.pkt.data[a-1:b] = vif.sig_o_data;
                // write transaction ////
                mon_ap.write(tx);
             end
