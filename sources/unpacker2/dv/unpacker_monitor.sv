@@ -93,6 +93,7 @@ class unpacker_monitor_out extends uvm_monitor;
             begin
                state = OVAL_0;
                tx.pkt.size = 0;
+               tx.pkt.data = 0;
             end else begin
                if(vif.sig_sop==1'b1)
                begin
