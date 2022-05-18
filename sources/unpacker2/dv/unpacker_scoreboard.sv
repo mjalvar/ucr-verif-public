@@ -46,7 +46,7 @@ class unpacker_scoreboard extends uvm_scoreboard;
    virtual function void compare();
          `uvm_info("tx_in", tx_in.sprint(), UVM_LOW);
          `uvm_info("tx_out", tx_out.sprint(), UVM_LOW);
-      if (tx_in.pkt.data[0] == tx_out.pkt.data[0]) begin
+      if (tx_in.pkt == tx_out.pkt) begin
          `uvm_info("compare", {"Test: OK!"}, UVM_LOW);
       end else begin
          `uvm_info("compare", {"Test: Fail!"}, UVM_LOW);

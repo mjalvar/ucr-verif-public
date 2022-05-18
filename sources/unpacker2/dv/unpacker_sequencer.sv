@@ -37,19 +37,23 @@ endclass: unpacker_transaction
 class unpacker_sequence extends uvm_sequence#(unpacker_transaction);
    `uvm_object_utils(unpacker_sequence)
 
-   function new(string name = "");
+   rand unpacker_transaction tx;
+   integer      num_pkts, low_size, high_size;
+
+   function new(string name = "", integer num_pkts = 10, low_size = 1, high_size = 1024);
       super.new(name);
+      this.num_pkts = num_pkts;
+      this.low_size = low_size;
+      this.high_size = high_size;
+      this.tx = unpacker_transaction::type_id::create(.name("tx"), .contxt(get_full_name()));
    endfunction: new
 
    task body();
-      unpacker_transaction tx;
 
-      repeat(15) begin
-         tx = unpacker_transaction::type_id::create(.name("tx"), .contxt(get_full_name()));
-
+      repeat(num_pkts) begin
          start_item(tx);
-         assert(tx.randomize());
-         //`uvm_info("sequence", tx.sprint(), UVM_LOW);
+         assert(tx.randomize() with {low_size <= pkt.size && pkt.size <= high_size;});
+         `uvm_info("tx", tx.sprint(), UVM_LOW);
          finish_item(tx);
       end
    endtask: body
