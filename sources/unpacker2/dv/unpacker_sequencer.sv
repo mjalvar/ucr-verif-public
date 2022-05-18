@@ -53,7 +53,7 @@ class unpacker_sequence extends uvm_sequence#(unpacker_transaction);
       repeat(num_pkts) begin
          start_item(tx);
          assert(tx.randomize() with {low_size <= pkt.size && pkt.size <= high_size;});
-         `uvm_info("tx", tx.sprint(), UVM_LOW);
+         // `uvm_info("tx", tx.sprint(), UVM_LOW);
          finish_item(tx);
       end
    endtask: body
