@@ -2,6 +2,7 @@ class unpacker_driver #(max_din_size=160) extends uvm_driver#(unpacker_transacti
    `uvm_component_utils(unpacker_driver)
 
    virtual unpacker_if vif;
+   unpacker_transaction tx;
 
    function new(string name, uvm_component parent);
       super.new(name, parent);
@@ -19,7 +20,6 @@ class unpacker_driver #(max_din_size=160) extends uvm_driver#(unpacker_transacti
    endtask: run_phase
 
    virtual task drive();
-      unpacker_transaction tx;
       integer packet_counter = 0, send = 0, data_size = 0, remaining_bytes = 0;
       bit [max_din_size*8-1:0] temp_data = 0;
       `uvm_info(get_full_name(), "driver: start",UVM_LOW)
@@ -30,21 +30,24 @@ class unpacker_driver #(max_din_size=160) extends uvm_driver#(unpacker_transacti
       vif.sig_eop = 1'b0;
       vif.sig_vbc = 8'b0;
       vif.sig_data = 1280'b0;
+
       forever begin
          vif.sig_reset_L = 1'b1;
 
          if (send == 0)
-         begin
-            seq_item_port.get_next_item(tx);
-            `uvm_info("unpacker_driver", tx.sprint(), UVM_LOW);
-            data_size = tx.pkt.size;
-            if (data_size != 0)
-            begin
-               remaining_bytes = data_size;
-               vif.sig_sop <= 1'b1;
-               send = 1;
-            end
-         end
+           begin
+              seq_item_port.get_next_item(tx);
+              `uvm_info("unpacker_driver", tx.sprint(), UVM_LOW);
+              data_size = tx.pkt.size;
+              if (data_size != 0)
+                begin
+                   remaining_bytes = data_size;
+                   vif.sig_sop <= 1'b1;
+                   send = 1;
+                end else begin
+                   seq_item_port.item_done();
+                end
+           end
 
          @(posedge vif.sig_clock)
             begin
@@ -62,7 +65,7 @@ class unpacker_driver #(max_din_size=160) extends uvm_driver#(unpacker_transacti
                          vif.sig_data <= temp_data;
                          vif.sig_vbc <= max_din_size;
                       end else begin
-                         vif.sig_data <= temp_data >> (max_din_size-remaining_bytes)*8;;
+                         vif.sig_data <= temp_data & ((1 << (remaining_bytes * 8)) - 1);
                          vif.sig_vbc <= remaining_bytes;
                       end
 
