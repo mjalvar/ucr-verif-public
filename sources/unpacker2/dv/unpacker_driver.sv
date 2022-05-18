@@ -41,7 +41,7 @@ class unpacker_driver #(max_din_size=160) extends uvm_driver#(unpacker_transacti
             if (data_size != 0)
             begin
                remaining_bytes = data_size;
-               vif.sig_sop = 1'b1;
+               vif.sig_sop <= 1'b1;
                send = 1;
             end
          end
@@ -54,16 +54,16 @@ class unpacker_driver #(max_din_size=160) extends uvm_driver#(unpacker_transacti
 
                     if (remaining_bytes == data_size)
                       begin
-                         vif.sig_val = 1'b1;
+                         vif.sig_val <= 1'b1;
                       end
 
                     if (remaining_bytes > max_din_size)
                       begin
-                         vif.sig_data = temp_data;
-                         vif.sig_vbc = max_din_size;
+                         vif.sig_data <= temp_data;
+                         vif.sig_vbc <= max_din_size;
                       end else begin
-                         vif.sig_data = temp_data >> (max_din_size-remaining_bytes)*8;;
-                         vif.sig_vbc = remaining_bytes;
+                         vif.sig_data <= temp_data >> (max_din_size-remaining_bytes)*8;;
+                         vif.sig_vbc <= remaining_bytes;
                       end
 
                     if (vif.sig_ready == 1'b1)
@@ -81,17 +81,17 @@ class unpacker_driver #(max_din_size=160) extends uvm_driver#(unpacker_transacti
                       end
                  end
 
-               vif.sig_eop = (send == 1) && (remaining_bytes <= max_din_size);
+               vif.sig_eop <= (send == 1) && (remaining_bytes <= max_din_size);
 
                if (remaining_bytes < data_size)
                begin
-                  vif.sig_sop = 1'b0;
+                  vif.sig_sop <= 1'b0;
                end
 
                if (remaining_bytes == 0)
                begin
-                  vif.sig_val = 1'b0;
-                  vif.sig_vbc = 8'b0;
+                  vif.sig_val <= 1'b0;
+                  vif.sig_vbc <= 8'b0;
                end
 
               // `uvm_info("driver tx", tx.sprint(), UVM_LOW);
