@@ -40,17 +40,12 @@ module unpacker_tb_top();
       //blocks can use it
       uvm_resource_db#(virtual unpacker_if)::set
         (.scope("ifs"), .name("unpacker_if"), .val(vif));
-
       //Executes the test
       run_test();
    end
 
    initial begin
-      $display("Starting simulation");
       vif.sig_clock <= 1'b1;
-
-      vif.sig_reset_L <= 1'b0;
-      #20 vif.sig_reset_L <= 1'b1;
    end
 
    // clk gen
