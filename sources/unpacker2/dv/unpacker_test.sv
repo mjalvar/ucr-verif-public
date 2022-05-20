@@ -36,7 +36,11 @@ class unpacker_test extends uvm_test;
 
       // send_pkt_seq_size(32, 5);
       // send_pkt_seq_size(162, 5);
-      send_pkt_seq_size(512, 2);
+      //send_pkt_seq_size(512, 2);
+      send_pkt_seq_size(32, 5);
+      send_pkt_seq_size(0, 2);
+      send_pkt_seq_size(159, 1);
+      send_pkt_seq_size(479, 1);
 
       // `uvm_info("test", "Testing small packet sizes", UVM_LOW);
       // send_pkt_seq_size_range(1, 159, 10);

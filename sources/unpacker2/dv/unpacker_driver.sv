@@ -31,8 +31,8 @@ class unpacker_driver #(max_din_size=160) extends uvm_driver#(unpacker_transacti
       vif.sig_val <= 1'b0;
       vif.sig_vbc <= 8'b0;
       vif.sig_reset_L <= 1'b0;
-      #10 vif.sig_reset_L <= 1'b1;
-      #10
+      #15 vif.sig_reset_L <= 1'b1;
+      //#10
 
       forever begin
          @(posedge vif.sig_clock)

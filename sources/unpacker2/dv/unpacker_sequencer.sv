@@ -2,7 +2,7 @@ class txn_packet #(max_size=1024) extends uvm_object;
    rand bit [max_size*8-1:0] data;
    rand bit [10:0]   size;
 
-   constraint limit_size { size > 0; size <= max_size; }
+   constraint limit_size { size >= 0; size <= max_size; }
    constraint limit_data { data <= (1 << (size * 8)) - 1; }
 
    function new(string name = "");
