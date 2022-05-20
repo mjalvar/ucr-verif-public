@@ -147,6 +147,7 @@ always_comb begin
                 nxt_pending = vbc_d-32;
             end
             else begin
+                nxt_pending = vbc;
                 o_vbc = vbc_d;
                 o_eop = eop_d;
             end
