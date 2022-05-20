@@ -55,9 +55,9 @@ class unpacker_test extends uvm_test;
       // send_pkt_seq_size_range(160, 1024, 10);
 
       // `uvm_info("test", "Testing corner packet sizes", UVM_LOW);
+      send_pkt_seq_size(1, 1);
       send_pkt_seq_size(32, 1);
-      send_pkt_seq_size(32, 1);
-      send_pkt_seq_size(32, 1);
+      send_pkt_seq_size(33, 1);
       //send_pkt_seq_size(33, 1);
       //send_pkt_seq_size(0, 1);
       send_pkt_seq_size(159, 1);

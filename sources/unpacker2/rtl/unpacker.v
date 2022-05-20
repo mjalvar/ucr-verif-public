@@ -176,7 +176,7 @@ always_comb begin
             else
                 nxt_state = IDLE;
 
-            nxt_pending = 0;
+            nxt_pending = vbc;
 
             o_vbc = pending;
             o_sop = 0;
