@@ -9,6 +9,14 @@ class txn_packet #(max_size=1024) extends uvm_object;
       super.new(name);
    endfunction: new
 
+   function txn_packet clone();
+      txn_packet pkt;
+      pkt = txn_packet::type_id::create(.name(get_name()), .contxt(get_full_name()));
+      pkt.data = data;
+      pkt.size = size;
+      return pkt;
+   endfunction: clone
+
    `uvm_object_utils_begin(txn_packet)
       `uvm_field_int(data,UVM_ALL_ON)
       `uvm_field_int(size,UVM_ALL_ON)
@@ -27,6 +35,13 @@ class unpacker_transaction extends uvm_sequence_item;
       super.new(name);
       pkt = new("pkt");
    endfunction: new
+
+   function unpacker_transaction clone();
+      unpacker_transaction tx;
+      tx = unpacker_transaction::type_id::create(.name(get_name()), .contxt(get_full_name()));
+      tx.pkt = pkt.clone();
+      return tx;
+   endfunction: clone
 
    `uvm_object_utils_begin(unpacker_transaction)
       `uvm_field_enum(op_t,op,UVM_ALL_ON)
@@ -53,7 +68,6 @@ class unpacker_sequence extends uvm_sequence#(unpacker_transaction);
       repeat(num_pkts) begin
          start_item(tx);
          assert(tx.randomize() with {low_size <= pkt.size && pkt.size <= high_size;});
-         // `uvm_info("tx", tx.sprint(), UVM_LOW);
          finish_item(tx);
       end
    endtask: body

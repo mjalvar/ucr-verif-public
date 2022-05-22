@@ -18,14 +18,11 @@ class unpacker_monitor_in extends uvm_monitor;
    endfunction: build_phase
 
    task run_phase(uvm_phase phase);
-      integer shift = 0, data_temp = 0, unpacker_mon = 0, pkg_size = 0, a = 0, b = 0, size = 0;
+      integer shift = 0;
 
       unpacker_transaction tx;
       tx = unpacker_transaction::type_id::create
               (.name("tx"), .contxt(get_full_name()));
-      //tx.pkt.data = 1280'hCAFEBEBEDEADBEEF4242;
-      //tx.pkt.size = 10;
-      //mon_ap.write(tx);
 
       `uvm_info(get_full_name(), "monitor_in: start", UVM_LOW)
 
@@ -47,8 +44,7 @@ class unpacker_monitor_in extends uvm_monitor;
                   end
                   if (vif.sig_eop==1)
                   begin
-                     /// write transaction ////
-                     mon_ap.write(tx);
+                     mon_ap.write(tx.clone());
                   end
                end
             end
@@ -78,16 +74,11 @@ class unpacker_monitor_out extends uvm_monitor;
    endfunction: build_phase
 
    task run_phase(uvm_phase phase);
-      integer shift = 0, unpacker_mon = 0, pkg_size = 0, a = 0, b = 0, size = 0;
-      enum integer {OVAL_0=0, OVAL_1=1, OSOP_1=2, OSOP_OEOP_0=3, OEOP_1=4} state;
-
+      integer shift = 0;
 
       unpacker_transaction tx;
       tx = unpacker_transaction::type_id::create
               (.name("tx"), .contxt(get_full_name()));
-      //tx.pkt.data = 1280'hCAFEBEBEDEADBEEF4242;
-      //tx.pkt.size = 10;
-      // mon_ap.write(tx);
 
       `uvm_info(get_full_name(), "monitor_out: start", UVM_LOW)
 
@@ -107,8 +98,7 @@ class unpacker_monitor_out extends uvm_monitor;
                end
                if (vif.sig_o_eop==1)
                begin
-                  /// write transaction ////
-                  mon_ap.write(tx);
+                  mon_ap.write(tx.clone());
                end
             end
          end
