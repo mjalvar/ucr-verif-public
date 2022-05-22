@@ -8,5 +8,6 @@ TB_TOP = unpacker_tb_top
 #DEFINE = ASSERT_ON COVERAGE_ON
 
 SIM_OPT = --testplusarg UVM_TESTNAME=unpacker_test
+#SIM_OPT += -sv_seed random
 
 include $(CODE)/makefiles/vivado.mk

@@ -34,19 +34,20 @@ class unpacker_test extends uvm_test;
 
       phase.raise_objection(.obj(this));
 
-      // send_pkt_seq_size(32, 5);
-      // send_pkt_seq_size(162, 5);
-      //send_pkt_seq_size(512, 2);
+      `uvm_info("test", "Testing corner packet sizes", UVM_LOW);
+      send_pkt_seq_size(160, 1);
+      send_pkt_seq_size(32, 1);
+      send_pkt_seq_size(33, 1);
+      send_pkt_seq_size(159, 1);
+      send_pkt_seq_size(160, 1);
+      send_pkt_seq_size(161, 1);
+      send_pkt_seq_size(1024, 1);
 
-      ////Secuencia de ejemplo en clase
+      // `uvm_info("test", "Testing example sequence", UVM_LOW);
       //send_pkt_seq_size(32, 5);
       //send_pkt_seq_size(0, 2);
       //send_pkt_seq_size(159, 1);
       //send_pkt_seq_size(479, 1);
-
-      //send_pkt_seq_size(33, 5);
-
-      //send_pkt_seq_size(32, 5);
 
       // `uvm_info("test", "Testing small packet sizes", UVM_LOW);
       // send_pkt_seq_size_range(1, 159, 10);
@@ -54,17 +55,9 @@ class unpacker_test extends uvm_test;
       // `uvm_info("test", "Testing large packet sizes", UVM_LOW);
       // send_pkt_seq_size_range(160, 1024, 10);
 
-      // `uvm_info("test", "Testing corner packet sizes", UVM_LOW);
-      send_pkt_seq_size(160, 1);
-      send_pkt_seq_size(32, 1);
-      send_pkt_seq_size(33, 1);
-      //send_pkt_seq_size(33, 1);
-      send_pkt_seq_size(0, 1);
-      send_pkt_seq_size(159, 1);
-      send_pkt_seq_size(160, 1);
-      send_pkt_seq_size(0, 1);
-      send_pkt_seq_size(161, 1);
-      send_pkt_seq_size(1024, 1);
+      // `uvm_info("test", "Testing all packet sizes", UVM_LOW);
+      // send_pkt_seq_size_range(1, 1024, 10);
+
       #100
       phase.drop_objection(.obj(this));
    endtask: run_phase
