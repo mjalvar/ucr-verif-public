@@ -15,9 +15,13 @@ module tb();
 
     localparam WIDTH_P = 4;
 
-    reg clk;
-    reg reset_L;
-    reg en;
+
+    counter_if vif();
+
+    logic [WIDTH_P-1:0] inc;
+    logic clk;
+    logic reset_L;
+    logic en, clr;
 
 
     // initial begin
@@ -39,7 +43,10 @@ module tb();
     // end
 
 
-     // clk gen
+    // clk gen
+    initial
+        clk = 0;
+
     always @(*) begin
         #5ns;
         clk <= ~clk;
@@ -51,10 +58,11 @@ module tb();
     ) DUT (
         .clk(clk),
         .reset_L(reset_L),
-        .inc('b1),
+        .inc(inc),
         .en(en),
-        .clr(0),
+        .clr(clr),
         .non_zero(),
+        .overflow(),
         .val()
     );
 
@@ -64,15 +72,19 @@ module tb();
         $dumpvars(0,tb);
     end
 
+
     initial begin
-		// //Registers the Interface in the configuration block so that other
-		// //blocks can use it
-		// uvm_resource_db#(virtual simpleadder_if)::set
-		// 	(.scope("ifs"), .name("simpleadder_if"), .val(vif));
+		// Registers the Interface in the resource_db so that other
+		// blocks can use it
+		uvm_resource_db#(virtual counter_if)::set
+			(.scope("ifs"), .name("counter_if"), .val(vif));
 
 		//Executes the test
 		run_test();
 	end
+
+    // connect
+    assign vif.clk = clk;
 
 
 endmodule
