@@ -4,7 +4,7 @@ class counter_sequence extends uvm_sequence#(counter_tlm);
 
     constraint num_c {
         num > 0;
-        num < 10;
+        num < 30;
     }
 
 

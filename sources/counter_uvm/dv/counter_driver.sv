@@ -44,7 +44,7 @@ class counter_driver extends uvm_driver#(counter_tlm);
 				key_ctrl.get(1);
 				tlm_ctrl.copy(tlm);
 				fork begin
-					drive_ctrl(tlm_ctrl);
+					drive_ctrl(tlm_ctrl, phase);
 				end
 				join_none
 			end
@@ -52,7 +52,7 @@ class counter_driver extends uvm_driver#(counter_tlm);
 				key_inc.get(1);
 				tlm_inc.copy(tlm);
 				fork begin
-					drive_inc(tlm_inc);
+					drive_inc(tlm_inc, phase);
 				end
 				join_none
 			end
@@ -62,8 +62,8 @@ class counter_driver extends uvm_driver#(counter_tlm);
 	endtask: run_phase
 
 
-	task drive_ctrl(counter_tlm tlm);
-	`uvm_info("counter_driver", $sformatf("debug %s", tlm.opcode.name), UVM_LOW);
+	task drive_ctrl(counter_tlm tlm, uvm_phase phase);
+		phase.raise_objection(.obj(this));
 		@(posedge vif.clk)
 		`uvm_info("counter_driver", $sformatf("toggling %s", tlm.opcode.name), UVM_LOW);
 		case(tlm.opcode)
@@ -75,15 +75,18 @@ class counter_driver extends uvm_driver#(counter_tlm);
 				vif.clr = ~vif.clr;
 		endcase
 		key_ctrl.put(1);
+		phase.drop_objection(.obj(this));
 	endtask
 
 
-	task drive_inc(counter_tlm tlm);
+	task drive_inc(counter_tlm tlm, uvm_phase phase);
+		phase.raise_objection(.obj(this));
 		@(posedge vif.clk)
 		`uvm_info("counter_driver", $sformatf("incrementing %0d", tlm.data), UVM_LOW);
 		vif.inc = tlm.data;
 		repeat(tlm.hold) @(posedge vif.clk);
 		key_inc.put(1);
+		phase.drop_objection(.obj(this));
 	endtask
 
 endclass: counter_driver

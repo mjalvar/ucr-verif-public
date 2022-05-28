@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 //
 // melvin.alvarado
-// may 2021
+// may 2022
 //
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -15,14 +15,13 @@ module tb();
 
     localparam WIDTH_P = 4;
 
-
-    counter_if vif();
-
-    logic [WIDTH_P-1:0] inc;
+    logic [WIDTH_P-1:0] inc, val;
     logic clk;
     logic reset_L;
     logic en, clr;
+    logic non_zero, overflow;
 
+    counter_if vif();
 
     // initial begin
     //     $display("Starting simulation");
@@ -46,7 +45,6 @@ module tb();
     // clk gen
     initial
         clk = 0;
-
     always @(*) begin
         #5ns;
         clk <= ~clk;
@@ -85,6 +83,22 @@ module tb();
 
     // connect
     assign vif.clk = clk;
+
+    // inputs
+    always_comb begin
+        reset_L = vif.resetL;
+        en = vif.en;
+        clr = vif.clr;
+        inc = vif.inc;
+    end
+
+    // outputs
+    always_comb begin
+        vif.val = val;
+        vif.non_zero = non_zero;
+        vif.overflow = overflow;
+    end
+
 
 
 endmodule
