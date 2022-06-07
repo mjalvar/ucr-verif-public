@@ -26,41 +26,41 @@ class counter_monitor extends uvm_monitor;
 		tlm = counter_tlm::type_id::create(.name("mon_tlm"), .contxt(get_full_name()));
 
 		fork
-			mon_en();
+			// mon_en();
 			//mon_clr();
 			//mon_overflow();
-			mon_inc();
+			// mon_inc();
 		join_none
 
 	endtask: run_phase
 
 
-	task mon_inc();
-		counter_tlm tlm;
-		tlm = counter_tlm::type_id::create(.name("mon_tlm"), .contxt(get_full_name()));
-		forever begin
-			@(vif.inc)
-			if(vif.en) begin
-				tlm.opcode = INC;
-				tlm.data = vif.inc;
-				`uvm_info("counter_monitor", $sformatf("%s d:%0d", tlm.opcode.name, tlm.data), UVM_LOW);
-				mon_ap.write(tlm);
-			end
-		end
-	endtask
+	// task mon_inc();
+	// 	counter_tlm tlm;
+	// 	tlm = counter_tlm::type_id::create(.name("mon_tlm"), .contxt(get_full_name()));
+	// 	forever begin
+	// 		@(vif.inc)
+	// 		if(vif.en) begin
+	// 			tlm.opcode = INC;
+	// 			tlm.data = vif.inc;
+	// 			`uvm_info("counter_monitor", $sformatf("%s d:%0d", tlm.opcode.name, tlm.data), UVM_LOW);
+	// 			mon_ap.write(tlm);
+	// 		end
+	// 	end
+	// endtask
 
 
-	task mon_en();
-		counter_tlm tlm;
-		tlm = counter_tlm::type_id::create(.name("mon_tlm"), .contxt(get_full_name()));
-		forever begin
-			@(vif.en)
-			tlm.opcode = ENABLE;
-			tlm.data = vif.en;
-			`uvm_info("counter_monitor", $sformatf("%s d:%0d", tlm.opcode.name, tlm.data), UVM_LOW);
-			mon_ap.write(tlm);
-		end
-	endtask
+	// task mon_en();
+	// 	counter_tlm tlm;
+	// 	tlm = counter_tlm::type_id::create(.name("mon_tlm"), .contxt(get_full_name()));
+	// 	forever begin
+	// 		@(vif.en)
+	// 		tlm.opcode = ENABLE;
+	// 		tlm.data = vif.en;
+	// 		`uvm_info("counter_monitor", $sformatf("%s d:%0d", tlm.opcode.name, tlm.data), UVM_LOW);
+	// 		mon_ap.write(tlm);
+	// 	end
+	// endtask
 
 
 endclass: counter_monitor
