@@ -41,6 +41,7 @@ localparam CNT_SIZE_P = 8;
 
 wire [PORTS_P-1:0] unpacker_idle;
 logic [PORTS_P-1:0] [3:0] cfg_port_id;
+logic [PORTS_P-1:0]       cfg_port_enable;
 
 logic sop_d, eop_d;
 logic [3:0] id_d;
@@ -79,7 +80,7 @@ generate
             .clk(clk),
             .reset_L(reset_L),
 
-            .cfg_port_enable('1),
+            .cfg_port_enable(cfg_port_enable[i]),
             //.val(val_inst),
             //.val(val_inst&ready[i]),
             .val(val_inst[i]&ready[i]),
@@ -163,7 +164,8 @@ endgenerate
     c3po_regs REG(
         .clk(clk),
         .reset_L(reset_L),
-        .cfg_port_id(cfg_port_id)
+        .cfg_port_id(cfg_port_id),
+        .cfg_port_enable(cfg_port_enable)
     );
 
 
