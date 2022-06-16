@@ -20,9 +20,9 @@ class unpacker_monitor_in extends uvm_monitor;
    task run_phase(uvm_phase phase);
       integer shift = 0;
 
-      unpacker_transaction tx;
-      tx = unpacker_transaction::type_id::create
-              (.name("tx"), .contxt(get_full_name()));
+      unpacker_transaction tlm;
+      tlm = unpacker_transaction::type_id::create
+              (.name("tlm"), .contxt(get_full_name()));
 
       `uvm_info(get_full_name(), "monitor_in: start", UVM_LOW)
 
@@ -33,18 +33,18 @@ class unpacker_monitor_in extends uvm_monitor;
             begin
                if(vif.sig_ready==1)
                begin
-                  tx.pkt.size = tx.pkt.size + vif.sig_vbc;
+                  tlm.pkt.size = tlm.pkt.size + vif.sig_vbc;
                   shift = shift + 160*8;
-                  tx.pkt.data = tx.pkt.data + (vif.sig_data << shift);
+                  tlm.pkt.data = tlm.pkt.data + (vif.sig_data << shift);
                   if (vif.sig_sop==1)
                   begin
                      shift = 0;
-                     tx.pkt.size = vif.sig_vbc;
-                     tx.pkt.data = vif.sig_data;
+                     tlm.pkt.size = vif.sig_vbc;
+                     tlm.pkt.data = vif.sig_data;
                   end
                   if (vif.sig_eop==1)
                   begin
-                     mon_ap.write(tx.clone());
+                     mon_ap.write(tlm.clone());
                   end
                end
             end
@@ -76,31 +76,45 @@ class unpacker_monitor_out extends uvm_monitor;
    task run_phase(uvm_phase phase);
       integer shift = 0;
 
-      unpacker_transaction tx;
-      tx = unpacker_transaction::type_id::create
-              (.name("tx"), .contxt(get_full_name()));
+      unpacker_transaction tlm;
+      tlm = unpacker_transaction::type_id::create
+              (.name("tlm"), .contxt(get_full_name()));
+      tlm.op = OP_MAX;
 
       `uvm_info(get_full_name(), "monitor_out: start", UVM_LOW)
 
       forever begin
          @(posedge vif.sig_clock)
          begin
+            if(vif.sig_reset_L==0)
+              begin
+                 tlm.op = OP_RESET;
+                 continue;
+              end
+            else if(vif.sig_reset_L==1 && tlm.op==OP_RESET)
+              begin
+                 mon_ap.write(tlm.clone());
+                 tlm.op = OP_MAX;
+              end
+
             if(vif.sig_o_val==1)
-            begin
-               tx.pkt.size = tx.pkt.size + vif.sig_o_vbc;
-               shift = shift + 32*8;
-               tx.pkt.data = tx.pkt.data + (vif.sig_o_data << shift);
-               if (vif.sig_o_sop==1)
-               begin
-                  shift = 0;
-                  tx.pkt.size = vif.sig_o_vbc;
-                  tx.pkt.data = vif.sig_o_data;
-               end
-               if (vif.sig_o_eop==1)
-               begin
-                  mon_ap.write(tx.clone());
-               end
-            end
+              begin
+                 tlm.pkt.size = tlm.pkt.size + vif.sig_o_vbc;
+                 shift = shift + 32*8;
+                 tlm.pkt.data = tlm.pkt.data + (vif.sig_o_data << shift);
+
+                 if (vif.sig_o_sop==1)
+                   begin
+                      shift = 0;
+                      tlm.op = OP_PACKET;
+                      tlm.pkt.size = vif.sig_o_vbc;
+                      tlm.pkt.data = vif.sig_o_data;
+                   end
+                 if (vif.sig_o_eop==1 && tlm.op==OP_PACKET)
+                   begin
+                      mon_ap.write(tlm.clone());
+                   end
+              end
          end
       end
    endtask: run_phase

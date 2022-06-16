@@ -7,17 +7,17 @@ class unpacker_scoreboard extends uvm_scoreboard;
    uvm_analysis_export #(unpacker_transaction) sb_export_in;
    uvm_analysis_export #(unpacker_transaction) sb_export_out;
 
-   uvm_tlm_analysis_fifo #(unpacker_transaction) in_fifo;
-   uvm_tlm_analysis_fifo #(unpacker_transaction) out_fifo;
+   uvm_tlm_analysis_fifo #(unpacker_transaction) fifo_in;
+   uvm_tlm_analysis_fifo #(unpacker_transaction) fifo_out;
 
-   unpacker_transaction tx_in;
-   unpacker_transaction tx_out;
+   unpacker_transaction tlm_in;
+   unpacker_transaction tlm_out;
 
     function new(string name, uvm_component parent);
       super.new(name, parent);
 
-      tx_in = new("tx_in");
-      tx_out = new("tx_out");
+      tlm_in = new("tlm_in");
+      tlm_out = new("tlm_out");
    endfunction: new
 
    function void build_phase(uvm_phase phase);
@@ -26,30 +26,48 @@ class unpacker_scoreboard extends uvm_scoreboard;
       sb_export_in  = new("sb_export_in", this);
       sb_export_out  = new("sb_export_out", this);
 
-      in_fifo = new("in_fifo", this);
-      out_fifo = new("out_fifo", this);
+      fifo_in = new("fifo_in", this);
+      fifo_out = new("fifo_out", this);
    endfunction: build_phase
 
    function void connect_phase(uvm_phase phase);
-      sb_export_in.connect(in_fifo.analysis_export);
-      sb_export_out.connect(out_fifo.analysis_export);
+      sb_export_in.connect(fifo_in.analysis_export);
+      sb_export_out.connect(fifo_out.analysis_export);
    endfunction: connect_phase
+
+   function void report_phase(uvm_phase phase);
+      if (!fifo_in.is_empty()) begin
+         `uvm_error("report_phase", {"fifo_in not empty!"});
+      end
+      if (!fifo_out.is_empty()) begin
+         `uvm_error("report_phase", {"fifo_out not empty!"});
+      end
+   endfunction: report_phase
 
    task run();
       forever begin
-         in_fifo.get(tx_in);
-         out_fifo.get(tx_out);
-         compare();
+         fifo_out.get(tlm_out);
+         case(tlm_out.op)
+           OP_PACKET:
+             if (fifo_in.try_get(tlm_in)) begin
+                pkt_compare(tlm_in.pkt, tlm_out.pkt);
+             end else begin
+                `uvm_error("run", {"tlm_in try_get FAIL!"});
+             end
+           OP_RESET:
+             // Flush input monitor fifo
+             fifo_in.flush();
+         endcase
       end
    endtask: run
 
-   virtual function void compare();
-      `uvm_info("tx_in", tx_in.sprint(), UVM_LOW);
-      `uvm_info("tx_out", tx_out.sprint(), UVM_LOW);
-      if (tx_in.compare(tx_out)) begin
-         `uvm_info("compare", {"Test: OK!"}, UVM_LOW);
+   virtual function void pkt_compare(tlm_packet in, tlm_packet out);
+      if (in.compare(out)) begin
+         `uvm_info("pkt_compare", {"OK"}, UVM_LOW);
       end else begin
-         `uvm_error("compare", {"Test: Fail!"});
+         `uvm_error("pkt_compare", {"FAIL!"});
+         `uvm_info("pkt in", in.sprint(), UVM_LOW);
+         `uvm_info("pkt out", out.sprint(), UVM_LOW);
       end
-   endfunction: compare
+   endfunction: pkt_compare
 endclass: unpacker_scoreboard
