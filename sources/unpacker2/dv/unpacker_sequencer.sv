@@ -1,5 +1,5 @@
 
-typedef enum {OP_PACKET, OP_RESET, OP_MAX} op_t;
+typedef enum {OP_PACKET, OP_RESET_L, OP_VAL_L, OP_MAX} op_t;
 
 class tlm_packet #(max_size=1024) extends uvm_object;
    rand bit [max_size*8-1:0] data;
@@ -29,17 +29,18 @@ endclass: tlm_packet
 class unpacker_transaction extends uvm_sequence_item;
    rand op_t op;
    rand tlm_packet pkt;
-   rand integer rst_start;
-   rand integer rst_hold;
+   rand integer start;
+   rand integer hold;
 
    constraint op_dist {
       op dist {
-            OP_PACKET := 5,
-            OP_RESET  := 1
+            OP_PACKET  := 5,
+            OP_RESET_L := 1,
+            OP_VAL_L   := 1
       };
    }
-   constraint limit_reset_start { rst_start >= 0; rst_start <= 10; }
-   constraint limit_reset_hold { rst_hold >= 1; rst_hold <= 5; }
+   constraint limit_start { start >= 0; start <= 10; }
+   constraint limit_hold { hold >= 1; hold <= 30; }
 
    function new(string name = "");
       super.new(name);
@@ -53,15 +54,16 @@ class unpacker_transaction extends uvm_sequence_item;
       if (tlm.op == OP_PACKET) begin
          tlm.pkt = pkt.clone();
       end
-      tlm.rst_start = rst_start;
-      tlm.rst_hold = rst_hold;
+      tlm.start = start;
+      tlm.hold = hold;
       return tlm;
    endfunction: clone
 
    `uvm_object_utils_begin(unpacker_transaction)
       `uvm_field_enum(op_t,op,UVM_ALL_ON)
       `uvm_field_object(pkt,UVM_ALL_ON)
-      `uvm_field_int(rst_hold,UVM_ALL_ON)
+      `uvm_field_int(start,UVM_ALL_ON)
+      `uvm_field_int(hold,UVM_ALL_ON)
    `uvm_object_utils_end
 endclass: unpacker_transaction
 

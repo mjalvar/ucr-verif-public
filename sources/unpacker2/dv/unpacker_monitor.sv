@@ -111,7 +111,7 @@ class unpacker_monitor_in extends uvm_monitor;
             if(vif.sig_reset_L==0)
               begin
                  // This is just to discard the current pkt TLM
-                 tlm.op = OP_RESET;
+                 tlm.op = OP_RESET_L;
                  continue;
               end
 
@@ -173,10 +173,10 @@ class unpacker_monitor_out extends uvm_monitor;
          begin
             if(vif.sig_reset_L==0)
               begin
-                 tlm.op = OP_RESET;
+                 tlm.op = OP_RESET_L;
                  continue;
               end
-            else if(vif.sig_reset_L==1 && tlm.op==OP_RESET)
+            else if(vif.sig_reset_L==1 && tlm.op==OP_RESET_L)
               begin
                  mon_ap.write(tlm.clone());
                  tlm.op = OP_MAX;
