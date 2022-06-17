@@ -5,8 +5,84 @@ class unpacker_monitor_in extends uvm_monitor;
 
    virtual unpacker_if vif;
 
+   unpacker_transaction tlm;
+
+   covergroup covgrp1_in;
+      reset_L : coverpoint vif.sig_reset_L {
+         bins test_reset = (0=>1=>0=>1=>0=>1);
+      }
+      all_pkt_size :   coverpoint tlm.pkt.size;
+      zero_zero_zero : coverpoint tlm.pkt.size {
+         bins test1 = (0=>0=>0);
+      }
+
+   endgroup: covgrp1_in 
+
+   covergroup covgrp2_in;
+      small_small : coverpoint tlm.pkt.size {
+         bins test1 = ([1:32]=>[1:32]);
+      }
+      small_medium : coverpoint tlm.pkt.size {
+         bins test1 = ([1:32]=>[33:160]);
+      }
+      small_large : coverpoint tlm.pkt.size {
+         bins test1 = ([1:32]=>[161:1024]);
+      }
+      medium_small : coverpoint tlm.pkt.size {
+         bins test1 = ([33:160]=>[1:32]);
+      }
+      medium_medium : coverpoint tlm.pkt.size {
+         bins test1 = ([33:160]=>[33:160]);
+      }
+      medium_large : coverpoint tlm.pkt.size {
+         bins test1 = ([33:160]=>[1:32]);
+      }
+      large_small : coverpoint tlm.pkt.size {
+         bins test1 = ([161:1024]=>[1:32]);
+      }
+      large_medium : coverpoint tlm.pkt.size {
+         bins test1 = ([161:1024]=>[33:160]);
+      }
+      large_large : coverpoint tlm.pkt.size {
+         bins test1 = ([161:1024]=>[161:1024]);
+      }
+   endgroup: covgrp2_in
+
+   covergroup covgrp3_in;
+      small_zero_small : coverpoint tlm.pkt.size {
+         bins test1 = ([1:32]=>0=>[1:32]);
+      }
+      small_zero_medium : coverpoint tlm.pkt.size {
+         bins test1 = ([1:32]=>0=>[33:160]);
+      }
+      small_zero_large : coverpoint tlm.pkt.size {
+         bins test1 = ([1:32]=>0=>[161:1024]);
+      }
+      medium_zero_small : coverpoint tlm.pkt.size {
+         bins test1 = ([33:160]=>0=>[1:32]);
+      }
+      medium_zero_medium : coverpoint tlm.pkt.size {
+         bins test1 = ([33:160]=>0=>[33:160]);
+      }
+      medium_zero_large : coverpoint tlm.pkt.size {
+         bins test1 = ([33:160]=>0=>[1:32]);
+      }
+      large_zero_small : coverpoint tlm.pkt.size {
+         bins test1 = ([161:1024]=>0=>[1:32]);
+      }
+      large_zero_medium : coverpoint tlm.pkt.size {
+         bins test1 = ([161:1024]=>0=>[33:160]);
+      }
+      large_zero_large : coverpoint tlm.pkt.size {
+         bins test1 = ([161:1024]=>0=>[161:1024]);
+      }
+   endgroup: covgrp3_in
+
    function new(string name, uvm_component parent);
       super.new(name, parent);
+      covgrp1_in = new();
+      covgrp2_in = new();
+      covgrp3_in = new();
    endfunction: new
 
    function void build_phase(uvm_phase phase);
@@ -20,7 +96,6 @@ class unpacker_monitor_in extends uvm_monitor;
    task run_phase(uvm_phase phase);
       integer shift = 0;
 
-      unpacker_transaction tlm;
       tlm = unpacker_transaction::type_id::create
               (.name("tlm"), .contxt(get_full_name()));
 
@@ -29,6 +104,9 @@ class unpacker_monitor_in extends uvm_monitor;
       forever begin
          @(posedge vif.sig_clock)
          begin
+            covgrp1_in.sample();
+            covgrp2_in.sample();
+            covgrp3_in.sample();
             if(vif.sig_val==1)
             begin
                if(vif.sig_ready==1)
@@ -61,6 +139,8 @@ class unpacker_monitor_out extends uvm_monitor;
 
    virtual unpacker_if vif;
 
+   unpacker_transaction tlm;
+
    function new(string name, uvm_component parent);
       super.new(name, parent);
    endfunction: new
@@ -76,7 +156,6 @@ class unpacker_monitor_out extends uvm_monitor;
    task run_phase(uvm_phase phase);
       integer shift = 0;
 
-      unpacker_transaction tlm;
       tlm = unpacker_transaction::type_id::create
               (.name("tlm"), .contxt(get_full_name()));
       tlm.op = OP_MAX;
