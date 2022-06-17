@@ -54,7 +54,7 @@ class unpacker_scoreboard extends uvm_scoreboard;
              end else begin
                 `uvm_error("run", {"tlm_in try_get FAIL!"});
              end
-           OP_RESET:
+           OP_RESET_L:
              // Flush input monitor fifo
              fifo_in.flush();
          endcase
