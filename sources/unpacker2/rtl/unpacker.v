@@ -281,6 +281,12 @@ end
      (ready === 1 && (pending <= 32) && val === 1 |-> nxt_pending === vbc)
    ) else $error("assert_vbc_next_pending assert FAIL!");
 
+   // 16: Verify start to end time completion
+   assert_start_2_end: assert property(
+    @(posedge clk) disable iff (reset_L!==1'b1)
+     (reset_L && val && state === 2 |->  ##[1:5]state === 4)
+   ) else $error("assert_start_2_end assert FAIL!");
+
 `endif
 
 endmodule
