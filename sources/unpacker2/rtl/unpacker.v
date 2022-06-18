@@ -190,6 +190,79 @@ always_comb begin
     endcase
 end
 
+`ifdef ASSERT_ON
+  // 1: Verify output sop is seen when expected
+  assert_pkt_start_out: assert property(
+    @(posedge clk) disable iff (reset_L!==1'b1)
+     ((reset_L && sop && ready && val) |=> o_sop)
+    ) else $error("pkt_start_out assert FAIL!");
 
+  // 2: Verify output eop is seen when expected
+  assert_pkt_end_out: assert property(
+    @(posedge clk) disable iff (reset_L!==1'b1 || val!==1'b1)
+     ((reset_L && eop && ready && val) |-> ##[1:5] o_eop)
+    ) else $error("pkt_end_out assert FAIL!");
+
+  // 3: Verify output is valid while sending packet
+  assert_pkt_start_end_val: assert property(
+    @(posedge clk) disable iff (reset_L!==1'b1 || val!==1'b1)
+     (o_sop |-> (o_val[*1:$] ##[0:1] o_eop))
+    ) else $error("pkt_start_end_val assert FAIL!");
+
+  // 4: Verify DUT is idle after ready but invalid input
+  assert_pkt_rdy_non_val_idle: assert property(
+    @(posedge clk) disable iff (reset_L!==1'b1)
+     ((reset_L && ready && (val===1'b0)) |=> idle)
+   ) else $error("pkt_rdy_non_val_idle assert FAIL!");
+
+  // 5: Verify DUT is non idle after starting packet
+  assert_pkt_start_non_idle: assert property(
+    @(posedge clk) disable iff (reset_L!==1'b1)
+     ((reset_L && sop && ready && val) |=> idle===1'b0)
+    ) else $error("pkt_start_non_idle assert FAIL!");
+
+  // 6: Verify DUT is sending data out after starting packet
+  assert_pkt_start_vbc_non_zero: assert property(
+    @(posedge clk) disable iff (reset_L!==1'b1)
+     ((reset_L && sop && ready && val) |=> o_vbc!==0)
+    ) else $error("start_vbc_non_zero assert FAIL!");
+
+  // 7: Verify DUT is non idle when it is not ready
+  assert_non_rdy_non_idle: assert property(
+    @(posedge clk) disable iff (reset_L!==1'b1)
+     (ready===1'b0 |-> idle===1'b0)
+    ) else $error("non_rdy_non_idle assert FAIL!");
+
+  // 8: Verify DUT is not idle after a reset
+  assert_rst_non_idle: assert property(
+    @(posedge clk)
+     (reset_L===1'b0 |=> idle===1'b0)
+    ) else $error("rst_non_idle assert FAIL!");
+
+  // 9: Verify DUT is not sending data out when idle
+  assert_idle_vbc_zero: assert property(
+    @(posedge clk) disable iff (reset_L!==1'b1)
+     (idle |-> o_vbc===0)
+    ) else $error("idle_vbc_zero assert FAIL!");
+
+  // 10: Verify DUT is not sending data out after a reset
+  assert_rst_vbc_zero: assert property(
+    @(posedge clk)
+     (reset_L===1'b0 |=> o_vbc===0)
+    ) else $error("rst_vbc_zero assert FAIL!");
+
+  // 11: Verify output data is stable when idle is stable
+  assert_idle_data_stable: assert property(
+    @(posedge clk) disable iff (reset_L!==1'b1)
+     (idle && $stable(idle)[*2] |-> $stable(o_data))
+   ) else $error("idle_data_stable assert FAIL!");
+
+  // 12: Verify output data is changing when valid is stable
+  assert_val_data_non_stable: assert property(
+    @(posedge clk) disable iff (reset_L!==1'b1)
+     (o_val===1'b1 && $stable(o_val)[*2] |-> !$stable(o_data))
+   ) else $error("non_val_data_non_stable assert FAIL!");
+
+`endif
 
 endmodule
