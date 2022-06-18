@@ -263,6 +263,24 @@ end
      (o_val===1'b1 && $stable(o_val)[*2] |-> !$stable(o_data))
    ) else $error("non_val_data_non_stable assert FAIL!");
 
+   // 13: Verify reset posedge triggers idle state
+   assert_reset_to_idle: assert property(
+    @(posedge clk)
+     ($rose(reset_L) |=> state === 1)
+   ) else $error("assert_reset_to_idle assert FAIL!");
+
+   // 14: Verify reset negedge signal propagation
+   assert_reset_propagation: assert property(
+    @(posedge clk) 
+     ($fell(reset_L) |=> state === 0)
+   ) else $error("assert_reset_propagation assert FAIL!");
+
+   // 15: Verify vbc and next pending sync
+   assert_vbc_next_pending: assert property(
+    @(posedge clk) disable iff (reset_L!==1'b1)
+     (ready === 1 && (pending <= 32) && val === 1 |-> nxt_pending === vbc)
+   ) else $error("assert_vbc_next_pending assert FAIL!");
+
 `endif
 
 endmodule
