@@ -73,6 +73,13 @@ class unpacker_monitor_in extends uvm_monitor;
          bins pre_pkt160 = (0=>1=>1=>1=>1=>1=>0);
          bins small_pkt_between_zeros = (0=>1=>0);
       }
+      check_ready  : coverpoint vif.sig_ready {
+         bins pkt129_160 = (1=>0=>0=>0=>0=>1);
+         bins pkt97_128 = (1=>0=>0=>0=>1);
+         bins pkt65_96 = (1=>0=>0=>1);
+         bins pkt33_64 = (1=>0=>1);
+         bins pkt1_32_or_val0_reset1 = (1=>1);
+      }
    endgroup: covgrp1_in 
 
 
