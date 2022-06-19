@@ -71,6 +71,7 @@ class unpacker_monitor_in extends uvm_monitor;
       check_eop  : coverpoint vif.sig_eop {
          bins small_pkts_or_reset = (1=>1=>1=>1=>1=>1);
          bins pre_pkt129_160 = (0=>1=>1=>1=>1=>1=>0);
+         bins small_pkt_between_zeros = (0=>1=>0);
       }
    endgroup: covgrp1_in 
 
