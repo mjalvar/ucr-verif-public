@@ -60,6 +60,18 @@ class unpacker_monitor_in extends uvm_monitor;
          bins val0_or_pkt1_32 = (0=>1=>1=>0);
          bins val0_manycycles = (1=>1=>1);
       }
+      check_sop  : coverpoint vif.sig_sop {
+         bins val0 = (1=>1=>1=>1=>1=>1);
+         bins pre_pkt1_32 = (0=>1=>0);
+         bins pre_pkt33_64 = (0=>1=>1=>0);
+         bins pre_pkt65_96 = (0=>1=>1=>1=>0);
+         bins pre_pkt97_128 = (0=>1=>1=>1=>1=>0);
+         bins pre_pkt129_160 = (0=>1=>1=>1=>1=>1=>0);
+      }
+      check_eop  : coverpoint vif.sig_eop {
+         bins small_pkts_or_reset = (1=>1=>1=>1=>1=>1);
+         bins pre_pkt129_160 = (0=>1=>1=>1=>1=>1=>0);
+      }
    endgroup: covgrp1_in 
 
 
