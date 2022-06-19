@@ -54,12 +54,6 @@ class unpacker_monitor_in extends uvm_monitor;
          bins large_zero_medium = ([161:1024]=>0=>[33:160]);
          bins large_zero_large = ([161:1024]=>0=>[161:1024]);
       }
-      check_ready  : coverpoint vif.sig_ready {
-         bins reset_set = (0=>0=>0=>0=>0);
-         bins normal_ready = (0=>1=>0);
-         bins val0_or_pkt1_32 = (0=>1=>1=>0);
-         bins val0_manycycles = (1=>1=>1);
-      }
       check_sop  : coverpoint vif.sig_sop {
          bins val0 = (1=>1=>1=>1=>1=>1);
          bins pre_pkt1_32 = (0=>1=>0);
