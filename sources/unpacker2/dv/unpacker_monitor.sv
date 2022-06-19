@@ -70,7 +70,7 @@ class unpacker_monitor_in extends uvm_monitor;
       }
       check_eop  : coverpoint vif.sig_eop {
          bins small_pkts_or_reset = (1=>1=>1=>1=>1=>1);
-         bins pre_pkt129_160 = (0=>1=>1=>1=>1=>1=>0);
+         bins pre_pkt160 = (0=>1=>1=>1=>1=>1=>0);
          bins small_pkt_between_zeros = (0=>1=>0);
       }
    endgroup: covgrp1_in 
@@ -149,6 +149,14 @@ class unpacker_monitor_out extends uvm_monitor;
       size_o_vbc_corner_cases  : coverpoint vif.sig_o_vbc {
          bins o_vbc_small_32 = ([1:32]=>32);
          bins o_vbc_32_small = (32=>[1:32]);
+      }
+      check_o_sop  : coverpoint vif.sig_o_sop {
+         bins normal = (0=>1=>0);
+         bins small_pkts = (1=>1);
+      }
+      check_o_eop  : coverpoint vif.sig_o_eop {
+         bins normal = (0=>1=>0);
+         bins small_pkts = (1=>1);
       }
    endgroup: covgrp1_out 
 
