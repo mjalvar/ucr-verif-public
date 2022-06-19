@@ -12,7 +12,7 @@ class unpacker_monitor_in extends uvm_monitor;
          bins test_reset = (0=>1=>0=>1=>0=>1);
       }
       zero_zero_zero_vbc : coverpoint vif.sig_vbc {
-         bins test1 = (0=>0=>0);
+         bins vbc_in_zeros = (0=>0=>0);
       }
       all_vbc_size :   coverpoint vif.sig_vbc;
       size_vbc_size_vbc  : coverpoint vif.sig_vbc {
@@ -29,9 +29,8 @@ class unpacker_monitor_in extends uvm_monitor;
          bins case_160_32a33_160 = (160=>[1:32]=>160);
          bins case_160_33a63_160 = (160=>[33:63]=>160);
       }
-   endgroup: covgrp1_in 
-
-   covergroup covgrp2_in;
+      random_data :   coverpoint vif.sig_data;
+      random_data_tlm :   coverpoint tlm.pkt.data;
       all_pkt_size :   coverpoint tlm.pkt.size;
       pkt_pkt  : coverpoint tlm.pkt.size {
          bins small_small = ([1:32]=>[1:32]);
@@ -55,12 +54,18 @@ class unpacker_monitor_in extends uvm_monitor;
          bins large_zero_medium = ([161:1024]=>0=>[33:160]);
          bins large_zero_large = ([161:1024]=>0=>[161:1024]);
       }
-   endgroup: covgrp2_in
+      check_ready  : coverpoint vif.sig_ready {
+         bins reset_set = (0=>0=>0=>0=>0);
+         bins normal_ready = (0=>1=>0);
+         bins val0_or_pkt1_32 = (0=>1=>1=>0);
+         bins val0_manycycles = (1=>1=>1);
+      }
+   endgroup: covgrp1_in 
+
 
    function new(string name, uvm_component parent);
       super.new(name, parent);
       covgrp1_in = new();
-      covgrp2_in = new();
    endfunction: new
 
    function void build_phase(uvm_phase phase);
@@ -83,8 +88,6 @@ class unpacker_monitor_in extends uvm_monitor;
          @(posedge vif.sig_clock)
          begin
             covgrp1_in.sample();
-            covgrp2_in.sample();
-
             if(vif.sig_reset_L==0)
               begin
                  // This is just to discard the current pkt TLM
@@ -126,8 +129,9 @@ class unpacker_monitor_out extends uvm_monitor;
 
    covergroup covgrp1_out;
       zero_zero_zero_o_vbc : coverpoint vif.sig_o_vbc {
-         bins test1 = (0=>0=>0);
+         bins o_vbc_in_zeros = (0=>0=>0);
       }
+      random_data :   coverpoint vif.sig_o_data;
       all_o_vbc_size :   coverpoint vif.sig_o_vbc;
       size_o_vbc_corner_cases  : coverpoint vif.sig_o_vbc {
          bins o_vbc_small_32 = ([1:32]=>32);
