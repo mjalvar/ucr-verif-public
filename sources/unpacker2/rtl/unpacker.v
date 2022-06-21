@@ -266,56 +266,44 @@ end
    // 13: Verify reset negedge signal propagation
    assert_reset_propagation: assert property(
     @(posedge clk) 
-     ($fell(reset_L) |=> state === 0)
+     ($fell(reset_L) |=> state === RESET)
    ) else $error("13. assert_reset_propagation FAIL!");
 
    // 14: Verify reset posedge triggers idle state
    assert_reset_to_idle: assert property(
     @(posedge clk)
-     ($rose(reset_L) |=> state === 1)
+     ($rose(reset_L) |=> state === IDLE)
    ) else $error("14. assert_reset_to_idle FAIL!");
 
-   // 15: Verify idle to start transition
-   assert_idle_to_start: assert property(
+   // 15: Verify invalid transition from idle state
+   assert_idle_invalid_transition: assert property(
     @(posedge clk) disable iff ($sampled(reset_L) !== 1'b1 || $sampled(val) !== 1'b1)
-     ((state === 1) && (vbc > 0) |-> ##1 (state === 2))
-   ) else $error("15. assert_idle_to_start FAIL! %d", state);
+     ((state === IDLE) |=> (state !== 3 && state !== 4))
+   ) else $error("15. assert_idle_invalid_transition FAIL! %d", state);
 
-   // 16: Verify start to mid transition
-   assert_start_to_mid: assert property(
+   // 16: Verify invalid transition from mid state
+   assert_mid_invalid_transition: assert property(
     @(posedge clk) disable iff ($sampled(reset_L) !== 1'b1 || $sampled(val) !== 1'b1)
-     ((state === 2) && (vbc_d > 32) && (total_word > 2)  |-> nxt_state === 3)
-   ) else $error("16. assert_start_to_mid FAIL!");
+     ((state === MID) |=> (state !== START && state !== IDLE))
+   ) else $error("16. assert_mid_invalid_transition FAIL!");
 
-   // 17: Verify start to end transition
-   assert_start_to_end: assert property(
+   // 17: Verify invalid transitions from end state
+   assert_end_invalid_transition: assert property(
     @(posedge clk) disable iff ($sampled(reset_L) !== 1'b1 || $sampled(val) !== 1'b1)
-     ((state === 2) && (vbc_d > 32) && (total_word <= 2) |-> nxt_state === 4)
-   ) else $error("17. assert_start_to_end FAIL!");
+     ((state === END) |=> state !== MID)
+   ) else $error("17. assert_end_invalid_transition FAIL!");
 
-   // 18: Verify end to start transition
-   assert_end_to_start: assert property(
-    @(posedge clk) disable iff ($sampled(reset_L) !== 1'b1 || $sampled(val) !== 1'b1)
-     ((state === 4) && (vbc > 0) |-> nxt_state === 2)
-   ) else $error("18. assert_end_to_start FAIL!");
-
-   // 19: Verify end to idle transition
-   assert_end_to_idle: assert property(
-    @(posedge clk) disable iff ($sampled(reset_L) !== 1'b1 || $sampled(val) !== 1'b1)
-     ((state === 4) && vbc === 0 |-> nxt_state === 1)
-   ) else $error("19. assert_end_to_idle FAIL!");
-
-   // 20: Verify vbc and next pending sync
+   // 18: Verify vbc and next pending sync
    assert_vbc_next_pending: assert property(
     @(posedge clk) disable iff ($sampled(reset_L) !== 1'b1 || $sampled(val) !== 1'b1)
-     ((state === 4) && (pending <= 32) |-> nxt_pending === vbc)
-   ) else $error("20. assert_vbc_next_pending FAIL!");
+     ((state === END) && (pending <= 32) |-> nxt_pending === vbc)
+   ) else $error("18. assert_vbc_next_pending FAIL!");
 
-   // 21: Verify start to end time completion
+   // 19: Verify start to end time completion
    assert_start_to_end_time: assert property(
     @(posedge clk) disable iff ($sampled(reset_L) !== 1'b1 || $sampled(val) !== 1'b1)
-     ((state === 2) && (vbc > 32) |->  ##[1:5]state === 4)
-   ) else $error("21. assert_start_to_end_time FAIL! %d", state);
+     ((state === START) && (vbc > 32) |->  ##[1:5]state === END)
+   ) else $error("19. assert_start_to_end_time FAIL! %d", state);
 
 `endif
 
