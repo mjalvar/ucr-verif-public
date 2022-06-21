@@ -11,78 +11,62 @@ class unpacker_monitor_in extends uvm_monitor;
       reset_L : coverpoint vif.sig_reset_L {
          bins test_reset = (0=>1=>0=>1=>0=>1);
       }
-      all_pkt_size :   coverpoint tlm.pkt.size;
-      zero_zero_zero : coverpoint tlm.pkt.size {
-         bins test1 = (0=>0=>0);
+      all_vbc_size :   coverpoint vif.sig_vbc;
+      size_vbc_size_vbc  : coverpoint vif.sig_vbc {
+         bins small_small = ([1:32]=>[1:32]);
+         bins small_large = ([1:32]=>[33:160]);
+         bins large_small = ([33:160]=>[1:32]);
+         bins large_large = ([33:160]=>[33:160]);
       }
-
+      size_vbc_corner_cases  : coverpoint vif.sig_vbc {
+         bins case_1a31_32_33a63 = ([1:31]=>32=>[33:63]);
+         bins case_32_32_32 = (32=>32=>32);
+         bins case_160_160_160 = (160=>160=>160);
+         bins case_1a32_160_1a32 = ([1:32]=>160=>[1:32]);
+         bins case_160_32a33_160 = (160=>[1:32]=>160);
+         bins case_160_33a63_160 = (160=>[33:63]=>160);
+      }
+      random_data :   coverpoint vif.sig_data;
+      random_data_tlm :   coverpoint tlm.pkt.data;
+      diferent_transactions :   coverpoint tlm.op;
+      all_pkt_size :   coverpoint tlm.pkt.size;
+      pkt_pkt  : coverpoint tlm.pkt.size {
+         bins small_small = ([1:32]=>[1:32]);
+         bins small_medium = ([1:32]=>[33:160]);
+         bins small_large = ([1:32]=>[161:1024]);
+         bins medium_small = ([33:160]=>[1:32]);
+         bins medium_medium = ([33:160]=>[33:160]);
+         bins medium_large = ([33:160]=>[1:32]);
+         bins large_small = ([161:1024]=>[1:32]);
+         bins large_medium = ([161:1024]=>[33:160]);
+         bins large_large = ([161:1024]=>[161:1024]);
+      }
+      check_sop  : coverpoint vif.sig_sop {
+         bins val0 = (1=>1=>1=>1=>1=>1);
+         bins pre_pkt1_32 = (0=>1=>0);
+         bins pre_pkt33_64 = (0=>1=>1=>0);
+         bins pre_pkt65_96 = (0=>1=>1=>1=>0);
+         bins pre_pkt97_128 = (0=>1=>1=>1=>1=>0);
+         bins pre_pkt129_160 = (0=>1=>1=>1=>1=>1=>0);
+      }
+      check_eop  : coverpoint vif.sig_eop {
+         bins small_pkts_or_reset = (1=>1=>1=>1=>1=>1);
+         bins pre_pkt160 = (0=>1=>1=>1=>1=>1=>0);
+         bins small_pkt_between_zeros = (0=>1=>0);
+      }
+      check_ready  : coverpoint vif.sig_ready {
+         bins pkt129_160 = (1=>0=>0=>0=>0=>1);
+         bins pkt97_128 = (1=>0=>0=>0=>1);
+         bins pkt65_96 = (1=>0=>0=>1);
+         bins pkt33_64 = (1=>0=>1);
+         bins pkt1_32_or_val0_reset1 = (1=>1);
+      }
    endgroup: covgrp1_in 
 
-   covergroup covgrp2_in;
-      small_small : coverpoint tlm.pkt.size {
-         bins test1 = ([1:32]=>[1:32]);
-      }
-      small_medium : coverpoint tlm.pkt.size {
-         bins test1 = ([1:32]=>[33:160]);
-      }
-      small_large : coverpoint tlm.pkt.size {
-         bins test1 = ([1:32]=>[161:1024]);
-      }
-      medium_small : coverpoint tlm.pkt.size {
-         bins test1 = ([33:160]=>[1:32]);
-      }
-      medium_medium : coverpoint tlm.pkt.size {
-         bins test1 = ([33:160]=>[33:160]);
-      }
-      medium_large : coverpoint tlm.pkt.size {
-         bins test1 = ([33:160]=>[1:32]);
-      }
-      large_small : coverpoint tlm.pkt.size {
-         bins test1 = ([161:1024]=>[1:32]);
-      }
-      large_medium : coverpoint tlm.pkt.size {
-         bins test1 = ([161:1024]=>[33:160]);
-      }
-      large_large : coverpoint tlm.pkt.size {
-         bins test1 = ([161:1024]=>[161:1024]);
-      }
-   endgroup: covgrp2_in
-
-   covergroup covgrp3_in;
-      small_zero_small : coverpoint tlm.pkt.size {
-         bins test1 = ([1:32]=>0=>[1:32]);
-      }
-      small_zero_medium : coverpoint tlm.pkt.size {
-         bins test1 = ([1:32]=>0=>[33:160]);
-      }
-      small_zero_large : coverpoint tlm.pkt.size {
-         bins test1 = ([1:32]=>0=>[161:1024]);
-      }
-      medium_zero_small : coverpoint tlm.pkt.size {
-         bins test1 = ([33:160]=>0=>[1:32]);
-      }
-      medium_zero_medium : coverpoint tlm.pkt.size {
-         bins test1 = ([33:160]=>0=>[33:160]);
-      }
-      medium_zero_large : coverpoint tlm.pkt.size {
-         bins test1 = ([33:160]=>0=>[1:32]);
-      }
-      large_zero_small : coverpoint tlm.pkt.size {
-         bins test1 = ([161:1024]=>0=>[1:32]);
-      }
-      large_zero_medium : coverpoint tlm.pkt.size {
-         bins test1 = ([161:1024]=>0=>[33:160]);
-      }
-      large_zero_large : coverpoint tlm.pkt.size {
-         bins test1 = ([161:1024]=>0=>[161:1024]);
-      }
-   endgroup: covgrp3_in
 
    function new(string name, uvm_component parent);
       super.new(name, parent);
       covgrp1_in = new();
-      covgrp2_in = new();
-      covgrp3_in = new();
    endfunction: new
 
    function void build_phase(uvm_phase phase);
@@ -105,9 +89,6 @@ class unpacker_monitor_in extends uvm_monitor;
          @(posedge vif.sig_clock)
          begin
             covgrp1_in.sample();
-            covgrp2_in.sample();
-            covgrp3_in.sample();
-
             if(vif.sig_reset_L==0)
               begin
                  // This is just to discard the current pkt TLM
@@ -147,8 +128,26 @@ class unpacker_monitor_out extends uvm_monitor;
 
    unpacker_transaction tlm;
 
+   covergroup covgrp1_out;
+      random_data :   coverpoint vif.sig_o_data;
+      all_o_vbc_size :   coverpoint vif.sig_o_vbc;
+      size_o_vbc_corner_cases  : coverpoint vif.sig_o_vbc {
+         bins o_vbc_small_32 = ([1:32]=>32);
+         bins o_vbc_32_small = (32=>[1:32]);
+      }
+      check_o_sop  : coverpoint vif.sig_o_sop {
+         bins normal = (0=>1=>0);
+         bins small_pkts = (1=>1);
+      }
+      check_o_eop  : coverpoint vif.sig_o_eop {
+         bins normal = (0=>1=>0);
+         bins small_pkts = (1=>1);
+      }
+   endgroup: covgrp1_out 
+
    function new(string name, uvm_component parent);
       super.new(name, parent);
+      covgrp1_out = new();
    endfunction: new
 
    function void build_phase(uvm_phase phase);
@@ -171,6 +170,7 @@ class unpacker_monitor_out extends uvm_monitor;
       forever begin
          @(posedge vif.sig_clock)
          begin
+            covgrp1_out.sample();
             if(vif.sig_reset_L==0)
               begin
                  tlm.op = OP_RESET_L;
