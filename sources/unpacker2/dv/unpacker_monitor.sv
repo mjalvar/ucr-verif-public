@@ -31,6 +31,7 @@ class unpacker_monitor_in extends uvm_monitor;
       }
       random_data :   coverpoint vif.sig_data;
       random_data_tlm :   coverpoint tlm.pkt.data;
+      diferent_transactions :   coverpoint tlm.op;
       all_pkt_size :   coverpoint tlm.pkt.size;
       pkt_pkt  : coverpoint tlm.pkt.size {
          bins small_small = ([1:32]=>[1:32]);
@@ -42,17 +43,6 @@ class unpacker_monitor_in extends uvm_monitor;
          bins large_small = ([161:1024]=>[1:32]);
          bins large_medium = ([161:1024]=>[33:160]);
          bins large_large = ([161:1024]=>[161:1024]);
-      }
-      pkt_nopkt_pkt : coverpoint tlm.pkt.size {
-         bins small_zero_small = ([1:32]=>0=>[1:32]);
-         bins small_zero_medium = ([1:32]=>0=>[33:160]);
-         bins small_zero_large = ([1:32]=>0=>[161:1024]);
-         bins medium_zero_small = ([33:160]=>0=>[1:32]);
-         bins medium_zero_medium = ([33:160]=>0=>[33:160]);
-         bins medium_zero_large = ([33:160]=>0=>[1:32]);
-         bins large_zero_small = ([161:1024]=>0=>[1:32]);
-         bins large_zero_medium = ([161:1024]=>0=>[33:160]);
-         bins large_zero_large = ([161:1024]=>0=>[161:1024]);
       }
       check_sop  : coverpoint vif.sig_sop {
          bins val0 = (1=>1=>1=>1=>1=>1);
