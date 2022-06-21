@@ -193,43 +193,43 @@ end
 `ifdef ASSERT_ON
   // 1: Verify output sop is seen when expected
   assert_pkt_start_out: assert property(
-    @(posedge clk) disable iff (reset_L!==1'b1)
-     ((reset_L && sop && ready && val) |=> o_sop)
+    @(posedge clk) disable iff ($sampled(reset_L) !== 1'b1)
+     ((sop && ready && val) |=> o_sop)
     ) else $error("1. assert_pkt_start_out FAIL!");
 
   // 2: Verify output eop is seen when expected
   assert_pkt_end_out: assert property(
-    @(posedge clk) disable iff (reset_L!==1'b1 || val!==1'b1)
-     ((reset_L && eop && ready && val) |-> ##[1:5] o_eop)
+    @(posedge clk) disable iff ($sampled(reset_L) !== 1'b1 || $sampled(val) !== 1'b1)
+     ((eop && ready && val) |-> ##[1:5] o_eop)
     ) else $error("2. assert_pkt_end_out FAIL!");
 
   // 3: Verify output is valid while sending packet
   assert_pkt_start_end_val: assert property(
-    @(posedge clk) disable iff (reset_L!==1'b1 || val!==1'b1)
+    @(posedge clk) disable iff ($sampled(reset_L) !== 1'b1 || $sampled(val) !== 1'b1)
      (o_sop |-> (o_val[*1:$] ##[0:1] o_eop))
     ) else $error("3. assert_pkt_start_end_val FAIL!");
 
   // 4: Verify DUT is idle after ready but invalid input
   assert_pkt_rdy_non_val_idle: assert property(
-    @(posedge clk) disable iff (reset_L!==1'b1)
-     ((reset_L && ready && (val===1'b0)) |=> idle)
+    @(posedge clk) disable iff ($sampled(reset_L) !== 1'b1)
+     ((ready && (val===1'b0)) |=> idle)
    ) else $error("4. assert_pkt_rdy_non_val_idle FAIL!");
 
   // 5: Verify DUT is non idle after starting packet
   assert_pkt_start_non_idle: assert property(
-    @(posedge clk) disable iff (reset_L!==1'b1)
-     ((reset_L && sop && ready && val) |=> idle===1'b0)
+    @(posedge clk) disable iff ($sampled(reset_L) !== 1'b1)
+     ((sop && ready && val) |=> idle===1'b0)
     ) else $error("5. assert_pkt_start_non_idle FAIL!");
 
   // 6: Verify DUT is sending data out after starting packet
   assert_pkt_start_vbc_non_zero: assert property(
-    @(posedge clk) disable iff (reset_L!==1'b1)
-     ((reset_L && sop && ready && val) |=> o_vbc!==0)
+    @(posedge clk) disable iff ($sampled(reset_L) !== 1'b1)
+     ((sop && ready && val) |=> o_vbc!==0)
     ) else $error("6. assert_pkt_start_vbc_non_zero FAIL!");
 
   // 7: Verify DUT is non idle when it is not ready
   assert_non_rdy_non_idle: assert property(
-    @(posedge clk) disable iff (reset_L!==1'b1)
+    @(posedge clk) disable iff ($sampled(reset_L) !== 1'b1)
      (ready===1'b0 |-> idle===1'b0)
     ) else $error("7. assert_non_rdy_non_idle FAIL!");
 
@@ -241,7 +241,7 @@ end
 
   // 9: Verify DUT is not sending data out when idle
   assert_idle_vbc_zero: assert property(
-    @(posedge clk) disable iff (reset_L!==1'b1)
+    @(posedge clk) disable iff ($sampled(reset_L) !== 1'b1)
      (idle |-> o_vbc===0)
     ) else $error("9. assert_idle_vbc_zero FAIL!");
 
@@ -253,13 +253,13 @@ end
 
   // 11: Verify output data is stable when idle is stable
   assert_idle_data_stable: assert property(
-    @(posedge clk) disable iff (reset_L!==1'b1)
+    @(posedge clk) disable iff ($sampled(reset_L) !== 1'b1)
      (idle && $stable(idle)[*2] |-> $stable(o_data))
    ) else $error("11. assert_idle_data_stable FAIL!");
 
   // 12: Verify output data is changing when valid is stable
   assert_val_data_non_stable: assert property(
-    @(posedge clk) disable iff (reset_L!==1'b1)
+    @(posedge clk) disable iff ($sampled(reset_L) !== 1'b1)
      (o_val===1'b1 && $stable(o_val)[*2] |-> !$stable(o_data))
    ) else $error("12. assert_val_data_non_stable FAIL!");
 
@@ -277,45 +277,45 @@ end
 
    // 15: Verify idle to start transition
    assert_idle_to_start: assert property(
-    @(posedge clk) disable iff (reset_L!==1'b1 || val!==1'b1)
-     ((state === 1) && (vbc > 0) |=> state === 2)
-   ) else $error("15. assert_idle_to_start FAIL!");
+    @(posedge clk) disable iff ($sampled(reset_L) !== 1'b1 || $sampled(val) !== 1'b1)
+     ((state === 1) && (vbc > 0) |-> ##1 (state === 2))
+   ) else $error("15. assert_idle_to_start FAIL! %d", state);
 
    // 16: Verify start to mid transition
    assert_start_to_mid: assert property(
-    @(posedge clk) disable iff (reset_L!==1'b1 || val!==1'b1)
+    @(posedge clk) disable iff ($sampled(reset_L) !== 1'b1 || $sampled(val) !== 1'b1)
      ((state === 2) && (vbc_d > 32) && (total_word > 2)  |-> nxt_state === 3)
    ) else $error("16. assert_start_to_mid FAIL!");
 
    // 17: Verify start to end transition
    assert_start_to_end: assert property(
-    @(posedge clk) disable iff (reset_L!==1'b1 || val!==1'b1)
+    @(posedge clk) disable iff ($sampled(reset_L) !== 1'b1 || $sampled(val) !== 1'b1)
      ((state === 2) && (vbc_d > 32) && (total_word <= 2) |-> nxt_state === 4)
    ) else $error("17. assert_start_to_end FAIL!");
 
    // 18: Verify end to start transition
    assert_end_to_start: assert property(
-    @(posedge clk) disable iff (reset_L!==1'b1 || val!==1'b1)
+    @(posedge clk) disable iff ($sampled(reset_L) !== 1'b1 || $sampled(val) !== 1'b1)
      ((state === 4) && (vbc > 0) |-> nxt_state === 2)
    ) else $error("18. assert_end_to_start FAIL!");
 
    // 19: Verify end to idle transition
    assert_end_to_idle: assert property(
-    @(posedge clk) disable iff (reset_L!==1'b1 || val!==1'b1)
+    @(posedge clk) disable iff ($sampled(reset_L) !== 1'b1 || $sampled(val) !== 1'b1)
      ((state === 4) && vbc === 0 |-> nxt_state === 1)
    ) else $error("19. assert_end_to_idle FAIL!");
 
    // 20: Verify vbc and next pending sync
    assert_vbc_next_pending: assert property(
-    @(posedge clk) disable iff (reset_L!==1'b1 || val!==1'b1)
+    @(posedge clk) disable iff ($sampled(reset_L) !== 1'b1 || $sampled(val) !== 1'b1)
      ((state === 4) && (pending <= 32) |-> nxt_pending === vbc)
    ) else $error("20. assert_vbc_next_pending FAIL!");
 
    // 21: Verify start to end time completion
    assert_start_to_end_time: assert property(
-    @(posedge clk) disable iff (reset_L!==1'b1 || val!==1'b1)
+    @(posedge clk) disable iff ($sampled(reset_L) !== 1'b1 || $sampled(val) !== 1'b1)
      ((state === 2) && (vbc > 32) |->  ##[1:5]state === 4)
-   ) else $error("21. assert_start_to_end_time FAIL!");
+   ) else $error("21. assert_start_to_end_time FAIL! %d", state);
 
 `endif
 
