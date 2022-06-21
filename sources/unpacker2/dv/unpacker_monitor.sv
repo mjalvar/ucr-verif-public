@@ -11,9 +11,6 @@ class unpacker_monitor_in extends uvm_monitor;
       reset_L : coverpoint vif.sig_reset_L {
          bins test_reset = (0=>1=>0=>1=>0=>1);
       }
-      zero_zero_zero_vbc : coverpoint vif.sig_vbc {
-         bins vbc_in_zeros = (0=>0=>0);
-      }
       all_vbc_size :   coverpoint vif.sig_vbc;
       size_vbc_size_vbc  : coverpoint vif.sig_vbc {
          bins small_small = ([1:32]=>[1:32]);
@@ -132,9 +129,6 @@ class unpacker_monitor_out extends uvm_monitor;
    unpacker_transaction tlm;
 
    covergroup covgrp1_out;
-      zero_zero_zero_o_vbc : coverpoint vif.sig_o_vbc {
-         bins o_vbc_in_zeros = (0=>0=>0);
-      }
       random_data :   coverpoint vif.sig_o_data;
       all_o_vbc_size :   coverpoint vif.sig_o_vbc;
       size_o_vbc_corner_cases  : coverpoint vif.sig_o_vbc {
