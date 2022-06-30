@@ -14,7 +14,8 @@
 `include "regs.v"
 
 module c3po #(
-    parameter PORTS_P = 4
+    parameter PORTS_P = 4,
+    parameter CNT_SIZE_P = 8
 )(
     input clk,
     input reset_L,
@@ -34,10 +35,12 @@ module c3po #(
     output reg [PORTS_P-1:0] [7:0] o_vbc,
     output reg [PORTS_P-1:0] [32*8-1:0] o_data,
 
+    output reg [PORTS_P-1:0] [CNT_SIZE_P-1:0] cnt0_val, cnt1_val,
+
     output reg [PORTS_P-1:0] ready
 
 );
-localparam CNT_SIZE_P = 8;
+//localparam CNT_SIZE_P = 8;
 
 wire [PORTS_P-1:0] unpacker_idle;
 logic [PORTS_P-1:0] [3:0] cfg_port_id;
@@ -119,7 +122,7 @@ generate
 
             .overflow(),
             .non_zero(),
-            .val()
+            .val(cnt0_val[i])
         );
 
         counter #(
@@ -133,7 +136,7 @@ generate
 
             .overflow(),
             .non_zero(),
-            .val()
+            .val(cnt1_val[i])
         );
 
         unpacker_fsm UNPACKER(
